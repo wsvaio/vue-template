@@ -11,13 +11,11 @@ export const layoutMap: RouteRecordRaw[] = [
     component: () => import("@/views/home/index.vue"),
   },
   {
-    path: "table", name: "table",
-    meta: { title: "Table", icon: "menu", noKeep: true },
-    component: () => import("@/views/table/index.vue"),
+    path: "about", name: "about",
+    meta: { title: "About", icon: "menu" },
+    component: () => import("@/views/about/index.vue"),
 
   },
-
-
 
 ];
 

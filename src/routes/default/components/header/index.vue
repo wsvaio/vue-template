@@ -117,7 +117,7 @@ const { run, loading } = useRequest(Promise.resolve("hh"), {
 
     &>i {
       padding: 8px 6px;
-      font-size: 20px;
+      font-size: 32px;
       cursor: pointer;
     }
 

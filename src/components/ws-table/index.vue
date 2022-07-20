@@ -4,8 +4,6 @@ import { FormInstance, PaginationProps, DrawerProps, FormProps } from "element-p
 import { TableProps } from "element-plus/es/components/table/src/table/defaults";
 import { debounce, assign } from "wsvaio";
 
-
-
 const { action, submit = Promise.resolve,
   listKey = "items", currentKey = "page", pageSizeKey = "pageSize",
   totalKey = "count", totalPageKey = "pageCount",
@@ -34,6 +32,7 @@ const { data, loading, current, total, pageSize, refresh }
 const ruleFormRef = $ref<FormInstance>();
 const drawer = reactive({ show: false, title: "", slot: "", size: '30%' });
 const form = reactive<object>({});
+
 
 const { refresh: submited, loading: submiting } = $(useRequest(async () => {
   if (drawer.show) await ruleFormRef?.validate();

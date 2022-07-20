@@ -2,12 +2,11 @@
   "name": "ws-template",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "dev": "vite --host",
     "test": "vitest",
     "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview --host"
   },
   "dependencies": {
     "@vueuse/core": "^8.9.2",
@@ -37,9 +36,9 @@
     "vite-plugin-inspect": "^0.5.1",
     "vite-plugin-mock": "^2.9.6",
     "vite-plugin-pwa": "^0.12.3",
-    "vite-plugin-vue-autoimportconfigextend": "^0.0.2",
+    "vite-plugin-vue-autoimportconfigextend": "^0.0.9",
     "vite-plugin-vue-setup-extend": "^0.4.0",
-    "vite-plugin-vue-sfcextendtag": "^0.0.3",
+    "vite-plugin-vue-sfcextendtag": "^0.0.14",
     "vitest": "^0.18.0",
     "vue-tsc": "^0.38.4"
   }

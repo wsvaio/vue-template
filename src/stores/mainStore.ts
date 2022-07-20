@@ -12,11 +12,12 @@ export default defineStore("main", {
   },
   actions: {
     addKeepAlive(route: RouteLocationNormalized) {
-
+      const children = route.matched.find(item => item.name == route.name)?.children || [];
       if (this.keepAlive.find(item => item.name == route.name) // 已存在
         || route.matched[0].name != "default" // 不是default子路由
-        || (route.matched[1].name != route.name && route.matched[2]?.name != route.name) // 不是default的一级或二级子路由
+        || children.length > 0
       ) return;
+
 
       this.keepAlive.push(route);
     }
