@@ -1,0 +1,69 @@
+{
+    "root": true,
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "node": true
+    },
+    "parser": "vue-eslint-parser",
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "parser": "@typescript-eslint/parser",
+        "sourceType": "module",
+        "ecmaFeatures": {
+			"jsx": true
+		}
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:vue/vue3-recommended"
+    ],
+    "rules": {
+        "semi": [
+            "warn",
+            "always"
+        ],
+        "quotes": [
+            "warn",
+            "double"
+        ],
+        "no-unused-vars": "off",
+        "no-trailing-spaces": "off",
+        "no-undef": "off",
+        "space-before-function-paren": [
+            "warn",
+            "never"
+        ],
+        "array-bracket-newline": ["warn", "consistent"],
+
+        "vue/max-attributes-per-line": ["error", {
+            "singleline": 5,
+            "multiline": 5
+        }],
+        "vue/first-attribute-linebreak": ["error", {
+            "singleline": "ignore",
+            "multiline": "ignore"
+        }],
+        "vue/html-self-closing": ["error", {
+            "html": {
+              "void": "never",
+              "normal": "never",
+              "component": "never"
+            },
+            "svg": "always",
+            "math": "always"
+        }],
+        "vue/html-indent": ["error", "tab", {
+            "alignAttributesVertically": false
+        }],
+        "vue/html-closing-bracket-newline": ["error", {
+            "singleline": "never",
+            "multiline": "never"
+        }],
+        "vue/no-unused-vars": "off",
+        "vue/valid-attribute-name": "off",
+        "vue/no-lone-template": "off",
+        "vue/multi-word-component-names": "off",
+        "vue/no-setup-props-destructure": "off" // defindeProps解构
+    }
+}

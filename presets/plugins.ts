@@ -1,12 +1,12 @@
 import vue from "@vitejs/plugin-vue";
 import { PluginOption } from "vite";
 
-import { viteMockServe } from 'vite-plugin-mock';
+import { viteMockServe } from "vite-plugin-mock";
 import Inspect from "vite-plugin-inspect";
 
-import Components from 'unplugin-vue-components/vite';
-import { ElementPlusResolver, VantResolver, NaiveUiResolver } from 'unplugin-vue-components/resolvers';
-import AutoImport from 'unplugin-auto-import/vite';
+import Components from "unplugin-vue-components/vite";
+import { ElementPlusResolver, VantResolver, NaiveUiResolver } from "unplugin-vue-components/resolvers";
+import AutoImport from "unplugin-auto-import/vite";
 
 import { resolve } from "path";
 import VueSetupExtend from "vite-plugin-vue-setup-extend";
@@ -14,13 +14,15 @@ import VueSetupExtend from "vite-plugin-vue-setup-extend";
 import Unocss from "unocss/vite";
 import { presetUno, presetAttributify, transformerDirectives } from "unocss";
 
-import Icons from 'unplugin-icons/vite';
-import IconsResolver from 'unplugin-icons/resolver';
+import Icons from "unplugin-icons/vite";
+import IconsResolver from "unplugin-icons/resolver";
 
-import { VitePWA } from 'vite-plugin-pwa';
+import { VitePWA } from "vite-plugin-pwa";
 
 import sfcExtendTag from "vite-plugin-vue-sfcextendtag";
 import importsListen, { imports } from "vite-plugin-vue-autoimportconfigextend";
+
+import eslint from "vite-plugin-eslint";
 
 export default <PluginOption[]>[
 
@@ -30,9 +32,13 @@ export default <PluginOption[]>[
   vue({
     include: [/\.vue$/, /\.md$/],
     // 开启 vue $() 语法
-    reactivityTransform: true,
+    reactivityTransform: true
 
   }),
+
+  // eslint({
+
+  // }),
 
   // VitePWA({}),
 
@@ -59,17 +65,17 @@ export default <PluginOption[]>[
         // 设置前缀
         prefix: "un:",
         // 前缀不是必须的
-        prefixedOnly: false,
+        prefixedOnly: false
 
-      }),
+      })
     ],
 
     transformers: [
       // @apply 指令
       transformerDirectives({
-        "enforce": "pre"
-      }),
-    ],
+        enforce: "pre"
+      })
+    ]
   }),
 
   // Inspect 调试支持 依赖图谱
@@ -77,18 +83,18 @@ export default <PluginOption[]>[
 
   // api 自动引入
   AutoImport({
-    dts: resolve(__dirname, 'typings/auto-import.d.ts'),
+    dts: resolve(__dirname, "typings/auto-import.d.ts"),
     imports: imports(
       "vue", "vue-router", "pinia", "@vueuse/core", "vitest",
       { target: "apis", prefix: "index.ts" },
       { target: "utils" },
       { target: "composables", prefix: "use" },
-      { target: "stores", suffix: "Store" },
+      { target: "stores", suffix: "Store" }
     ),
     resolvers: [
       ElementPlusResolver(),
       VantResolver(),
-      NaiveUiResolver(),
+      NaiveUiResolver()
     ]
   }),
   // 自动引入的文件修改后重启服务器（auto-imports.d.ts才会更新）
@@ -96,15 +102,15 @@ export default <PluginOption[]>[
 
   // 组件自动引入
   Components({
-    dts: resolve(__dirname, 'typings/auto-components.d.ts'),
+    dts: resolve(__dirname, "typings/auto-components.d.ts"),
     resolvers: [
       ElementPlusResolver(),
       VantResolver(),
       NaiveUiResolver(),
-      IconsResolver(),
-    ],
+      IconsResolver()
+    ]
 
   }),
   // iconify
-  Icons(),
+  Icons()
 ];
