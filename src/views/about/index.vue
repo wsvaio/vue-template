@@ -2,6 +2,11 @@
 async function submit() {
 	console.log("wkl");
 }
+
+
+
+
+
 </script>
 
 <template tag="div">

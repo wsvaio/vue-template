@@ -22,6 +22,7 @@ import { VitePWA } from "vite-plugin-pwa";
 import sfcExtendTag from "vite-plugin-vue-sfcextendtag";
 import importsListen, { imports } from "vite-plugin-vue-autoimportconfigextend";
 
+
 import eslint from "vite-plugin-eslint";
 
 export default <PluginOption[]>[
