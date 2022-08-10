@@ -1,14 +1,14 @@
 import { defineStore } from "pinia";
 
-const storageName = `${import.meta.env.VITE_PROJECT_NAME}_token`;
+const storageName = `${import.meta.env.VITE_PROJECT_NAME}_auth`;
 
 
 
-export default defineStore("token", {
+export default defineStore("auth", {
   state() {
     return {
 
-    }
+    };
 
   },
 

@@ -3,23 +3,23 @@ import Aside from "./components/aside/index.vue";
 import Header from "./components/header/index.vue";
 import Main from "./components/main/index.vue";
 import Tab from "./components/tab/index.vue";
-
+import copyright from "./components/copyright/index.vue";
 
 
 </script>
 
 <template>
-  <el-container class="layout">
-    <Aside></Aside>
-    <el-container>
-      <Header></Header>
-      <Tab></Tab>
-      <Main></Main>
-      <el-footer height="auto">
-        <copyright></copyright>
-      </el-footer>
-    </el-container>
-  </el-container>
+	<el-container class="layout">
+		<Aside></Aside>
+		<el-container>
+			<Header></Header>
+			<Tab></Tab>
+			<Main></Main>
+			<el-footer height="auto">
+				<copyright></copyright>
+			</el-footer>
+		</el-container>
+	</el-container>
 </template>
 
 <style lang="less" scoped>

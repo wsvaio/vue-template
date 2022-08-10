@@ -1,9 +1,9 @@
 import { RouteRecordRaw } from "vue-router";
-import Default from "./default/index.vue";
+import Admin from "./admin/index.vue";
 import KeepAlive from "./keep-alive/index.vue";
 import RouterView from "./router-view/index.vue";
 
-export const layoutMap: RouteRecordRaw[] = [
+export const adminRoutes: RouteRecordRaw[] = [
 
   {
     path: "home", name: "home",
@@ -22,11 +22,11 @@ export const layoutMap: RouteRecordRaw[] = [
 
 const routes: RouteRecordRaw[] = [
   {
-    path: '/', name: 'default', redirect: { name: "home" },
-    component: Default, children: [...layoutMap],
+    path: "/", name: "admin", redirect: { name: "home" },
+    component: Admin, children: adminRoutes,
   },
   {
-    path: '/login', name: 'login',
+    path: "/login", name: "login",
     component: () => import("@/views/login/index.vue")
   },
   {

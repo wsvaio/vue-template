@@ -6,7 +6,7 @@ export default defineStore("admin", {
   state() {
     return {
 
-    }
+    };
   },
   actions: {
 
@@ -17,11 +17,11 @@ export default defineStore("admin", {
 
     // 管理员不能查看的页面
     exclude(): string[] {
-      return []
+      return [];
     },
     // 管理员能查看的页面
     include(): string[] {
-      return []
+      return [];
     }
 
 

@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import { useRequest } from 'vue-request';
+import { useRequest } from "vue-request";
 const router = useRouter();
 
 const loginFormRef = $ref<T>();
 const form = reactive<T>({});
 const rules = {
-  username: [{ required: true, message: '账号不能为空', trigger: 'blur' }],
+  username: [{ required: true, message: "账号不能为空", trigger: "blur" }],
   password: [
-    { required: true, message: '密码不能为空', trigger: 'blur' },
-    { min: 1, max: 16, message: '密码长度为1-16位', trigger: 'blur' }
+    { required: true, message: "密码不能为空", trigger: "blur" },
+    { min: 1, max: 16, message: "密码长度为1-16位", trigger: "blur" }
   ]
 };
 function handleLogin() {
@@ -32,36 +32,42 @@ const { run, loading } = useRequest(Promise.resolve("hh"), {
 </script>
 
 <template tag="div" class="root">
-  <div>后台管理系统</div>
-  <div></div>
+	<div>后台管理系统</div>
+	<div></div>
 
-  <el-form size="large" ref="loginFormRef" :model="form" :rules="rules" :disabled="loading" v-loading="loading">
-    <div>欢迎登陆</div>
-    <el-form-item class="mt-25px" prop="username">
-      <el-input prefix-icon="i-user" v-model.trim="form.username" maxlength="32" placeholder="请输入账号" clearable />
-    </el-form-item>
+	<el-form ref="loginFormRef" v-loading="loading" size="large" :model="form" :rules="rules"
+		:disabled="loading">
+		<div>欢迎登陆</div>
+		<el-form-item class="mt-25px" prop="username">
+			<el-input v-model.trim="form.username" prefix-icon="i-user" maxlength="32" placeholder="请输入账号" clearable></el-input>
+		</el-form-item>
 
-    <el-form-item prop="password">
-      <el-input v-model.trim="form.password" prefix-icon="i-key" maxlength="16" show-password placeholder="请输入密码" clearable @keyup.enter.exact="handleLogin" />
-    </el-form-item>
-    <el-form-item size="default">
-      <el-checkbox v-model="form.persist">自动登录</el-checkbox>
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" class="btn" :loading="form.loading" @click="handleLogin">登 录</el-button>
-    </el-form-item>
+		<el-form-item prop="password">
+			<el-input v-model.trim="form.password" prefix-icon="i-key" maxlength="16" show-password placeholder="请输入密码"
+				clearable @keyup.enter.exact="handleLogin"></el-input>
+		</el-form-item>
+		<el-form-item size="default">
+			<el-checkbox v-model="form.persist">
+				自动登录
+			</el-checkbox>
+		</el-form-item>
+		<el-form-item>
+			<el-button type="primary" class="btn" :loading="form.loading" @click="handleLogin">
+				登 录
+			</el-button>
+		</el-form-item>
 
 
-    <div flex="1"></div>
-    <div class="version">v-1.0.0</div>
-  </el-form>
+		<div flex="1"></div>
+		<div class="version">
+			v-1.0.0
+		</div>
+	</el-form>
 
 
-  <div>
-    <Copyright></Copyright>
-
-  </div>
-
+	<div>
+		<Copyright></Copyright>
+	</div>
 </template>
 
 <style lang="less" scoped>

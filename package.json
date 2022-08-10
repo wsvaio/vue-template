@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "vite --host",
     "test": "vitest",
-    "build": "vue-tsc --noEmit && vite build",
+    "build": "vite build",
     "preview": "vite preview --host"
   },
   "dependencies": {
@@ -16,9 +16,9 @@
     "pinia": "^2.0.16",
     "vant": "^3.5.2",
     "vue": "^3.2.37",
-    "vue-request": "^1.2.4",
+    "vue-request": "^2.0.0-rc.3",
     "vue-router": "^4.1.2",
-    "wsvaio": "^2.10.37"
+    "wsvaio": "^2.10.50"
   },
   "devDependencies": {
     "@iconify/json": "^2.1.77",
@@ -35,7 +35,7 @@
     "unplugin-auto-import": "^0.9.2",
     "unplugin-icons": "^0.14.7",
     "unplugin-vue-components": "^0.21.1",
-    "vite": "^3.0.2",
+    "vite": "^3.0.3",
     "vite-plugin-eslint": "^1.7.0",
     "vite-plugin-inspect": "^0.5.1",
     "vite-plugin-mock": "^2.9.6",

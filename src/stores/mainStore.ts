@@ -14,7 +14,7 @@ export default defineStore("main", {
     addKeepAlive(route: RouteLocationNormalized) {
       const children = route.matched.find(item => item.name == route.name)?.children || [];
       if (this.keepAlive.find(item => item.name == route.name) // 已存在
-        || route.matched[0].name != "default" // 不是default子路由
+        || route.matched[0].name != "admin" // 不是admin子路由
         || children.length > 0
       ) return;
 

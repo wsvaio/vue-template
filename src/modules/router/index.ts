@@ -1,7 +1,7 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHistory } from "vue-router";
 import routes from "@/routes";
-import { Progress } from 'wsvaio';
-import { App } from 'vue';
+import { Progress } from "wsvaio";
+
 
 
 

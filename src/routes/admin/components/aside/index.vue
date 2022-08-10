@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 
-import { layoutMap } from '@/routes';
+import { adminRoutes } from "@/routes";
 
 import RootNav from "../root-nav/index.vue";
 
@@ -21,28 +21,23 @@ const active = computed(() => {
 </script>
 
 <template>
+	<el-aside class="layout-aside" :width="state.isCollapse ? `64px` : `200px`">
+		<div class="logo"></div>
 
-  <el-aside class="layout-aside" :width="state.isCollapse ? `64px` : `200px`">
+		<el-menu background-color="#001529" text-color="#eee" active-text-color="#fff"
+			:default-active="active" :collapse="state.isCollapse">
+			<root-nav :list="adminRoutes"></root-nav>
+		</el-menu>
 
-    <div class="logo"></div>
-
-    <el-menu background-color="#001529" text-color="#eee" active-text-color="#fff"
-    :default-active="active" :collapse="state.isCollapse">
-
-      <root-nav :list="layoutMap"></root-nav>
-
-    </el-menu>
-
-    <div class="fold" @click="changeCollapse">
-      <el-icon v-show="!state.isCollapse">
-        <i-arrow-left-bold />
-      </el-icon>
-      <el-icon v-show="state.isCollapse">
-        <i-arrow-right-bold />
-      </el-icon>
-    </div>
-  </el-aside>
-
+		<div class="fold" @click="changeCollapse">
+			<el-icon v-show="!state.isCollapse">
+				<i-arrow-left-bold></i-arrow-left-bold>
+			</el-icon>
+			<el-icon v-show="state.isCollapse">
+				<i-arrow-right-bold></i-arrow-right-bold>
+			</el-icon>
+		</div>
+	</el-aside>
 </template>
 
 <style lang="less">
