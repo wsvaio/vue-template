@@ -23,7 +23,7 @@ declare global {
     drawer: drawerType;
     dialog: dialogType;
     formProps: formType;
-    submit: (title?: any) => void;
+    submit: (title?: string) => void;
   };
 
   type App = app;

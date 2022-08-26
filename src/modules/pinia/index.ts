@@ -1,5 +1,4 @@
 import piniaPluginPersist from "pinia-plugin-persist";
-import { App } from "vue";
 
 const pinia = createPinia();
 // pinia 持久化

@@ -7,7 +7,7 @@ const storageName = `${import.meta.env.VITE_PROJECT_NAME}_auth`;
 export default defineStore("auth", {
   state() {
     return {
-
+      token: ""
     };
 
   },

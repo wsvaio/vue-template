@@ -1,7 +1,6 @@
 import { RouteRecordRaw } from "vue-router";
 import Admin from "./admin/index.vue";
-import KeepAlive from "./keep-alive/index.vue";
-import RouterView from "./router-view/index.vue";
+
 
 export const adminRoutes: RouteRecordRaw[] = [
 

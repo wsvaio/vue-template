@@ -1,19 +1,18 @@
 <script lang="ts" setup>
-import KeepAlive from "@/routes/keep-alive/index.vue";
 const { nameList } = $(mainStore());
 
 </script>
 
 <template>
-  <el-main>
-    <router-view #="{ Component }">
-      <transition mode="out-in">
-        <keep-alive :include="nameList">
-          <component :is="Component"></component>
-        </keep-alive>
-      </transition>
-    </router-view>
-  </el-main>
+	<el-main>
+		<router-view #="{ Component }">
+			<transition mode="out-in">
+				<keep-alive :include="nameList">
+					<component :is="Component"></component>
+				</keep-alive>
+			</transition>
+		</router-view>
+	</el-main>
 </template>
 
 <style lang="less" scoped>

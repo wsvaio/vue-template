@@ -1,6 +1,8 @@
 import vue from "@vitejs/plugin-vue";
 import { PluginOption } from "vite";
 
+import Markdown from "vite-plugin-md";
+
 import { viteMockServe } from "vite-plugin-mock";
 import Inspect from "vite-plugin-inspect";
 
@@ -44,7 +46,7 @@ export default <PluginOption[]>[
   // VitePWA({}),
 
   // 支持md文件解析为vue组件
-  // Markdown(),
+  Markdown(),
 
   // // setup 添加 name 属性
   VueSetupExtend(),

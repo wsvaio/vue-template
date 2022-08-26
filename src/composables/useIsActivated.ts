@@ -14,5 +14,5 @@ export default () => {
   });
 
 
-  return $$({ isActivated })
-}
+  return $$({ isActivated });
+};

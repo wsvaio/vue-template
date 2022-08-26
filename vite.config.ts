@@ -1,7 +1,7 @@
 /// <reference types="vitest" />
 import vue from "@vitejs/plugin-vue";
-import { defineConfig, loadEnv } from 'vite';
-import { resolve } from 'path';
+import { defineConfig, loadEnv } from "vite";
+import { resolve } from "path";
 import plugins from "./presets/plugins";
 
 
@@ -20,24 +20,25 @@ export default defineConfig(({ mode, command }) => {
 
     resolve: {
       alias: {
-        "@/": `${resolve(__dirname, 'src')}/`
+        "@/": `${resolve(__dirname, "src")}/`
       }
     },
 
-    // css: {
-    //   postcss: {
-    //     plugins: [
-    //       pxtorem({
-    //         rootValue: 50,
-    //         propList: ['*'],
-    //       })
-    //     ]
-    //   }
-    // },
+    css: {
+      postcss: {
+        plugins: [
+          pxtorem({
+            rootValue: 100,
+            propList: ["*"],
+            // exclude: /(node_modules)|(admin)/i
+          })
+        ]
+      }
+    },
 
     server: {
       proxy: {
-        '/api': {
+        "/api": {
           target: VITE_BASE_API,
           changeOrigin: true,
           // rewrite: path => path.replace(/^\/api/, '')
