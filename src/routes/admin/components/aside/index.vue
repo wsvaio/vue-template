@@ -1,9 +1,7 @@
 <script lang="ts" setup>
-
 import { adminRoutes } from "@/routes";
 
 import RootNav from "../root-nav/index.vue";
-
 
 const state = reactive({ isCollapse: false });
 
@@ -17,27 +15,25 @@ const active = computed(() => {
   if (route.matched.at(-1)?.meta.icon) return String(route.name);
   else return String(route.matched.at(-2)?.name);
 });
-
 </script>
 
 <template>
-	<el-aside class="layout-aside" :width="state.isCollapse ? `64px` : `200px`">
-		<div class="logo"></div>
+  <el-aside class="layout-aside" :width="state.isCollapse ? `64px` : `200px`">
+    <div class="logo"></div>
 
-		<el-menu background-color="#001529" text-color="#eee" active-text-color="#fff"
-			:default-active="active" :collapse="state.isCollapse">
-			<root-nav :list="adminRoutes"></root-nav>
-		</el-menu>
+    <el-menu background-color="#001529" text-color="#eee" active-text-color="#fff" :default-active="active" :collapse="state.isCollapse">
+      <root-nav :list="adminRoutes"></root-nav>
+    </el-menu>
 
-		<div class="fold" @click="changeCollapse">
-			<el-icon v-show="!state.isCollapse">
-				<i-arrow-left-bold></i-arrow-left-bold>
-			</el-icon>
-			<el-icon v-show="state.isCollapse">
-				<i-arrow-right-bold></i-arrow-right-bold>
-			</el-icon>
-		</div>
-	</el-aside>
+    <div class="fold" @click="changeCollapse">
+      <el-icon v-show="!state.isCollapse">
+        <i-arrow-left-bold></i-arrow-left-bold>
+      </el-icon>
+      <el-icon v-show="state.isCollapse">
+        <i-arrow-right-bold></i-arrow-right-bold>
+      </el-icon>
+    </div>
+  </el-aside>
 </template>
 
 <style lang="less">
@@ -87,7 +83,6 @@ const active = computed(() => {
     }
   }
 
-
   /* 激活选中菜单 */
   .el-menu-item.is-active,
   .el-menu--popup .el-menu-item.is-active {
@@ -95,7 +90,6 @@ const active = computed(() => {
   }
 
   .el-menu--collapse {
-
     // 收起样式
     .el-sub-menu__title {
       .el-sub-menu__icon-arrow {

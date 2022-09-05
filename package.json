@@ -18,11 +18,11 @@
     "vue": "^3.2.37",
     "vue-request": "^2.0.0-rc.3",
     "vue-router": "^4.1.4",
-    "wsvaio": "^2.10.59"
+    "wsvaio": "^2.10.61"
   },
   "devDependencies": {
     "@iconify/json": "^2.1.77",
-    "@typescript-eslint/parser": "^5.30.7",
+    "@typescript-eslint/eslint-plugin": "^5.36.1",
     "@vitejs/plugin-vue": "^3.0.1",
     "eslint": "^8.20.0",
     "eslint-plugin-vue": "^9.2.0",

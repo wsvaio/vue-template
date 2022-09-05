@@ -1,18 +1,11 @@
-<script lang="ts" setup>
-const { nameList } = $(mainStore());
-
-</script>
+<script lang="ts" setup></script>
 
 <template>
-	<el-main>
-		<router-view #="{ Component }">
-			<transition mode="out-in">
-				<keep-alive :include="nameList">
-					<component :is="Component"></component>
-				</keep-alive>
-			</transition>
-		</router-view>
-	</el-main>
+  <el-main>
+    <transition mode="out-in">
+      <vrouter keep-alive router-key></vrouter>
+    </transition>
+  </el-main>
 </template>
 
 <style lang="less" scoped>
