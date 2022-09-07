@@ -1,149 +1,124 @@
 <script lang="ts" setup>
-import { useRequest } from "vue-request";
-const router = useRouter();
+  import { useRequest } from "vue-request";
+  const router = useRouter();
 
-const loginFormRef = $ref<T>();
-const form = reactive<T>({});
-const rules = {
-  username: [{ required: true, message: "账号不能为空", trigger: "blur" }],
-  password: [
-    { required: true, message: "密码不能为空", trigger: "blur" },
-    { min: 1, max: 16, message: "密码长度为1-16位", trigger: "blur" }
-  ]
-};
-function handleLogin() {
-  loginFormRef.validate(valid => {
-    if (!valid) return;
-    router.push({ name: "home" });
+  const loginFormRef = $ref<T>();
+  const form = reactive<T>({});
+  const rules = {
+    username: [{ required: true, message: "账号不能为空", trigger: "blur" }],
+    password: [
+      { required: true, message: "密码不能为空", trigger: "blur" },
+      { min: 1, max: 16, message: "密码长度为1-16位", trigger: "blur" }
+    ]
+  };
+
+  const { runAsync, loading } = $(useRequest(async () => {
+    await loginFormRef.validate();
+
+    // login
+    // router.push({ name: "home" });
+
+  }, {
+    manual: true
+  }));
+
+  const toggle = () => {
+    const elForm = document.querySelector(".login .el-form");
+    elForm?.scrollTo({
+      "behavior": "smooth",
+      left: elForm?.scrollLeft ? 0 : elForm.scrollWidth
+    });
+  };
+  onMounted(() => {
+    const elForm = document.querySelector(".login .el-form");
+    elForm?.scrollTo({
+      left: elForm.scrollWidth
+    });
   });
-}
 
 
-const { run, loading } = useRequest(Promise.resolve("hh"), {
-  onSuccess(data) {
+  </script>
 
-  },
-  manual: true,
-});
+<template tag="div" class="login">
+  <el-form ref="loginFormRef" v-loading="loading" size="large" :model="form" :rules="rules"
+    :disabled="loading">
+    <div class="register">
+      <el-link @click="toggle">登录</el-link>
+    </div>
+    <div class="mask">后台管理系统</div>
+    <div class="sign">
+      <div text="[#337ecc] 24px" font="bold">欢迎登录</div>
+      <el-form-item class="mt-25px" prop="username">
+        <el-input v-model.trim="form.username" prefix-icon="i-user" maxlength="32" placeholder="请输入账号" clearable></el-input>
+      </el-form-item>
 
-
-
-
-</script>
-
-<template tag="div" class="root">
-	<div>后台管理系统</div>
-	<div></div>
-
-	<el-form ref="loginFormRef" v-loading="loading" size="large" :model="form" :rules="rules"
-		:disabled="loading">
-		<div>欢迎登陆</div>
-		<el-form-item class="mt-25px" prop="username">
-			<el-input v-model.trim="form.username" prefix-icon="i-user" maxlength="32" placeholder="请输入账号" clearable></el-input>
-		</el-form-item>
-
-		<el-form-item prop="password">
-			<el-input v-model.trim="form.password" prefix-icon="i-key" maxlength="16" show-password placeholder="请输入密码"
-				clearable @keyup.enter.exact="handleLogin"></el-input>
-		</el-form-item>
-		<el-form-item size="default">
-			<el-checkbox v-model="form.persist">
-				自动登录
-			</el-checkbox>
-		</el-form-item>
-		<el-form-item>
-			<el-button type="primary" class="btn" :loading="form.loading" @click="handleLogin">
-				登 录
-			</el-button>
-		</el-form-item>
-
-
-		<div flex="1"></div>
-		<div class="version">
-			v-1.0.0
-		</div>
-	</el-form>
-
-
-	<div>
-		<Copyright></Copyright>
-	</div>
+      <el-form-item prop="password">
+        <el-input v-model.trim="form.password" prefix-icon="i-key" maxlength="16" show-password placeholder="请输入密码"
+          clearable @keyup.enter.exact="runAsync"></el-input>
+      </el-form-item>
+      <el-form-item size="default">
+        <el-checkbox v-model="form.persist">
+          自动登录
+        </el-checkbox>
+        <el-link @click="toggle">注册</el-link>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" w="full" :loading="form.loading" @click="runAsync">
+          登 录
+        </el-button>
+      </el-form-item>
+    </div>
+  </el-form>
 </template>
 
-<style lang="less" scoped>
-.btn {
-  width: 100%;
-  border-radius: 100px;
-}
+  <style lang="less" scoped>
+  .login {
+    @apply flex flex-col items-center min-h-100vh justify-center;
+    background: url("@/assets/loginbg.png") center / cover no-repeat;
 
-.root {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 2fr 8fr 2fr;
-  justify-content: center;
-  background: url("@/assets/background.svg") no-repeat center / cover, #f1f1f1;
 
-  &>* {
-    &:first-child {
-      color: #337ecc;
-      filter: brightness(50%);
-      font-size: 42px;
-    }
+    .el-form {
+      @apply flex overflow-hidden max-w-1000px w-full shadow-2xl;
+      scroll-snap-type: x mandatory;
 
-    &:nth-child(2) {
 
-      background: url("@/assets/notFound/31.svg") no-repeat center / cover, #a0cfff;
-      justify-self: flex-end;
-      z-index: 1;
-    }
-
-    &:nth-child(3) {
-      padding: 75px;
-      background: white;
-      display: flex;
-      flex-flow: column;
-      box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
+      @media (max-width: 576PX) {
+        width: 80%;
+      }
 
       &>* {
-        &:first-child {
-          color: #337ecc;
-          font-weight: bold;
-          font-size: 24px;
-        }
-
-        &.version {
-          font-size: 14px;
-          text-align: center;
-          color: rgba(0, 0, 0, 0.5);
+        @apply flex-none w-[50%]  p-75px;
+        background: rgba(255, 255, 255, .8);
+        scroll-snap-align: start;
+        backdrop-filter: blur(6px);
+        @media (max-width: 576PX) {
+          width: 100%;
+          padding: 50px;
         }
       }
 
-    }
+      .register {}
 
-    &:last-child {
+      .mask {
+        background: rgba(255, 255, 255, 0);
 
-      text-align: center;
+        font-size: 42px;
+        mix-blend-mode: difference;
+        color: white;
 
-    }
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
-    &:nth-child(2),
-    &:nth-child(3) {
-      width: 500px;
-      box-sizing: border-box;
-    }
+        @media (max-width: 576PX) {
+          display: none;
+        }
 
-    &:last-child,
-    &:first-child {
-      grid-column: span 2;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      }
+
+      .sign {
+
+      }
     }
   }
-}
-</style>
+  </style>

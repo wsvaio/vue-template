@@ -24,17 +24,17 @@ export default defineConfig(({ mode, command }) => {
       }
     },
 
-    css: {
-      postcss: {
-        plugins: [
-          pxtorem({
-            rootValue: 100,
-            propList: ["*"],
-            // exclude: /(node_modules)|(admin)/i
-          })
-        ]
-      }
-    },
+    // css: {
+    //   postcss: {
+    //     plugins: [
+    //       pxtorem({
+    //         rootValue: 100,
+    //         propList: ["*"],
+    //         // exclude: /(node_modules)|(admin)/i
+    //       })
+    //     ]
+    //   }
+    // },
 
     server: {
       proxy: {

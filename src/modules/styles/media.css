@@ -1,53 +1,50 @@
 
 :root {
-	--html-font-size: 100PX;
-	--container-max-width: 540PX;
-	--content-max-width: 500PX;
+	--html-font-size: 16PX;
+	--container-max-width: 100%;
+
 }
 /* xs */
-@media (max-width: 640PX) {
+@media (max-width: 576PX) {
 	:root {
 		--html-font-size: calc(100vw / 3.75);
-		--container-max-width: 540PX;
+		--container-max-width: 100%;
 	}
 }
 /* sm */
-@media (min-width: 640PX) {
+@media (min-width: 576PX) {
 	:root {
-		--container-max-width: 540PX;
+		--container-max-width: 576PX;
 	}
 }
 /* md */
 @media (min-width: 768PX) {
 	:root {
-		--container-max-width: 720PX;
-		--content-max-width: 540PX;
+		--container-max-width: 768PX;
 
 	}
 }
 /* lg */
-@media (min-width: 1024PX) {
+@media (min-width: 992PX) {
 	:root {
-		--container-max-width: 960PX;
-		--content-max-width: 720PX;
+		--container-max-width: 992PX;
 
 	}
 }
 /* xl */
-@media (min-width: 1280PX) {
+@media (min-width: 1200PX) {
 	:root {
 
-		--container-max-width: 1140PX;
-		--content-max-width: 960PX;
+		--container-max-width: 1200PX;
 
 	}
 }
 /* 2xl */
-@media (min-width: 1536PX) {
+@media (min-width: 1400PX) {
 	:root {
-		--container-max-width: 1320PX;
-		
-		
-		
+		--container-max-width: 1400PX;
+
+
+
 	}
 }

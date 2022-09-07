@@ -15,21 +15,21 @@ export const api = createAPI<{ success?: string; headers: Record<string, string>
 export const { post, get, put, patch, del, request, error, final, before, after, extendAPI } = api;
 
 // 请求发出前
-api.before(async ctx => Progress.start());
+before(async ctx => Progress.start());
 
 // 请求发出后
 // 复制响应消息
-api.after(async ctx => ctx.message = ctx.data?.msg ?? ctx.message);
+after(async ctx => ctx.message = ctx.data?.msg ?? ctx.message);
 // 判断响应状态码
-api.after(async ctx => (ctx.data?.code < 200 || ctx.data?.code > 299) && Promise.reject(ctx));
+after(async ctx => (ctx.data?.code < 200 || ctx.data?.code > 299) && Promise.reject(ctx));
 // 响应内容扁平化
-api.after(async ctx => ctx.data = ctx.data?.data ?? ctx.data);
+after(async ctx => ctx.data = ctx.data?.data ?? ctx.data);
 
 // 结束时总会运行
 // 进度条结束
-api.final(async ctx => ctx.error ? Progress.done(false) : Progress.done());
+final(async ctx => Progress.done(!ctx.error));
 // notice 通知 不设置success则不会通知
-api.final(async ctx => ctx.error
-  ? ElNotification.error(ctx.message)
-  : ctx.success != undefined && ElNotification.success(ctx.success ?? ctx.message));
+final(async ctx => ctx.error
+  ? ctx.message && ElNotification.error(ctx.message)
+  : ctx.success && ElNotification.success(ctx.success));
 

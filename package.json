@@ -18,7 +18,7 @@
     "vue": "^3.2.37",
     "vue-request": "^2.0.0-rc.3",
     "vue-router": "^4.1.4",
-    "wsvaio": "^2.10.61"
+    "wsvaio": "^2.10.62"
   },
   "devDependencies": {
     "@iconify/json": "^2.1.77",
