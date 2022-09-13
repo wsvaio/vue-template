@@ -100,6 +100,7 @@
         // 不要使用v-html
         "vue/no-v-html": "off",
         // v-slot 只能用在template标签上
-        "vue/valid-v-slot": "off"
+        "vue/valid-v-slot": "off",
+        "no-empty-pattern": "off"
     }
 }
