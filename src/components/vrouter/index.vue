@@ -1,19 +1,19 @@
 <script lang="ts" name="vrouter" setup>
-const { nameList } = $(mainStore());
+  const { nameList } = $(mainStore());
 
-const { keepAlive=false, routerKey=false } = defineProps<{
-  keepAlive?: boolean;
-  routerKey?: boolean;
-  routerKeyVal?: string;
-}>();
+  const { keepAlive=false, routerKey=false } = defineProps<{
+    keepAlive?: boolean;
+    routerKey?: boolean;
+    name?: string;
+  }>();
 
-</script>
+  </script>
 
 <template>
   <router-view #="{ Component }">
-    <keep-alive v-if="keepAlive" :include="nameList">
-      <component :is="Component" :key="routerKey ? routerKeyVal ?? $route.fullPath : undefined"></component>
+    <keep-alive v-if="keepAlive" :include="[...nameList]">
+      <component :is="Component" :key="routerKey ? `${name}${$route.fullPath}` : undefined"></component>
     </keep-alive>
-    <component :is="Component" v-else :key="routerKey ? routerKeyVal ?? $route.fullPath : undefined"></component>
+    <component :is="Component" v-else :key="routerKey ? `${name}${$route.fullPath}` : undefined"></component>
   </router-view>
 </template>

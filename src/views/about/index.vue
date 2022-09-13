@@ -5,6 +5,6 @@
 </script>
 
 <template tag="div">
-	Hello
+  Hello
 </template>
 

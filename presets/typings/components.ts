@@ -1,5 +1,6 @@
 import { App as app, Ref } from "vue";
-import { DialogProps, DrawerProps, FormProps } from "element-plus";
+import { FormProps, PopupProps } from "vant";
+
 
 declare module "vue" {
   export interface GlobalComponents {
@@ -12,25 +13,11 @@ declare module "vue" {
 
 declare global {
 
-  type vtableCtx = {
-    params: obj;
-    checkList: obj[];
-    refresh: () => void;
-  } & vdrawerCtx;
-
-  type vdrawerCtx = {
-    drawer: Read<Partial<DrawerProps>> & obj & { show?: boolean, slot?: string };
-    form: obj;
-    formProps: Read<Partial<FormProps>> & obj;
-    submit: (title?: string) => boolean | void;
-    loading: Ref<boolean>;
-  }
-  type vdialogCtx = {
-    dialog: Read<Partial<DialogProps>> & obj & { show?: boolean, slot?: string };
-    form: obj;
-    formProps: Read<Partial<FormProps>> & obj;
-    submit: (title?: string) => boolean | void;
-    loading: Ref<boolean>;
+  type vpopupCtx = {
+    form: obj,
+    formProps: Partial<FormProps> & obj,
+    popup: Partial<PopupProps> & obj & { slot?: string, name?: string },
+    action: (name?: string) => Promise<T>
   }
 
   type App = app;

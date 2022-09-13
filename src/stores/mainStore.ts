@@ -6,29 +6,20 @@ export default defineStore("main", {
   state() {
     return {
       // 要缓存的路由 因为要支持tab拖动 所以是个一列表
-      keepAlive: [] as RouteLocationNormalized[],
-
+      nameList: new Set(["vrouter"]),
+      // 缓存滚动条
+      scrollTopCache: new Map<any, number>(),
     };
   },
   actions: {
-    addKeepAlive(route: RouteLocationNormalized) {
-      const children = route.matched.find(item => item.name == route.name)?.children || [];
-      if (this.keepAlive.find(item => item.name == route.name) // 已存在
-        || route.matched[0].name != "admin" // 不是admin子路由
-        || children.length > 0
-      ) return;
 
 
-      this.keepAlive.push(route);
-    }
+
 
 
   },
   getters: {
-    // 要缓存的路由名
-    nameList(): string[] {
-      return ["vrouter", "admin", ...this.keepAlive.map(item => String(item.name))];
-    }
+
 
   }
 });
