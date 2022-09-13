@@ -2,8 +2,8 @@
   <div class="flex flex-wrap h-screen text-center justify-center items-center gap-25px">
     <div class="font-blod desc">
       <div class="text-7xl code">404</div>
-      <div class="text-3xl content" ref="content">Not Found</div>
-      <button @click="$router.push('/')" active="scale-90 transform" class="rounded-lg transition btn">👉 返回主页</button>
+      <div ref="content" class="text-3xl content">Not Found</div>
+      <button active="scale-90 transform" class="rounded-lg transition btn" @click="$router.push('/')">👉 返回主页</button>
     </div>
     <img src="@/assets/notFound/32.svg" class="cover" alt="page not found" />
   </div>

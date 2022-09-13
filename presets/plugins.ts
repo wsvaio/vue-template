@@ -7,7 +7,7 @@ import { viteMockServe } from "vite-plugin-mock";
 import Inspect from "vite-plugin-inspect";
 
 import Components from "unplugin-vue-components/vite";
-import { ElementPlusResolver, VantResolver, NaiveUiResolver } from "unplugin-vue-components/resolvers";
+import { ElementPlusResolver, VantResolver } from "unplugin-vue-components/resolvers";
 import AutoImport from "unplugin-auto-import/vite";
 
 import { resolve } from "path";
@@ -97,7 +97,6 @@ export default <PluginOption[]>[
     resolvers: [
       ElementPlusResolver(),
       VantResolver(),
-      NaiveUiResolver()
     ]
   }),
   // 自动引入的文件修改后重启服务器（auto-imports.d.ts才会更新）
@@ -109,7 +108,6 @@ export default <PluginOption[]>[
     resolvers: [
       ElementPlusResolver(),
       VantResolver(),
-      NaiveUiResolver(),
       IconsResolver()
     ]
 
