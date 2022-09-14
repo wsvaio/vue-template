@@ -28,8 +28,8 @@
       "vite/client",
       "vue/macros-global",
       "element-plus/global",
-      "naive-ui/volar",
-      "vant/es/index"
+      "vant/es/index",
+      "unplugin-vue-define-options/macros-global"
     ],
   },
   "include": [

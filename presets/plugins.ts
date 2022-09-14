@@ -11,7 +11,7 @@ import { ElementPlusResolver, VantResolver } from "unplugin-vue-components/resol
 import AutoImport from "unplugin-auto-import/vite";
 
 import { resolve } from "path";
-import VueSetupExtend from "vite-plugin-vue-setup-extend";
+import vueSetupExtend from "vite-plugin-vue-setup-extend";
 
 import Unocss from "unocss/vite";
 import { presetUno, presetAttributify, transformerDirectives } from "unocss";
@@ -29,8 +29,7 @@ import eslint from "vite-plugin-eslint";
 
 export default <PluginOption[]>[
 
-  // 检查根<template>是否有tag属性 如果有则在原来的基础上添加这个tag标签包裹
-  sfcExtendTag(),
+
 
   vue({
     include: [/\.vue$/, /\.md$/],
@@ -38,7 +37,10 @@ export default <PluginOption[]>[
     reactivityTransform: true
 
   }),
-
+  // 检查根<template>是否有tag属性 如果有则在原来的基础上添加这个tag标签包裹
+  sfcExtendTag(),
+  // script标签上设置name属性
+  vueSetupExtend(),
   // eslint({
 
   // }),
@@ -47,12 +49,6 @@ export default <PluginOption[]>[
 
   // 支持md文件解析为vue组件
   Markdown(),
-
-  // // setup 添加 name 属性
-  VueSetupExtend(),
-
-  // // 点击页面元素,自动打开本地IDE并跳转到对应的Vue组件
-  // Inspector({ enabled: false }),
 
   // mock 数据
   viteMockServe(),
