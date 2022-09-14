@@ -34,7 +34,7 @@ export default <PluginOption[]>[
 
   vue({
     include: [/\.vue$/, /\.md$/],
-    // 开启 vue $() 语法
+    // 开启 vue $() 语法糖
     reactivityTransform: true
 
   }),

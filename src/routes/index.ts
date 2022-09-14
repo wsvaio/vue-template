@@ -18,19 +18,19 @@ export const adminRoutes: RouteRecordRaw[] = [
   {
     path: "list", name: "list",
     meta: { title: "list", icon: "menu" },
-    component: () => h(vrouter, { routerKey: true, keepAlive: true  }),
+    component: h(vrouter, { keep: true  }),
     children: [
       {
         path: "item1", name: "item1",
         meta: { title: "item1", icon: "menu" },
         component: () => import("@/views/list/item1/index.vue"),
-    
+
       },
       {
         path: "item2", name: "item2",
         meta: { title: "item2", icon: "menu" },
         component: () => import("@/views/list/item2/index.vue"),
-    
+
       },
     ]
   },

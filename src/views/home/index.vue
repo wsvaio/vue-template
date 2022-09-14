@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script lang="ts" name="home" setup>
 import { sleep } from "wsvaio";
 
 

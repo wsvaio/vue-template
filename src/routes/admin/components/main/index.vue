@@ -3,7 +3,7 @@
 <template>
   <el-main>
     <transition mode="out-in">
-      <vrouter keep-alive router-key></vrouter>
+      <vrouter keep></vrouter>
     </transition>
   </el-main>
 </template>
