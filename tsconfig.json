@@ -29,7 +29,6 @@
       "vue/macros-global",
       "element-plus/global",
       "vant/es/index",
-      "unplugin-vue-define-options/macros-global"
     ],
   },
   "include": [

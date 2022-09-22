@@ -1,9 +1,6 @@
 import vue from "@vitejs/plugin-vue";
 import { PluginOption } from "vite";
 
-import Markdown from "vite-plugin-md";
-
-import { viteMockServe } from "vite-plugin-mock";
 import Inspect from "vite-plugin-inspect";
 
 import Components from "unplugin-vue-components/vite";
@@ -19,20 +16,21 @@ import { presetUno, presetAttributify, transformerDirectives } from "unocss";
 import Icons from "unplugin-icons/vite";
 import IconsResolver from "unplugin-icons/resolver";
 
-import { VitePWA } from "vite-plugin-pwa";
 
 import sfcExtendTag from "vite-plugin-vue-sfcextendtag";
 import importsListen, { imports } from "vite-plugin-vue-autoimportconfigextend";
 
-
-import eslint from "vite-plugin-eslint";
+// import Markdown from "vite-plugin-md";
+// import { VitePWA } from "vite-plugin-pwa";
+// import { viteMockServe } from "vite-plugin-mock";
+// import ESLint from "vite-plugin-eslint";
 
 export default <PluginOption[]>[
 
 
 
   vue({
-    include: [/\.vue$/, /\.md$/],
+    // include: [/\.vue$/, /\.md$/],
     // 开启 vue $() 语法
     reactivityTransform: true
 
@@ -41,17 +39,17 @@ export default <PluginOption[]>[
   sfcExtendTag(),
   // script标签上设置name属性
   vueSetupExtend(),
-  // eslint({
+  // ESLint({
 
   // }),
 
   // VitePWA({}),
 
   // 支持md文件解析为vue组件
-  Markdown(),
+  // Markdown(),
 
   // mock 数据
-  viteMockServe(),
+  // viteMockServe(),
 
   // unocss 原子化css
   Unocss({
@@ -109,5 +107,5 @@ export default <PluginOption[]>[
 
   }),
   // iconify
-  Icons()
+  Icons({})
 ];

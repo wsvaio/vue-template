@@ -6,20 +6,23 @@ defineExpose({ column });
 </script>
 
 <template tag="div" class="vtable">
-  <div v-for="item in column" :="item.attrs">
-    <component :is="item.slots.label" v-if="item.slots.label"></component>
-    <template v-else>{{ item.label }}</template>
+  <div v-for="col, x in column" :="col.attrs"
+    :class="[`row-0`, `col-${x}`, `row-even`, x % 2 == 0 ? `col-even` : `col-odd`]">
+    <component :is="col.slots.label" v-if="col.slots.label" :="{col, x, y: 0}"></component>
+    <template v-else>{{ col.label }}</template>
   </div>
-  <template v-for="(item, index) in data">
-    <div v-for="sub in column" :key="sub.label + item[idKey ?? 'id']" :="sub.attrs">
-      <component :is="sub.slots.default" v-if="sub.slots.default" :row="item" :index="index"></component>
-      <template v-else>{{ item[sub.prop] }}</template>
+  <template v-for="row, y in data">
+    <div v-for="col, x in column" :key="col.label + row[idKey ?? 'id']" :="col.attrs"
+      :class="[`row-${y+1}`, `col-${x}`, (y+1) % 2 == 0 ? `row-even` : `row-odd`, x % 2 == 0 ? `col-even` : `col-odd`]">
+      <component :is="col.slots.default" v-if="col.slots.default" :="{row, col, x, y: y+1}">
+      </component>
+      <template v-else>{{ row[col.prop] }}</template>
     </div>
   </template>
   <slot></slot>
 </template>
 
-<style lang="less" scoped>
+<style lang="less">
 .vtable {
   @apply grid max-w-100vw overflow-auto gap-1px text-center;
   grid-template-columns: v-bind(gridTemplateColumns);
@@ -29,18 +32,17 @@ defineExpose({ column });
 
     &[sticky] {
       @apply sticky left-0 right-0 z-1;
-      filter: invert(5%);
-      
+      filter: invert(10%);
     }
+
     &:active {
-      background-color: #F2F3F5;
+      filter: invert(5%);
     }
   }
-}
 
-
-::-webkit-scrollbar {
-  height: 0;
-  width: 0;
+  &::-webkit-scrollbar {
+    height: 0;
+    width: 0;
+  }
 }
 </style>

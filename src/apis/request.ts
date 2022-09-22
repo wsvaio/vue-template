@@ -30,6 +30,6 @@ after(async ctx => ctx.data = ctx.data?.data ?? ctx.data);
 final(async ctx => Progress.done(!ctx.error));
 // notice 通知 不设置success则不会通知
 final(async ctx => ctx.error
-  ? ctx.message && VanToast.fail(ctx.message)
-  : ctx.success && VanToast.success(ctx.success));
+  ? ctx.message && showFailToast(ctx.message)
+  : ctx.success && showSuccessToast(ctx.success));
 

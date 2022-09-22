@@ -59,7 +59,7 @@ defineExpose(ctx);
     <slot :="ctx" :loading="loading"></slot>
     <van-popup v-model:show="popup.show" :="omit({..._popup, ...popup}, 'show', 'slot')"
       close-on-click-overlay :before-close="() => !loading" @closed="closedHandler">
-      <slot :name="popupProps.slot" :="ctx" :loading="loading"></slot>
+      <slot :name="popup.slot" :="ctx" :loading="loading"></slot>
     </van-popup>
   </van-form>
 </template>

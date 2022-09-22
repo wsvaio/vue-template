@@ -12,6 +12,8 @@ declare module "@vue/runtime-core" {
 }
 
 
+
+
 export default (app: App) => Object.assign(app.config.globalProperties, {
   $apis, $utils, $bus: $utils.EventBus
 

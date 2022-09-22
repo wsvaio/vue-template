@@ -1,5 +1,4 @@
 /// <reference types="vitest" />
-import vue from "@vitejs/plugin-vue";
 import { defineConfig, loadEnv } from "vite";
 import { resolve } from "path";
 import plugins from "./presets/plugins";
@@ -24,17 +23,16 @@ export default defineConfig(({ mode, command }) => {
       }
     },
 
-    // css: {
-    //   postcss: {
-    //     plugins: [
-    //       pxtorem({
-    //         rootValue: 100,
-    //         propList: ["*"],
-    //         // exclude: /(node_modules)|(admin)/i
-    //       })
-    //     ]
-    //   }
-    // },
+    css: {
+      postcss: {
+        plugins: [
+          pxtorem({
+            rootValue: 100,
+            propList: ["*"],
+          })
+        ]
+      }
+    },
 
     server: {
       proxy: {

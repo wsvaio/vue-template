@@ -1,17 +1,8 @@
 import { App as app, Ref } from "vue";
 import { FormProps, PopupProps } from "vant";
 
-
-declare module "vue" {
-  export interface GlobalComponents {
-
-    RouterView: typeof import("vue-router")["RouterView"];
-    RouterLink: typeof import("vue-router")["RouterLink"];
-
-  }
-}
-
 declare global {
+
   type T = any;
   type obj = { [k: string]: any; };
   type keys<K extends keyof any, T = any> = {
