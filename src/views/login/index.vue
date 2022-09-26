@@ -1,66 +1,73 @@
 <script lang="ts" setup>
-  import { useRequest } from "vue-request";
-  const router = useRouter();
+import { useRequest } from "vue-request";
+import { Key, User } from "@element-plus/icons-vue";
+const router = useRouter();
 
-  const loginFormRef = $ref<T>();
-  const form = reactive<T>({});
-  const rules = {
-    username: [{ required: true, message: "账号不能为空", trigger: "blur" }],
-    password: [
-      { required: true, message: "密码不能为空", trigger: "blur" },
-      { min: 1, max: 16, message: "密码长度为1-16位", trigger: "blur" }
-    ]
-  };
+const loginFormRef = $ref<T>();
+const form = reactive<T>({});
+const rules = {
+  username: [{ required: true, message: "账号不能为空", trigger: "blur" }],
+  password: [
+    { required: true, message: "密码不能为空", trigger: "blur" },
+    { min: 1, max: 16, message: "密码长度为1-16位", trigger: "blur" }
+  ]
+};
 
-  const { runAsync, loading } = $(useRequest(async () => {
-    await loginFormRef.validate();
+const { runAsync, loading } = $(useRequest(async () => {
+  await loginFormRef.validate();
 
-    // login
-    // router.push({ name: "home" });
+  // login
+  // router.push({ name: "home" });
 
-  }, {
-    manual: true
-  }));
+}, {
+  manual: true
+}));
 
-  const toggle = () => {
-    const elForm = document.querySelector(".login .el-form");
-    elForm?.scrollTo({
-      "behavior": "smooth",
-      left: elForm?.scrollLeft ? 0 : elForm.scrollWidth
-    });
-  };
-  onMounted(() => {
-    const elForm = document.querySelector(".login .el-form");
-    elForm?.scrollTo({
-      left: elForm.scrollWidth
-    });
+const toggle = () => {
+  const elForm = document.querySelector(".el-form");
+  elForm?.scrollTo({
+    "behavior": "smooth",
+    left: elForm?.scrollLeft ? 0 : elForm.scrollWidth
   });
+};
+onMounted(() => {
+  const elForm = document.querySelector(".el-form");
+  elForm?.scrollTo({
+    left: elForm.scrollWidth
+  });
+});
 
 
-  </script>
+</script>
 
-<template tag="div" class="login">
+<template>
   <el-form ref="loginFormRef" v-loading="loading" size="large" :model="form" :rules="rules"
-    :disabled="loading">
+    label-position="top" :disabled="loading">
     <div class="register">
       <el-link @click="toggle">登录</el-link>
     </div>
-    <div class="mask">后台管理系统</div>
+    <div class="mask">
+      <div>logo</div>
+      <div>后台管理系统</div>
+    </div>
     <div class="sign">
       <div text="[#337ecc] 24px" font="bold">欢迎登录</div>
-      <el-form-item class="mt-25px" prop="username">
-        <el-input v-model.trim="form.username" prefix-icon="i-user" maxlength="32" placeholder="请输入账号" clearable></el-input>
+      <el-form-item class="mt-25px" label="账号" prop="username">
+        <el-input v-model.trim="form.username" :prefix-icon="User" maxlength="32"
+          placeholder="请输入账号" clearable></el-input>
       </el-form-item>
 
-      <el-form-item prop="password">
-        <el-input v-model.trim="form.password" prefix-icon="i-key" maxlength="16" show-password placeholder="请输入密码"
-          clearable @keyup.enter.exact="runAsync"></el-input>
+      <el-form-item prop="password" label="密码">
+        <el-input v-model.trim="form.password" :prefix-icon="Key" maxlength="16" show-password
+          placeholder="请输入密码" clearable @keyup.enter.exact="runAsync"></el-input>
       </el-form-item>
       <el-form-item size="default">
-        <el-checkbox v-model="form.persist">
-          自动登录
-        </el-checkbox>
-        <el-link @click="toggle">注册</el-link>
+        <div flex="~" justify="between" w="full">
+          <el-checkbox v-model="form.persist">
+            记住我
+          </el-checkbox>
+          <el-link type="primary" @click="toggle">注册</el-link>
+        </div>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" w="full" :loading="form.loading" @click="runAsync">
@@ -71,54 +78,74 @@
   </el-form>
 </template>
 
-  <style lang="less" scoped>
-  .login {
-    @apply flex flex-col items-center min-h-100vh justify-center;
-    background: url("@/assets/loginbg.png") center / cover no-repeat;
+<style lang="less" scoped>
+.el-form {
+  @apply flex;
+  scroll-snap-type: x mandatory;
+  overflow: auto;
+  width: 100vw;
+  height: 100vh;
 
+  // @media (max-width: 576PX) {
+  //   width: 80%;
+  // }
 
-    .el-form {
-      @apply flex overflow-hidden max-w-1000px w-full shadow-2xl;
-      scroll-snap-type: x mandatory;
-
-
-      @media (max-width: 576PX) {
-        width: 80%;
-      }
-
-      &>* {
-        @apply flex-none w-[50%]  p-75px;
-        background: rgba(255, 255, 255, .8);
-        scroll-snap-align: start;
-        backdrop-filter: blur(6px);
-        @media (max-width: 576PX) {
-          width: 100%;
-          padding: 50px;
-        }
-      }
-
-      .register {}
-
-      .mask {
-        background: rgba(255, 255, 255, 0);
-
-        font-size: 42px;
-        mix-blend-mode: difference;
-        color: white;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        @media (max-width: 576PX) {
-          display: none;
-        }
-
-      }
-
-      .sign {
-
-      }
-    }
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
   }
-  </style>
+
+  &>* {
+    @apply flex-none w-[50%] p-75px;
+    background: rgba(255, 255, 255, .8);
+    scroll-snap-align: start;
+    backdrop-filter: blur(6px);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 576PX) {
+      width: 100%;
+      padding: 50px;
+    }
+    overflow: auto;
+  }
+
+  .register {}
+
+  .mask {
+    background: url("@/assets/notFound/12.svg") center / cover no-repeat;
+    background-color: #353E54;
+
+    font-size: 24px;
+    color: white;
+
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 24px;
+
+    line-height: 1;
+
+    flex-direction: row;
+
+
+
+    @media (max-width: 576PX) {
+      // display: none;
+    }
+
+  }
+
+  .sign {
+
+    // align-items: stretch;
+    &>* {
+      max-width: 450px;
+      width: 100%;
+    }
+
+  }
+}
+</style>

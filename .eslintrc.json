@@ -1,106 +1,107 @@
 {
-    "root": true,
-    "env": {
-        "browser": true,
-        "es2021": true,
-        "node": true
-    },
-    "ignorePatterns": ["node_modules"],
-    "extends": [
-        "eslint:recommended",
-        "plugin:vue/vue3-recommended"
-    ],
-    "parser": "vue-eslint-parser",
-    "parserOptions": {
-        "parser": "@typescript-eslint/parser",
-        "ecmaVersion": "latest",
-        "sourceType": "module"
-    },
-    "rules": {
-        // 结尾分号
-        "semi": ["warn", "always"],
-        // 使用双引号
-        "quotes": ["warn", "double", { "allowTemplateLiterals": true }],
-        // 未知变量
-        "no-unused-vars": "off",
-        // 未定义
-        "no-undef": "off",
-        // 空的代码块
-        "no-empty": "off",
-        // 函数与括号是否空格
-        "space-before-function-paren": "off",
-        // 数组总是新行
-        "array-bracket-newline": [
-            "warn",
-            "consistent"
-        ],
-        // 此规则旨在强制模板中每行多个属性。它检查模板中的所有元素，并验证每行的属性数是否不超过定义的最大值。当两个属性之间有换行符时，将属性视为在新行中。
-        "vue/max-attributes-per-line": [
-            "error",
-            {
-                "singleline": 5,
-                "multiline": 5
-            }
-        ],
-        // vue html标签第一行是否换行
-        "vue/first-attribute-linebreak": [
-            "error",
-            {
-                "singleline": "ignore",
-                "multiline": "ignore"
-            }
-        ],
-        // vue html标签自动 />
-        "vue/html-self-closing": [
-            "error",
-            {
-                "html": {
-                    "void": "any",
-                    "normal": "any",
-                    "component": "any"
-                },
-                "svg": "any",
-                "math": "any"
-            }
-        ],
-        // vue 属性对其标签
-        "vue/html-indent": [
-            "error",
-            2,
-            {
-                "alignAttributesVertically": false
-            }
-        ],
-        // vue结束标签是否新行
-        "vue/html-closing-bracket-newline": [
-            "warn",
-            {
-                "singleline": "never",
-                "multiline": "never"
-            }
-        ],
-        // vue子元素是否新行
-        "vue/singleline-html-element-content-newline": "off",
-        // 没使用变量
-        "vue/no-unused-vars": "off",
-        // 验证属性名
-        "vue/valid-attribute-name": "off",
-        // 空标签
-        "vue/no-lone-template": "off",
-        // vue组件名称
-        "vue/multi-word-component-names": "off",
-        // 此规则报告传递的解构，导致值失去反应性
-        "vue/no-setup-props-destructure": "off",
-        // 必须有一个根标签
-        "vue/valid-template-root": "off",
-        // v-for 设置key
-        "vue/valid-v-for": "off",
-        // v-for 设置key
-        "vue/require-v-for-key": "off",
-        // 不要使用v-html
-        "vue/no-v-html": "off",
-        // v-slot 只能用在template标签上
-        "vue/valid-v-slot": "off",
-        "no-empty-pattern": "off"
-    }
+  "root": true,
+  "env": {
+      "browser": true,
+      "es2021": true,
+      "node": true
+  },
+  "ignorePatterns": ["node_modules"],
+  "extends": [
+      "eslint:recommended",
+      "plugin:vue/vue3-recommended"
+  ],
+  "parser": "vue-eslint-parser",
+  "parserOptions": {
+      "parser": "@typescript-eslint/parser",
+      "ecmaVersion": "latest",
+      "sourceType": "module"
+  },
+  "rules": {
+      // 结尾分号
+      "semi": ["warn", "always"],
+      // 使用双引号
+      "quotes": ["warn", "double", { "allowTemplateLiterals": true }],
+      // 未知变量
+      "no-unused-vars": "off",
+      // 未定义
+      "no-undef": "off",
+      // 空的代码块
+      "no-empty": "warn",
+      // 函数与括号是否空格
+      "space-before-function-paren": "off",
+      // 数组总是新行
+      "array-bracket-newline": [
+          "warn",
+          "consistent"
+      ],
+      // fn({})
+      "no-empty-pattern": "warn",
+      // 此规则旨在强制模板中每行多个属性。它检查模板中的所有元素，并验证每行的属性数是否不超过定义的最大值。当两个属性之间有换行符时，将属性视为在新行中。
+      "vue/max-attributes-per-line": [
+          "error",
+          {
+              "singleline": 5,
+              "multiline": 5
+          }
+      ],
+      // vue html标签第一行是否换行
+      "vue/first-attribute-linebreak": [
+          "error",
+          {
+              "singleline": "ignore",
+              "multiline": "ignore"
+          }
+      ],
+      // vue html标签自动 />
+      "vue/html-self-closing": [
+          "error",
+          {
+              "html": {
+                  "void": "always",
+                  "normal": "never",
+                  "component": "any"
+              },
+              "svg": "always",
+              "math": "always"
+          }
+      ],
+      // vue 属性对其标签
+      "vue/html-indent": [
+          "error",
+          2,
+          {
+              "alignAttributesVertically": false
+          }
+      ],
+      // vue结束标签是否新行
+      "vue/html-closing-bracket-newline": [
+          "warn",
+          {
+              "singleline": "never",
+              "multiline": "never"
+          }
+      ],
+      // vue子元素是否新行
+      "vue/singleline-html-element-content-newline": "off",
+      // 没使用变量
+      "vue/no-unused-vars": "off",
+      // 验证属性名
+      "vue/valid-attribute-name": "off",
+      // 空标签
+      "vue/no-lone-template": "off",
+      // vue组件名称
+      "vue/multi-word-component-names": "off",
+      // 此规则报告传递的解构，导致值失去反应性
+      "vue/no-setup-props-destructure": "off",
+      // 必须有一个根标签
+      "vue/valid-template-root": "off",
+      // v-for 设置key
+      "vue/valid-v-for": "warn",
+      // v-for 设置key
+      "vue/require-v-for-key": "warn",
+      // 不要使用v-html
+      "vue/no-v-html": "off",
+      // v-slot 只能用在template标签上
+      "vue/valid-v-slot": "off"
+  }
 }

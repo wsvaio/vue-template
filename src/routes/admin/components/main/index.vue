@@ -2,9 +2,17 @@
 
 <template>
   <el-main>
-    <transition mode="out-in">
+    <!-- <transition mode="out-in">
       <vrouter keep></vrouter>
-    </transition>
+    </transition> -->
+
+    <router-view #="{ Component }">
+      <transition mode="out-in">
+        <keep-alive>
+          <component :is="Component"></component>
+        </keep-alive>
+      </transition>
+    </router-view>
   </el-main>
 </template>
 
@@ -12,19 +20,19 @@
 .v-enter-from,
 .v-leave-to {
   opacity: 0;
-  transform: translateX(30px);
+  transform: translateX(10%);
 }
 
 .v-enter-from {
-  transform: translateX(-30px);
+  transform: translateX(-10%);
 }
 
 .v-leave-active,
 .v-enter-active {
-  transition: all 0.333s ease;
+  transition: all .2s ease;
 }
 
-.v-leave-active {
-  transition-duration: 0s;
-}
+// .v-leave-active {
+//   transition-duration: 0s;
+// }
 </style>

@@ -43,7 +43,7 @@ const ctx = { checkList, params, refresh };
       </div>
 
       <el-table v-loading="loading" m="t-15px" :data="data && data[listKey] || []"
-        :="{ ...$attrs, ...$props.table }"
+        :border="true" table-layout="auto" :="{ ...$attrs, ...$props.table }"
         @selection-change="list => { checkList.length = 0; checkList.push(...list); }">
         <slot :="{...ctx, ...drawerCtx}"></slot>
         <template #append>

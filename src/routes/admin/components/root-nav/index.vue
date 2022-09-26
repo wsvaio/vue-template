@@ -20,22 +20,22 @@ function isMenuItem(route) {
 </script>
 
 <template>
-	<template v-for="item in list.filter(item => isShow(item))" :key="item.name">
-		<el-menu-item v-if="isMenuItem(item)" :index="String(item.name)" @click="$router.push({ name: item.name })">
-			<el-icon :size="20">
-				<component :is="`i-${item.meta?.icon}`"></component>
-			</el-icon>
-			<template #title><span>{{ item.meta?.title || item.name || item.path }}</span></template>
-		</el-menu-item>
+  <template v-for="item in list.filter(item => isShow(item))" :key="item.name">
+    <el-menu-item v-if="isMenuItem(item)" :index="String(item.name)" @click="$router.push({ name: item.name })">
+      <el-icon :size="20">
+        <component :is="item.meta?.icon"></component>
+      </el-icon>
+      <template #title><span>{{ item.meta?.title || item.name || item.path }}</span></template>
+    </el-menu-item>
 
-		<el-sub-menu v-else :index="String(item.name)">
-			<template #title>
-				<el-icon :size="20">
-					<component :is="`i-${item.meta?.icon}`"></component>
-				</el-icon>
-				<span>{{ item.meta?.title || item.name || item.path }}</span>
-			</template>
-			<root-nav :list="item.children!"></root-nav>
-		</el-sub-menu>
-	</template>
+    <el-sub-menu v-else :index="String(item.name)">
+      <template #title>
+        <el-icon :size="20">
+          <component :is="item.meta?.icon"></component>
+        </el-icon>
+        <span>{{ item.meta?.title || item.name || item.path }}</span>
+      </template>
+      <root-nav :list="item.children!"></root-nav>
+    </el-sub-menu>
+  </template>
 </template>

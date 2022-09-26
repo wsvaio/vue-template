@@ -9,17 +9,17 @@ import copyright from "./components/copyright/index.vue";
 </script>
 
 <template>
-	<el-container class="layout">
-		<Aside></Aside>
-		<el-container>
-			<Header></Header>
-			<Tab></Tab>
-			<Main></Main>
-			<el-footer height="auto">
-				<copyright></copyright>
-			</el-footer>
-		</el-container>
-	</el-container>
+  <el-container class="layout">
+    <Aside></Aside>
+    <el-container>
+      <Header></Header>
+      <Tab></Tab>
+      <Main></Main>
+      <el-footer height="auto">
+        <copyright></copyright>
+      </el-footer>
+    </el-container>
+  </el-container>
 </template>
 
 <style lang="less" scoped>

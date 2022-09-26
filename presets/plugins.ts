@@ -1,13 +1,11 @@
 import vue from "@vitejs/plugin-vue";
 import { PluginOption } from "vite";
 
-import Markdown from "vite-plugin-md";
 
-import { viteMockServe } from "vite-plugin-mock";
 import Inspect from "vite-plugin-inspect";
 
 import Components from "unplugin-vue-components/vite";
-import { ElementPlusResolver, VantResolver } from "unplugin-vue-components/resolvers";
+import { ElementPlusResolver, VantResolver, NaiveUiResolver } from "unplugin-vue-components/resolvers";
 import AutoImport from "unplugin-auto-import/vite";
 
 import { resolve } from "path";
@@ -19,13 +17,15 @@ import { presetUno, presetAttributify, transformerDirectives } from "unocss";
 import Icons from "unplugin-icons/vite";
 import IconsResolver from "unplugin-icons/resolver";
 
-import { VitePWA } from "vite-plugin-pwa";
 
 import sfcExtendTag from "vite-plugin-vue-sfcextendtag";
 import importsListen, { imports } from "vite-plugin-vue-autoimportconfigextend";
 
 
-import eslint from "vite-plugin-eslint";
+// import eslint from "vite-plugin-eslint";
+// import { VitePWA } from "vite-plugin-pwa";
+// import Markdown from "vite-plugin-md";
+// import { viteMockServe } from "vite-plugin-mock";
 
 export default <PluginOption[]>[
 
@@ -33,11 +33,12 @@ export default <PluginOption[]>[
   sfcExtendTag(),
 
   vue({
-    include: [/\.vue$/, /\.md$/],
+    // include: [/\.vue$/, /\.md$/],
     // 开启 vue $() 语法糖
     reactivityTransform: true
 
   }),
+
 
   // eslint({
 
@@ -46,7 +47,7 @@ export default <PluginOption[]>[
   // VitePWA({}),
 
   // 支持md文件解析为vue组件
-  Markdown(),
+  // Markdown(),
 
   // // setup 添加 name 属性
   VueSetupExtend(),
@@ -55,7 +56,7 @@ export default <PluginOption[]>[
   // Inspector({ enabled: false }),
 
   // mock 数据
-  viteMockServe(),
+  // viteMockServe(),
 
   // unocss 原子化css
   Unocss({
@@ -97,6 +98,7 @@ export default <PluginOption[]>[
     resolvers: [
       ElementPlusResolver(),
       VantResolver(),
+      NaiveUiResolver(),
     ]
   }),
   // 自动引入的文件修改后重启服务器（auto-imports.d.ts才会更新）
@@ -108,10 +110,11 @@ export default <PluginOption[]>[
     resolvers: [
       ElementPlusResolver(),
       VantResolver(),
-      IconsResolver()
+      NaiveUiResolver(),
+      IconsResolver(),
     ]
 
   }),
   // iconify
-  Icons()
+  Icons({})
 ];

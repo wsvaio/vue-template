@@ -12,4 +12,13 @@ declare module "*.md" {
 }
 
 
+declare global {
+  interface ImportMeta {
+    readonly env: {
+      readonly VITE_PROJECT_NAME: string
+      readonly VITE_BASE: string
+      readonly VITE_BASE_API: string
 
+    }
+  }
+}

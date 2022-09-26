@@ -4,13 +4,16 @@ import { DialogProps, DrawerProps, FormProps } from "element-plus";
 declare module "vue" {
   export interface GlobalComponents {
 
-    RouterView: typeof import("vue-router")["RouterView"];
-    RouterLink: typeof import("vue-router")["RouterLink"];
+
 
   }
 }
 
 declare global {
+
+
+
+
   type T = any;
   type obj = { [k: string]: any; };
   type keys<K extends keyof any, T = any> = {

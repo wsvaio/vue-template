@@ -1,10 +1,11 @@
 <script lang="ts" setup>
+import { ArrowRight } from "@element-plus/icons-vue";
 const route = useRoute();
 </script>
 
 <template>
   <div class="bread-crumbs-wrap">
-    <el-breadcrumb separator-icon="i-ArrowRight">
+    <el-breadcrumb :separator-icon="ArrowRight">
       <el-breadcrumb-item to="/">
         <img class="block -my-5px" src="@/assets/home.png" alt="HOME" />
       </el-breadcrumb-item>

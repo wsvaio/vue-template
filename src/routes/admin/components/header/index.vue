@@ -47,13 +47,13 @@ const vdialogRef = $ref<vdialogCtx>();
     <div class="header_right">
       <el-tooltip :content="isFullscreen ? '退出全屏' : '全屏'">
         <el-icon @click="toggle">
-          <i-akar-icons:normal-screen v-if="isFullscreen"></i-akar-icons:normal-screen>
-          <i-fullScreen v-else></i-fullScreen>
+          <i-material-symbols:fullscreen-exit v-if="isFullscreen"></i-material-symbols:fullscreen-exit>
+          <i-material-symbols:fullscreen v-else></i-material-symbols:fullscreen>
         </el-icon>
       </el-tooltip>
       <el-dropdown size="medium" @command="handleCommand">
         <div class="user_info">
-          <img class="user_avatar" src="@/assets/avatar.png">
+          <img class="user_avatar" src="@/assets/avatar.png" />
           <span class="user_name">用户名</span>
         </div>
         <template #dropdown>
@@ -92,14 +92,24 @@ const vdialogRef = $ref<vdialogCtx>();
 
   .header_right {
     display: flex;
-    align-items: center;
+    // align-items: center;
     padding-left: 8px;
     width: auto;
+    height: 100%;
+
+    &>* {
+      height: 100%;
+      transition: background .2s;
+      &:hover {
+        background: #F6F6F6;
+      }
+    }
 
     &>i {
       padding: 8px 6px;
-      font-size: 32px;
+      font-size: 36px;
       cursor: pointer;
+      color: #666;
     }
 
     .user_info {
