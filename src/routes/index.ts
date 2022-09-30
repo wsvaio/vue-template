@@ -54,6 +54,12 @@ export const adminRoutes: RouteRecordRaw[] = [
     ]
   },
 
+  {
+    path: "todo", name: "todo",
+    meta: { title: "todo", icon: Menu },
+    component: () => import("@/views/todo/index.vue"),
+  },
+
 ];
 
 

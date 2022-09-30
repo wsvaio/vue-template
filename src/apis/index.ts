@@ -1,1 +1,1 @@
-import { get, post } from "@/apis/request";
+import { get, post, patch, put, del } from "@/apis/request";
