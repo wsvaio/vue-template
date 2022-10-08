@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { StyleValue } from "vue";
 
 const props = defineProps<{
   label?: string;
