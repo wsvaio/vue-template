@@ -1,4 +1,4 @@
-import { setGlobalOptions } from 'vue-request';
+import { setGlobalOptions } from "vue-request";
 setGlobalOptions({
   pagination: {
   }
