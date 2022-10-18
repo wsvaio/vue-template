@@ -18,7 +18,7 @@ const handleCommand = (command: T) => {
   }
 };
 
-const submit = async ({}: vdialogCtx) => {
+const submit = async ({ form }: vdialogCtx) => {
   return true;
 };
 
