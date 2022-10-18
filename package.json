@@ -9,7 +9,13 @@
     "preview": "vite preview --host",
     "lint": "eslint --ext .ts,.vue src && stylelint **/*.{css,less,vue}",
     "fix": "eslint --fix --ext .ts,.vue src && stylelint --fix **/*.{css,less,vue}",
+    "commit": "git cz",
     "prepare": "husky install"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog-zh"
+    }
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.0.9",
@@ -31,6 +37,9 @@
     "@iconify/json": "^2.1.77",
     "@typescript-eslint/parser": "^5.38.0",
     "@vitejs/plugin-vue": "^3.0.1",
+    "commitizen": "^4.2.5",
+    "conventional-changelog-cli": "^2.2.2",
+    "cz-conventional-changelog-zh": "^0.0.2",
     "eslint": "^8.20.0",
     "eslint-plugin-vue": "^9.2.0",
     "husky": "^8.0.1",
@@ -50,7 +59,6 @@
     "unplugin-icons": "^0.14.8",
     "unplugin-vue-components": "^0.21.2",
     "vite": "^3.1.8",
-    "vite-plugin-eslint": "^1.7.0",
     "vite-plugin-inspect": "^0.5.1",
     "vite-plugin-md": "^0.20.2",
     "vite-plugin-mock": "^2.9.6",
