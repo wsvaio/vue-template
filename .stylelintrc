@@ -11,6 +11,12 @@
         "**/*.vue"
       ],
       "customSyntax": "postcss-html"
+    },
+    {
+      "files": [
+        "**/*.less"
+      ],
+      "customSyntax": "postcss-less"
     }
   ],
   "rules": {

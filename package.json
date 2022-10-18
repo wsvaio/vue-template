@@ -7,8 +7,8 @@
     "test": "vitest",
     "build": "vite build",
     "preview": "vite preview --host",
-    "lint": "eslint --ext .ts,.vue src && stylelint **/*.vue",
-    "fix": "eslint --fix --ext .ts,.vue src && stylelint --fix **/*.vue",
+    "lint": "eslint --ext .ts,.vue src && stylelint **/*.{css,less,vue}",
+    "fix": "eslint --fix --ext .ts,.vue src && stylelint --fix **/*.{css,less,vue}",
     "prepare": "husky install"
   },
   "dependencies": {
