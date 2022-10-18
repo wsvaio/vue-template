@@ -3,48 +3,44 @@
 ## 通用开发配置模板
 
 主要技术：vue3 vite3 ts pinia vue-router element-plus
-代码校验：stylelint eslint commitlint husky lint-staged
+代码校验：stylelint eslint commitlint husky lint-staged commitizen
 
 
-
-
-
-## commit message格式
-```
+## Commit Message 格式
+```xml
 <type>(<scope>): <subject>
+<BLANK LINE>
+<body>
+<BLANK LINE>
+<footer>
 ```
-
-### type(必须)
-用于说明git commit的类别，只允许使用下面的标识。
-
-- feat：新功能（feature）。
-- fix/to：修复bug，可以是QA发现的BUG，也可以是研发自己发现的BUG。
-  - fix：产生diff并自动修复此问题。适合于一次提交直接修复问题
-  - to：只产生diff不自动修复此问题。适合于多次提交。最终修复问题提交时使用fix
-- docs：文档（documentation）。
-- style：格式（不影响代码运行的变动）。
-- refactor：重构（即不是新增功能，也不是修改bug的代码变动）。
-- perf：优化相关，比如提升性能、体验。
-- test：增加测试。
-- chore：构建过程或辅助工具的变动。
-- revert：回滚到上一个版本。
-- merge：代码合并。
-- sync：同步主线或分支的Bug。
-
-### scope(可选)
-scope用于说明 commit 影响的范围，比如数据层、控制层、视图层等等，视项目不同而不同。
-
-例如在Angular，可以是location，browser，compile，compile，rootScope， ngHref，ngClick，ngView等。如果你的修改影响了不止一个scope，你可以使用*代替。
-
-### subject(必须)
-
-subject是commit目的的简短描述，不超过50个字符。
-
-建议使用中文（感觉中国人用中文描述问题能更清楚一些）。
-
-- 结尾不加句号或其他标点符号。
-- 根据以上规范git commit message将是如下的格式：
-```
-fix(DAO):用户查询缺少username属性
-feat(Controller):用户查询接口开发
-```
+### *type
+选择您要提交的更改类型：
+- feat: 一个新功能
+- fix: 一个bug
+- docs: 文档增删改
+- style: 样式修改（空白、格式、缺少分号等）
+- refactor: 既不修复bug也不添加新功能的更改
+- perf: 性能优化
+- test: 增加测试
+- build: 影响构建系统或外部依赖项的更改（示例范围：gulp、broccoli、npm）
+- ci: 对CI配置文件和脚本的更改（示例范围：Travis，Circle，BrowerStack，SauceLabs）
+- revert: 回退历史版本
+- conflict: 修改冲突
+- font: 字体文件更新
+- delete: 删除文件
+- stash: 暂存文件
+### scope
+这个变化的范围是什么（例如组件或文件名）
+### *subject
+一个简短的修改描述
+### body
+一个更长的修改描述
+### footer
+Footer 部分只用于以下两种情况：
+- 不兼容改动
+  如果当前代码与上一个版本不兼容，则 Footer 部分以BREAKING CHANGE开头，后面是对变动的描述、以及变动理由和迁移方法
+- 关闭issue
+  如果当前 commit 针对某个issue，那么可以在 Footer 部分关闭这个 issue `Closes #123`
+- Revert
+  还有一种特殊情况，如果当前 commit 用于撤销以前的 commit，则必须以revert:开头，后面跟着被撤销 Commit 的 Header

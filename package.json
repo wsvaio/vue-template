@@ -9,7 +9,7 @@
     "preview": "vite preview --host",
     "lint": "eslint --ext .ts,.vue src && stylelint **/*.{css,less,vue}",
     "fix": "eslint --fix --ext .ts,.vue src && stylelint --fix **/*.{css,less,vue}",
-    "commit": "cz",
+    "commit": "git add . && cz",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -32,7 +32,7 @@
     "@iconify/json": "^2.1.77",
     "@typescript-eslint/parser": "^5.38.0",
     "@vitejs/plugin-vue": "^3.0.1",
-    "commitizen": "^4.2.5",
+    "commitlint": "^17.1.2",
     "cz-conventional-changelog-zh": "^0.0.2",
     "eslint": "^8.20.0",
     "eslint-plugin-vue": "^9.2.0",
