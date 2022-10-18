@@ -34,8 +34,8 @@ const route = useRoute();
 }
 
 .v-leave-active {
-  transition: all 0.333s ease;
   display: inline-block;
   position: absolute;
+  transition: all 0.333s ease;
 }
 </style>

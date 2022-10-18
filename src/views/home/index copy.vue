@@ -1,30 +1,28 @@
-<script lang="ts" name="item2" setup>
-  import { sleep } from "wsvaio";
+<script lang="ts" name="home" setup>
+import { sleep } from "wsvaio";
 
+const submit = async (h: vdrawerCtx) => {
+  console.log(h);
+  await sleep(1000);
 
-  const submit = async (h: vdrawerCtx) => {
-    console.log(h);
-    await sleep(1000);
+  return false;
+};
 
-    return false;
-  };
-
-  const action = async (params) => {
-    console.log(params);
-    await sleep(1000);
-    return {
-      count: 10,
-      items: [
+const action = async (params) => {
+  console.log(params);
+  await sleep(1000);
+  return {
+    count: 10,
+    items: [
       { id: 1, name: "hh", age: 123 },
       { id: 2, name: "h234h", age: 123 },
       { id: 3, name: "hh", age: 123 },
       { id: 4, name: "h342h", age: 123 },
       { id: 5, name: "h23h", age: 123 },
-
-    ]
-    };
+    ],
   };
-  </script>
+};
+</script>
 
 <template tag="div">
   <vtable :action="action" :submit="submit">
@@ -39,6 +37,4 @@
   </vtable>
 </template>
 
-  <style lang="less" scoped>
-
-  </style>
+<style lang="less" scoped></style>

@@ -19,10 +19,10 @@
 }
 
 .cover {
-  height: auto;
-  width: 700px;
   margin: 0 5px;
+  width: 700px;
   max-width: 100%;
+  height: auto;
   max-height: 100%;
 }
 
@@ -32,12 +32,14 @@
 }
 
 .btn {
-  font-size: 20px;
+  --tw-shadow-color: 8, 145, 178;
+  --tw-shadow:
+    0 4px 6px -1px rgba(var(--tw-shadow-color), 0.1),
+    0 2px 4px -1px rgba(var(--tw-shadow-color), 0.06);
+
   margin-top: 30px;
   padding: 12px 20px;
-  --tw-shadow-color: 8, 145, 178;
-  --tw-shadow: 0 4px 6px -1px rgba(var(--tw-shadow-color), 0.1),
-    0 2px 4px -1px rgba(var(--tw-shadow-color), 0.06);
+  font-size: 20px;
   box-shadow: 0 0 #0000, 0 0 #0000, 0 0 #0000, var(--tw-shadow);
 }
 </style>

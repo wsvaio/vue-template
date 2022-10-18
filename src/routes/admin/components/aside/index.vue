@@ -36,66 +36,63 @@ const active = computed(() => {
 
 <style lang="less">
 .layout-aside {
+  display: flex;
   box-sizing: border-box;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
   background-color: #001529;
   transition: width 0.3s ease-in-out;
   user-select: none;
+  flex-direction: column;
 
   &::-webkit-scrollbar {
     width: 0 !important;
   }
 
-  &>* {
+  & > * {
     flex: none;
   }
 
   .logo {
     position: sticky;
     top: 0;
+    z-index: 1;
     height: 56px;
     background: url("@/assets/admin.png") no-repeat center / 40px 40px;
     background-color: #002140;
-    z-index: 1;
   }
 
   .fold {
-    height: 48px;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
+    margin-top: auto;
+    height: 48px;
     font-size: 24px;
     font-weight: bold;
+    color: #fff;
     background-color: #002140;
-    margin-top: auto;
+    justify-content: center;
+    align-items: center;
 
     &:hover {
       cursor: pointer;
     }
   }
-
 }
 
 .el-menu {
-  border-right: none;
-
 
   // --el-menu-bg-color: #001628;
   --el-menu-bg-color: #001529;
   --el-menu-hover-bg-color: transparent;
-
   --el-menu-text-color: #bfcbd9;
   --el-menu-active-color: white;
 
+  border-right: none;
+
   .el-menu-item {
     &.is-active {
-      background: var(--el-color-primary);
       color: var(--el-menu-active-color);
+      background: var(--el-color-primary);
     }
-
   }
 
   .el-menu-item:hover, .el-sub-menu__title:hover {
@@ -103,18 +100,17 @@ const active = computed(() => {
   }
 
   .el-sub-menu {
-    &.is-active>.el-sub-menu__title {
+    &.is-active > .el-sub-menu__title {
       color: var(--el-menu-active-color);
     }
 
     .el-menu {
-      --el-menu-bg-color: #0F2438;
+      --el-menu-bg-color: #0f2438;
     }
   }
 
   &.el-menu--collapse .is-active {
     background: var(--el-color-primary);
   }
-
 }
 </style>

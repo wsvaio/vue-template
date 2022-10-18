@@ -6,7 +6,7 @@
 </script>
 
 <template tag="div">
-table
+  table
 </template>
 
 <style lang="less" scoped>

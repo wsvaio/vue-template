@@ -29,7 +29,7 @@
 
 .v-leave-active,
 .v-enter-active {
-  transition: all .2s ease;
+  transition: all 0.2s ease;
 }
 
 // .v-leave-active {

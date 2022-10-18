@@ -69,25 +69,25 @@ const vdialogRef = $ref<vdialogCtx>();
 
 <style lang="less" scoped>
 .el-header {
-  padding: 0 16px;
-  border-bottom: 1px solid #ddd;
   display: flex;
+  overflow: hidden;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 1px solid #ddd;
+  padding: 0 16px;
+  background: rgba(255, 255, 255, 80%);
+  user-select: none;
   align-items: center;
   justify-content: space-between;
-  overflow: hidden;
-  user-select: none;
-  position: sticky;
-  z-index: 10;
-  top: 0;
-  background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(3px);
 
   .header_left {
-    flex: 1;
-    font-size: 24px;
     overflow: hidden;
+    font-size: 24px;
     white-space: nowrap;
     text-overflow: ellipsis;
+    flex: 1;
   }
 
   .header_right {
@@ -97,28 +97,29 @@ const vdialogRef = $ref<vdialogCtx>();
     width: auto;
     height: 100%;
 
-    &>* {
+    & > * {
       height: 100%;
-      transition: background .2s;
+      transition: background 0.2s;
+
       &:hover {
-        background: #F6F6F6;
+        background: #f6f6f6;
       }
     }
 
-    &>i {
+    & > i {
       padding: 8px 6px;
       font-size: 36px;
-      cursor: pointer;
       color: #666;
+      cursor: pointer;
     }
 
     .user_info {
-      margin: 0 8px;
       display: flex;
-      align-items: center;
+      margin: 0 8px;
       width: auto;
       text-align: right;
       cursor: pointer;
+      align-items: center;
 
       .user_avatar {
         width: 30px;

@@ -19,13 +19,11 @@
 <style lang="less" scoped>
 .copyright {
   font-size: 14px;
-  color: rgba(0, 0, 0, 0.5);
+  color: rgba(0, 0, 0, 50%);
 
-
-  .first~* {
+  .first ~ * {
+    margin-left: 0.5em;
     vertical-align: baseline;
-    margin-left: .5em;
   }
-
 }
 </style>

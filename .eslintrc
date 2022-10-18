@@ -58,10 +58,10 @@
           {
               "html": {
                   "void": "always",
-                  "normal": "never",
+                  "normal": "any",
                   "component": "any"
               },
-              "svg": "always",
+              "svg": "never",
               "math": "always"
           }
       ],
@@ -100,7 +100,7 @@
       // v-for 设置key
       "vue/require-v-for-key": "warn",
       // 不要使用v-html
-      "vue/no-v-html": "off",
+      "vue/no-v-html": "warn",
       // v-slot 只能用在template标签上
       "vue/valid-v-slot": "off"
   }

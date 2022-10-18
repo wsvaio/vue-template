@@ -10,14 +10,12 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
-    "lib": [
-      "ESNext",
-      "DOM"
-    ],
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
     "skipLibCheck": true,
     "composite": true,
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": false,
+    "noImplicitThis": false,
     "baseUrl": ".",
     "paths": {
       "@/*": [

@@ -81,6 +81,7 @@ onMounted(() => {
 <style lang="less" scoped>
 .el-form {
   @apply flex;
+
   scroll-snap-type: x mandatory;
   overflow: auto;
   width: 100vw;
@@ -95,57 +96,49 @@ onMounted(() => {
     height: 0;
   }
 
-  &>* {
+  & > * {
     @apply flex-none w-[50%] p-75px;
-    background: rgba(255, 255, 255, .8);
-    scroll-snap-align: start;
-    backdrop-filter: blur(6px);
 
     display: flex;
+    overflow: auto;
+    background: rgba(255, 255, 255, 80%);
+    scroll-snap-align: start;
+    backdrop-filter: blur(6px);
     flex-direction: column;
     justify-content: center;
     align-items: center;
 
     @media (max-width: 576PX) {
-      width: 100%;
       padding: 50px;
+      width: 100%;
     }
-    overflow: auto;
   }
 
   .register {}
 
   .mask {
-    background: url("@/assets/notFound/12.svg") center / cover no-repeat;
-    background-color: #353E54;
-
+    padding: 24px;
     font-size: 24px;
+    line-height: 1;
     color: white;
-
+    background: url("@/assets/notFound/12.svg") center / cover no-repeat;
+    background-color: #353e54;
     justify-content: flex-start;
     align-items: flex-start;
-    padding: 24px;
-
-    line-height: 1;
-
     flex-direction: row;
-
-
 
     @media (max-width: 576PX) {
       // display: none;
     }
-
   }
 
   .sign {
 
     // align-items: stretch;
-    &>* {
-      max-width: 450px;
+    & > * {
       width: 100%;
+      max-width: 450px;
     }
-
   }
 }
 </style>

@@ -24,28 +24,28 @@ import copyright from "./components/copyright/index.vue";
 
 <style lang="less" scoped>
 .layout {
+  overflow: hidden;
   box-sizing: border-box;
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
   background: #f3f6f8;
 
   .el-container {
-    height: 100vh;
-    overflow: auto;
     display: flex;
-    flex-flow: column nowrap;
-    background: linear-gradient(white 0%, white 100%) top / 100% 90px no-repeat;
+    overflow: auto;
     position: relative;
+    height: 100vh;
+    background: linear-gradient(white 0%, white 100%) top / 100% 90px no-repeat;
+    flex-flow: column nowrap;
 
     .el-main {
-      padding: 16px;
       overflow: visible;
+      padding: 16px;
     }
 
     .el-footer {
-      text-align: center;
       padding: 12px;
+      text-align: center;
     }
   }
 }
