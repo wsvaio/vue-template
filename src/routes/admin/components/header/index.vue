@@ -19,7 +19,6 @@ const handleCommand = (command: T) => {
 };
 
 const submit = async ({}: vdialogCtx) => {
-
   return true;
 };
 
