@@ -19,7 +19,6 @@ export const adminRoutes: RouteRecordRaw[] = [
   {
     path: "list", name: "list",
     meta: { title: "list", icon: Menu },
-    // component: h(vrouter, { keep: true  }),
     children: [
       {
         path: "item1", name: "item1",

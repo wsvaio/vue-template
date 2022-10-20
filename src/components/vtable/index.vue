@@ -54,7 +54,7 @@ const ctx = { checkList, params, refresh };
       <el-pagination v-model:currentPage="current" v-model:page-size="pageSize" m="t-25px"
         :total="total"
         :page-sizes="[10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 200, 300, 400, 500, 1000]"
-        layout="total, sizes, prev, pager, next, jumper, ->, slot" :="$props.pagination">
+        layout="sizes, total, ->, prev, pager, next, jumper, slot" :="$props.pagination">
       </el-pagination>
     </template>
   </vdrawer>

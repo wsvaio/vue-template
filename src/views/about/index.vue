@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script lang="ts" name="about" setup>
 
 const isDark = useDark();
 const toggleDark = useToggle(isDark);

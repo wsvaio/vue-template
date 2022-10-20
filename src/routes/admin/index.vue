@@ -1,51 +1,100 @@
-<script lang="ts" setup>
-import Aside from "./components/aside/index.vue";
-import Header from "./components/header/index.vue";
-import Main from "./components/main/index.vue";
-import Tab from "./components/tab/index.vue";
-import copyright from "./components/copyright/index.vue";
+<script setup lang='ts'>
+import Logo from "./commponents/logo/index.vue";
+import BreadCrumb from "./commponents/bread-crumb/index.vue";
+import Setting from "./commponents/setting/index.vue";
+import Menu from "./commponents/menu/index.vue";
+import Tab from "./commponents/tab/index.vue";
+import Main from "./commponents/main/index.vue";
+import Fold from "./commponents/fold/index.vue";
+
+const { setting } = $(mainStore());
+
+watchEffect(() => {
+  if (setting.layout == "left") {
+    document.documentElement.classList.add("left");
+  } else {
+    document.documentElement.classList.remove("left");
+  }
+});
 
 
 </script>
 
-<template>
-  <el-container class="layout">
-    <Aside></Aside>
-    <el-container>
-      <Header></Header>
-      <Tab></Tab>
-      <Main></Main>
-      <el-footer height="auto">
-        <copyright></copyright>
-      </el-footer>
-    </el-container>
-  </el-container>
+<template tag="div" :class="['admin', setting.layout]">
+  <Logo></Logo>
+  <Fold></Fold>
+  <BreadCrumb></BreadCrumb>
+  <Setting></Setting>
+  <Menu></Menu>
+  <Tab></Tab>
+  <Main></Main>
 </template>
 
-<style lang="less" scoped>
-.layout {
-  overflow: hidden;
-  box-sizing: border-box;
-  width: 100vw;
+<style lang='less' scoped>
+.admin {
+  display: grid;
+  width: 100%;
   height: 100vh;
-  background: #f3f6f8;
+  grid-template-columns: max-content max-content max-content 1fr max-content;
+  grid-template-rows: 48px max-content 1fr;
 
-  .el-container {
-    display: flex;
-    overflow: auto;
-    position: relative;
-    height: 100vh;
-    background: linear-gradient(white 0%, white 100%) top / 100% 90px no-repeat;
-    flex-flow: column nowrap;
+  & > *:nth-child(1) {
+    order: 1;
+  }
 
-    .el-main {
-      overflow: visible;
-      padding: 16px;
+  & > *:nth-child(2) {
+    order: 2;
+  }
+
+  & > *:nth-child(3) {
+    order: 3;
+  }
+
+  & > *:nth-child(4) {
+    order: 4;
+  }
+
+  & > *:nth-child(5) {
+    order: 5;
+  }
+
+  & > *:nth-child(6) {
+    order: 6;
+  }
+
+  & > *:nth-child(7) {
+    order: 7;
+  }
+
+  &.left, &.mobile {
+    .bread-crumb {
+      grid-column: span 2;
     }
 
-    .el-footer {
-      padding: 12px;
-      text-align: center;
+    .menu {
+      grid-row: span 2;
+    }
+
+    .tab, .main {
+      grid-column: span 4;
+    }
+  }
+
+  &.top {
+    .icon {
+      display: none;
+    }
+
+    .bread-crumb {
+      grid-column: span 2;
+    }
+
+    .menu {
+      order: 3;
+    }
+
+    .tab, .main {
+      grid-column: span 5;
     }
   }
 }

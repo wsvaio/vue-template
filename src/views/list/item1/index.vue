@@ -30,7 +30,7 @@ const action = async (params) => {
 </script>
 
 <template tag="div">
-  <vtable :action="action" :submit="submit">
+  <vtable :action="action" :submit="submit" w="!100%">
     <template #="ctx: vtableCtx">
       <el-table-column type="selection"></el-table-column>
       <el-table-column label="ID" prop="id"></el-table-column>

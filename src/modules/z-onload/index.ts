@@ -4,6 +4,6 @@ export default (app: App) => {
   const admin = adminStore();
 
   if (auth.isLogin) {
-
+    return;
   }
 };

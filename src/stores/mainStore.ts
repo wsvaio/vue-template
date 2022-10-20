@@ -1,15 +1,17 @@
 import { defineStore } from "pinia";
 import { RouteLocationNormalized } from "vue-router";
-
+const storageName = `${import.meta.env.VITE_PROJECT_NAME}_main`;
 
 export default defineStore("main", {
-  state() {
-    return {
-      // 要缓存的路由 因为要支持tab拖动 所以是个一列表
-      keepAlive: [] as RouteLocationNormalized[],
+  state: () => ({
+    // 要缓存的路由 因为要支持tab拖动 所以是个一列表
+    keepAlive: [] as RouteLocationNormalized[],
+    setting: {
+      layout: "left",
+      collapse: false,
+    }
 
-    };
-  },
+  }),
   actions: {
     addKeepAlive(route: RouteLocationNormalized) {
       const children = route.matched.find(item => item.name == route.name)?.children || [];
@@ -30,5 +32,16 @@ export default defineStore("main", {
       return ["vrouter", "admin", ...this.keepAlive.map(item => String(item.name))];
     }
 
+  },
+
+  persist: {
+    enabled: true,
+    strategies: [
+      {
+        key: storageName,
+        paths: ["setting"],
+        storage: sessionStorage,
+      }
+    ],
   }
 });
