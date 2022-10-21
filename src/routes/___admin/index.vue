@@ -9,21 +9,7 @@ import Fold from "./commponents/fold/index.vue";
 
 const { setting, asideWidth } = $(mainStore());
 
-watchEffect(() => {
-  if (setting.layout == "left") {
-    document.documentElement.classList.add("left");
-    document.documentElement.classList.remove("mobile");
-    document.documentElement.classList.remove("top");
-  } else if (setting.layout == "top") {
-    document.documentElement.classList.add("top");
-    document.documentElement.classList.remove("mobile");
-    document.documentElement.classList.remove("left");
-  } else if (setting.layout == "mobile") {
-    document.documentElement.classList.add("mobile");
-    document.documentElement.classList.remove("top");
-    document.documentElement.classList.remove("left");
-  }
-});
+
 </script>
 
 <template tag="div" :class="['admin', setting.layout, setting.collapse && 'collapse']" :style="{ '--aside-width': asideWidth }">

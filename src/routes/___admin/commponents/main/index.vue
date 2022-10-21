@@ -15,11 +15,7 @@
 .main {
   overflow: auto;
   padding: 16px;
-  background: #f6f7f8;
-}
-
-.dark .main {
-  background: black;
+  background: var(--main-bg-color);
 }
 
 .v-enter-from,

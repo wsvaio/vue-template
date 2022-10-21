@@ -30,6 +30,16 @@ export default defineStore("main", {
     // 要缓存的路由名
     nameList(): string[] {
       return ["vrouter", "admin", ...this.keepAlive.map(item => String(item.name))];
+    },
+    asideWidth() {
+      const { layout, collapse } = this.setting;
+      if (layout == "left") {
+        return collapse ? "64px" : "200px";
+      }
+      else if (layout == "mobile") {
+        return collapse ? "0px" : "200px";
+      }
+      else return "inherit";
     }
 
   },

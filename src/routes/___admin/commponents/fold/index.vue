@@ -10,7 +10,7 @@ const { setting } = $(mainStore());
 <style lang='less' scoped>
 .fold {
   display: flex;
-  border-bottom: 1px solid var(--el-border-color);
+  border-bottom: 1px solid var(--border-color);
   padding: 12px;
   font-size: 16px;
   transition: background-color 0.2s;

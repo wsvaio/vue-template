@@ -77,7 +77,7 @@ const { setting } = $(mainStore());
 <style lang='less' scoped>
 .setting {
   display: flex;
-  border-bottom: 1px solid var(--el-border-color);
+  border-bottom: 1px solid var(--border-color);
   // padding-left: 50px;
   color: var(--text-color);
 

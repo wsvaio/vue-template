@@ -1,37 +1,18 @@
+body {
+  --el-color-primary: #0960bd;
+}
+
 :root {
   /* 基本 */
-  --color-primary: #0960bd;
-  --el-color-primary: var(--color-primary);
-  --bg-color: white;
-  --bg-hover-color: #f6f6f6;
-  --main-bg-color: #f6f7f8;
-  --text-color: #606266;
-  --text-color-full: black;
-  --border-color: #dcdfe6;
 
-  color-scheme: light;
+  /* 菜单 */
 }
 
-html.dark {
-  /* 基本 */
-  --color-primary: #0960bd;
-  --el-color-primary: var(--color-primary);
-  --bg-color: #121212;
-  --bg-hover-color: #242424;
-  --main-bg-color: black;
-  --text-color: #cfd3dc;
-  --text-color-full: white;
-  --border-color: #4c4d4f;
-
-  color-scheme: dark;
-}
-
-/* 菜单居左 */
-html:not(.dark).left {
+html:not(.dark).left, html:not(.dark).mobile {
   --el-menu-bg-color: #001529;
   --el-menu-sub-bg-color: #0c2135;
   --el-menu-hover-bg-color: transparent;
   --el-menu-text-color: #bfcbd9;
-  --el-menu-active-color: white;
-  --el-menu-color-primary: var(--color-primary);
+  --el-menu-text-active-color: white;
+  // --el-menu-active-bg-color: red;
 }

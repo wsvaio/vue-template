@@ -22,7 +22,7 @@ const route = useRoute();
 .bread-crumb {
   display: flex;
   overflow: hidden;
-  border-bottom: 1px solid var(--el-border-color);
+  border-bottom: 1px solid var(--border-color);
   padding: 0 8px;
   white-space: nowrap;
   align-items: center;
