@@ -23,18 +23,21 @@ const optionsInject = inject<typeof options | null>("options", null);
 </script>
 
 <template>
-  <vpopup>
-    <template v-for="route in list.filter(item => !isMenuItem(item)).map(item => ({ ...item, name: String(item.name) }))" #[route.name]>
-      <Nav :list="route.children!"></Nav>
-    </template>
-
-    <template #="{ popup }">
-      <template v-for="item in list">
-        <div v-if="isMenuItem(item)">{{ item.name }}</div>
-        <div v-else @mouseenter="popup.slot = String(item.name), popup.show = true" @mouseleave="popup.show = false">{{ item.name }}{{ popup }}</div>
-      </template>
-    </template>
-  </vpopup>
+  <slot :options="options"></slot>
+  <template v-for="item in list.filter(item => isShow(item))" :key="item.name">
+    <div v-if="isMenuItem(item)"
+      :class="['item', (options.close || optionsInject?.close) && 'close']"
+      :title="String(item.name)" @click="$router.push({ name: item.name })">
+      {{ item.name }}
+    </div>
+    <Nav v-else :list="item.children!" :deep="deep + 1" #="{ options }">
+      <div class="title" :title="String(item.name)" @click="options.close = !options.close">
+        {{
+          item.name
+        }}
+      </div>
+    </Nav>
+  </template>
 </template>
 
 <style lang="less" scoped>

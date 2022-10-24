@@ -1,15 +1,15 @@
 <script setup name="home" lang='ts'>
-import t from "./index copy 2.vue";
+import t from "./index copy 3.vue";
 </script>
 
-<template tag="div">
+<template>
   <vpopup>
-    <template #popup>
+    <template #popup1>
       <t></t>
     </template>
     <template #="{ popup }">
-      <div @mouseenter="popup.slot = 'popup', popup.show = true" @mouseleave="popup.show = false">
-        trigger
+      <div @mouseenter="popup.slot = 'popup1', popup.show = true" @mouseleave="popup.show = false">
+        trigger2
         {{ popup.slot }}
       </div>
     </template>
@@ -18,7 +18,6 @@ import t from "./index copy 2.vue";
 
 <style lang="less" scoped>
 div {
-  width: 200px;
-  background-color: red;
+  background: red;
 }
 </style>
