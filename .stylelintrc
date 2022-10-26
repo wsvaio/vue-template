@@ -28,6 +28,7 @@
     "selector-pseudo-class-no-unknown": null,
     "selector-class-pattern": null,
     "function-no-unknown": null,
+    "no-descending-specificity": null,
     "order/order": [
       {
         "type": "at-rule",

@@ -39,7 +39,7 @@ export default defineStore("main", {
       else if (layout == "mobile") {
         return collapse ? "0px" : "200px";
       }
-      else return "inherit";
+      else return "200px";
     }
 
   },

@@ -39,10 +39,11 @@ watchEffect(() => {
 <style lang='less' scoped>
 .admin {
   display: grid;
+  overflow: auto;
   width: 100%;
   height: 100vh;
-  grid-template-columns: max-content max-content max-content 1fr max-content;
-  grid-template-rows: 48px max-content 1fr;
+  grid-template-columns: auto auto 1fr auto max-content;
+  grid-template-rows: 48px auto 1fr;
 
   & > *:nth-child(1) {
     order: 1;
@@ -91,11 +92,8 @@ watchEffect(() => {
       display: none;
     }
 
-    .bread-crumb {
-      grid-column: span 2;
-    }
-
     .menu {
+      grid-column: span 2;
       order: 3;
     }
 
@@ -110,7 +108,7 @@ watchEffect(() => {
     }
 
     .menu {
-      grid-row: span 2;
+      grid-row: span 4;
     }
 
     .tab, .main {

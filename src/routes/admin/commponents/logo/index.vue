@@ -13,17 +13,22 @@ const { setting } = $(mainStore());
   display: flex;
   overflow: hidden;
   border-bottom: 1px solid var(--el-border-color);
+  width: var(--aside-width, 200px);
   font-size: 16px;
   font-weight: bold;
   line-height: 48px;
   color: var(--el-text-color-primary);
-  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: var(--bg-hover-color);
+    cursor: pointer;
+  }
 }
 
 .left .logo, .mobile .logo {
   --el-border-color: transparent;
 
-  width: var(--aside-width, 200px);
   transition: width 0.2s;
 }
 

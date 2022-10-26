@@ -1,18 +1,24 @@
-body {
+:root, html.dark {
+  --bg-hover-color: #f6f6f6;
   --el-color-primary: #0960bd;
+  // --el-color-primary: #024799;
 }
 
-:root {
-  /* 基本 */
-
-  /* 菜单 */
+html.dark {
+  --bg-hover-color: #242424;
 }
 
-html:not(.dark).left, html:not(.dark).mobile {
-  --el-menu-bg-color: #001529;
-  --el-menu-sub-bg-color: #0c2135;
-  --el-menu-hover-bg-color: transparent;
-  --el-menu-text-color: #bfcbd9;
-  --el-menu-text-active-color: white;
-  // --el-menu-active-bg-color: red;
+.top {
+  --menu-bg-color: var(--el-bg-color);
+  --menu-text-color: var(--el-text-color-primary);
+  --menu-text-active-color: var(--el-color-primary);
+  --menu-bg-active-color: var(--el-color-primary);
+}
+
+html.dark.left, html.dark.mobile {
+  --menu-bg-color: var(--el-bg-color);
+  --menu-text-color: var(--el-text-color-primary);
+  --menu-text-active-color: var(--el-color-primary);
+  --menu-bg-sub-color: var(--el-bg-color);
+  --menu-bg-active-color: var(--el-bg-color);
 }

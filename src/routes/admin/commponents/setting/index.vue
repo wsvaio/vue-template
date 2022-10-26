@@ -26,29 +26,33 @@ const { setting } = $(mainStore());
 </script>
 
 <template tag="div" class="setting">
-  <el-tooltip content="切换主题">
-    <n-switch v-model:value="isDark" size="medium">
-      <template #icon>
-        ☀
-      </template>
-      <template #checked-icon>
-        🌙
-      </template>
-    </n-switch>
-  </el-tooltip>
+  <n-switch v-model:value="isDark" size="medium">
+    <template #icon>
+      ☀
+    </template>
+    <template #checked-icon>
+      🌙
+    </template>
+  </n-switch>
+  <n-tooltip v-if="setting.layout != 'mobile'" trigger="hover">
+    <template #trigger>
+      <el-icon @click="setting.layout = setting.layout == 'top' ? 'left' : 'top'">
+        <i-ri:layout-3-line v-if="setting.layout == 'top'"></i-ri:layout-3-line>
+        <i-ri:layout-top-line v-else></i-ri:layout-top-line>
+      </el-icon>
+    </template>
+    布局
+  </n-tooltip>
 
-  <el-tooltip content="切换布局">
-    <el-icon @click="setting.layout = setting.layout == 'top' ? 'left' : 'top'">
-      <i-ri:layout-3-line v-if="setting.layout == 'top'"></i-ri:layout-3-line>
-      <i-ri:layout-top-line v-else></i-ri:layout-top-line>
-    </el-icon>
-  </el-tooltip>
-  <el-tooltip :content="isFullscreen ? '退出全屏' : '全屏'">
-    <el-icon @click="toggle">
-      <i-material-symbols:fullscreen-exit v-if="isFullscreen"></i-material-symbols:fullscreen-exit>
-      <i-material-symbols:fullscreen v-else></i-material-symbols:fullscreen>
-    </el-icon>
-  </el-tooltip>
+  <n-tooltip trigger="hover">
+    <template #trigger>
+      <el-icon @click="toggle">
+        <i-material-symbols:fullscreen-exit v-if="isFullscreen"></i-material-symbols:fullscreen-exit>
+        <i-material-symbols:fullscreen v-else></i-material-symbols:fullscreen>
+      </el-icon>
+    </template>
+    {{ isFullscreen ? '退出全屏' : '全屏' }}
+  </n-tooltip>
   <el-dropdown size="medium" @command="handleCommand">
     <div class="user_info">
       <img class="user_avatar" src="@/assets/avatar.png" />
@@ -77,6 +81,7 @@ const { setting } = $(mainStore());
 <style lang='less' scoped>
 .setting {
   display: flex;
+  overflow: hidden;
   border-bottom: 1px solid var(--el-border-color);
   // padding-left: 50px;
   color: var(--text-color);

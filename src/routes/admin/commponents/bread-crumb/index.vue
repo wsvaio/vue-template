@@ -24,6 +24,7 @@ const route = useRoute();
   overflow: hidden;
   border-bottom: 1px solid var(--el-border-color);
   padding: 0 8px;
+  min-width: 100px;
   white-space: nowrap;
   align-items: center;
 }

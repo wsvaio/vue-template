@@ -21,18 +21,6 @@ export const adminRoutes: RouteRecordRaw[] = [
     meta: { title: "list", icon: Menu },
     children: [
       {
-        path: "item1", name: "item1",
-        meta: { title: "item1", icon: Menu },
-        component: () => import("@/views/list/item1/index.vue"),
-
-      },
-      {
-        path: "item2", name: "item2",
-        meta: { title: "item2", icon: Menu },
-        component: () => import("@/views/list/item2/index.vue"),
-
-      },
-      {
         path: "item3", name: "item3",
         meta: { title: "item3", icon: Menu },
         children: [
@@ -45,11 +33,38 @@ export const adminRoutes: RouteRecordRaw[] = [
           {
             path: "item5", name: "item5",
             meta: { title: "item5", icon: Menu },
-            component: () => import("@/views/list/item5/index.vue"),
+            // component: () => import("@/views/list/item5/index.vue"),
+            children: [
+              {
+                path: "item1", name: "item1",
+                meta: { title: "item1", icon: Menu },
+                component: () => import("@/views/list/item1/index.vue"),
+
+              },
+              {
+                path: "item2", name: "item2",
+                meta: { title: "item2", icon: Menu },
+                component: () => import("@/views/list/item2/index.vue"),
+
+              },
+            ]
 
           },
         ]
       },
+      {
+        path: "item1", name: "item1",
+        meta: { title: "item1", icon: Menu },
+        component: () => import("@/views/list/item1/index.vue"),
+
+      },
+      {
+        path: "item2", name: "item2",
+        meta: { title: "item2", icon: Menu },
+        component: () => import("@/views/list/item2/index.vue"),
+
+      },
+
     ]
   },
 

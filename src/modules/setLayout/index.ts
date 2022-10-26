@@ -1,6 +1,6 @@
 const setLayout = (ev) => {
   const main = mainStore();
-  console.log(window.innerWidth);
+
   if (window.innerWidth < 768) {
     main.setting.layout = "mobile";
   }

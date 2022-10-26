@@ -53,7 +53,7 @@ const deepPosition = (el: HTMLElement) => {
 </script>
 
 <template>
-  <div ref="vpopupRef">
+  <div ref="vpopupRef" :="$attrs">
     <slot :popup="popup"></slot>
   </div>
   <teleport to="body">
