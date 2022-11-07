@@ -1,4 +1,3 @@
-import { defineStore } from "pinia";
 import { merge } from "wsvaio";
 const storageName = `${import.meta.env.VITE_PROJECT_NAME}_auth`;
 

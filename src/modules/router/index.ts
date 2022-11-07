@@ -2,6 +2,9 @@ import { createRouter, createWebHistory } from "vue-router";
 import routes from "@/routes";
 import { Progress } from "wsvaio";
 
+
+
+
 export const router = createRouter({
   history: createWebHistory(import.meta.env.VITE_BASE),
   routes
@@ -14,7 +17,7 @@ router.beforeEach(() => Progress.start());
 // 添加keepalive
 router.beforeEach((to, from, next) => {
   const { nameList } = $(mainStore());
-  to.name && nameList.add(String(to.name));
+  nameList.add(to.name);
   next();
 });
 // 缓存页面滚动条距离
@@ -23,7 +26,7 @@ router.beforeEach((to, from, next) => {
   const { scrollTopCache, nameList } = $(mainStore());
   const scrollTop = document.documentElement.scrollTop;
   // 只缓存keepalive的页面
-  if (nameList.has(String(from.name))) {
+  if (nameList.has(from.name)) {
     scrollTopCache.set(from.name, scrollTop);
   }
   next();
@@ -32,7 +35,7 @@ router.beforeEach((to, from, next) => {
 
 // 设置标题
 router.afterEach((to, from) => {
-  document.title = String(to.meta?.title ?? document.title);
+  document.title = to.meta?.title ?? document.title;
 });
 // 恢复页面滚动条距离
 router.afterEach((to, from) => {

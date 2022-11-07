@@ -1,4 +1,5 @@
 /// <reference types="vitest" />
+import vue from "@vitejs/plugin-vue";
 import { defineConfig, loadEnv } from "vite";
 import { resolve } from "path";
 import plugins from "./presets/plugins";
@@ -7,6 +8,7 @@ import plugins from "./presets/plugins";
 
 
 import pxtorem from "postcss-pxtorem";
+// import postcssPresetEnv from "postcss-preset-env";
 
 export default defineConfig(({ mode, command }) => {
 
@@ -29,6 +31,7 @@ export default defineConfig(({ mode, command }) => {
           pxtorem({
             rootValue: 100,
             propList: ["*"],
+            // exclude: /(node_modules)/i
           })
         ]
       }
@@ -39,7 +42,7 @@ export default defineConfig(({ mode, command }) => {
         "/api": {
           target: VITE_BASE_API,
           changeOrigin: true,
-          // rewrite: path => path.replace(/^\/api/, '')
+          rewrite: path => path.replace(/^\/api/, "")
         }
 
       }

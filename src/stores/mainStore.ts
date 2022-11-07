@@ -1,7 +1,3 @@
-import { defineStore } from "pinia";
-import { RouteLocationNormalized } from "vue-router";
-
-
 export default defineStore("main", {
   state() {
     return {

@@ -39,7 +39,7 @@ const action = async ({ }: vpopupCtx) => {
     </vtable-column>
     <vtable-column label="AGE" prop="age"></vtable-column>
     <vtable-column label="SETTING" #="{row}">
-      <van-button size="mini" @click="vpopupRef!.popup!.slot='p'">修改</van-button>
+      <van-button size="mini" @click="vpopupRef!.popup!.slot='p', vpopupRef.popup.position = 'bottom'">修改</van-button>
     </vtable-column>
   </vtable>
 
@@ -74,6 +74,7 @@ const action = async ({ }: vpopupCtx) => {
 
 <style lang="less">
 .vtable {
+  border: 1px solid #000;
   // .row-1.col-0 {
   //   background-color: red;
   //   grid-row: span 2;
@@ -82,12 +83,9 @@ const action = async ({ }: vpopupCtx) => {
   //   display: none;
   // }
   background: black;
-  border: 1px solid #000;
 
   .row-even {
     background: #ccc;
   }
-
-
 }
 </style>

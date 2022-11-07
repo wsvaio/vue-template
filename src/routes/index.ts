@@ -4,6 +4,7 @@ import vrouter from "@/components/vrouter/index.vue";
 
 
 const routes: RouteRecordRaw[] = [
+  { path: "/", redirect: { name: "home" } },
   {
     path: "/about", name: "about",
     meta: { title: "about" },
@@ -15,7 +16,8 @@ const routes: RouteRecordRaw[] = [
     component: () => import("@/views/home/index.vue")
   },
   {
-    path: "/:pathMatch(.*)", redirect: { name: "home" },
+    path: "/:pathMatch(.*)", name: "notfound",
+    component: () => import("@/routes/notfound/index.vue")
   }
 ];
 

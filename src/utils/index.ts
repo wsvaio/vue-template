@@ -4,4 +4,3 @@ export { showToast, showDialog, showNotify, showImagePreview, showSuccessToast, 
 export const EventBus = createEventBus();
 
 export const log = console.log;
-

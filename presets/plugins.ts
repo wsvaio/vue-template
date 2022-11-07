@@ -1,14 +1,15 @@
 import vue from "@vitejs/plugin-vue";
 import { PluginOption } from "vite";
 
+
 import Inspect from "vite-plugin-inspect";
 
 import Components from "unplugin-vue-components/vite";
-import { ElementPlusResolver, VantResolver } from "unplugin-vue-components/resolvers";
+import { ElementPlusResolver, VantResolver, NaiveUiResolver } from "unplugin-vue-components/resolvers";
 import AutoImport from "unplugin-auto-import/vite";
 
 import { resolve } from "path";
-import vueSetupExtend from "vite-plugin-vue-setup-extend";
+import VueSetupExtend from "vite-plugin-vue-setup-extend";
 
 import Unocss from "unocss/vite";
 import { presetUno, presetAttributify, transformerDirectives } from "unocss";
@@ -20,33 +21,41 @@ import IconsResolver from "unplugin-icons/resolver";
 import sfcExtendTag from "vite-plugin-vue-sfcextendtag";
 import importsListen, { imports } from "vite-plugin-vue-autoimportconfigextend";
 
-// import Markdown from "vite-plugin-md";
+
+// import legacy from "@vitejs/plugin-legacy";
+
 // import { VitePWA } from "vite-plugin-pwa";
+// import Markdown from "vite-plugin-md";
 // import { viteMockServe } from "vite-plugin-mock";
-// import ESLint from "vite-plugin-eslint";
 
 export default <PluginOption[]>[
 
-
+  // 检查根<template>是否有tag属性 如果有则在原来的基础上添加这个tag标签包裹
+  sfcExtendTag(),
 
   vue({
     // include: [/\.vue$/, /\.md$/],
-    // 开启 vue $() 语法
+    // 开启 vue $() 语法糖
     reactivityTransform: true
 
   }),
-  // 检查根<template>是否有tag属性 如果有则在原来的基础上添加这个tag标签包裹
-  sfcExtendTag(),
-  // script标签上设置name属性
-  vueSetupExtend(),
-  // ESLint({
 
+  // legacy({
+  //   // targets: ["defaults", "not IE 11"]
+  //   // targets: ["defaults", "not IE 11"]
   // }),
+
 
   // VitePWA({}),
 
   // 支持md文件解析为vue组件
   // Markdown(),
+
+  // // setup 添加 name 属性
+  VueSetupExtend(),
+
+  // // 点击页面元素,自动打开本地IDE并跳转到对应的Vue组件
+  // Inspector({ enabled: false }),
 
   // mock 数据
   // viteMockServe(),
@@ -91,6 +100,7 @@ export default <PluginOption[]>[
     resolvers: [
       ElementPlusResolver(),
       VantResolver(),
+      NaiveUiResolver(),
     ]
   }),
   // 自动引入的文件修改后重启服务器（auto-imports.d.ts才会更新）
@@ -102,7 +112,8 @@ export default <PluginOption[]>[
     resolvers: [
       ElementPlusResolver(),
       VantResolver(),
-      IconsResolver()
+      NaiveUiResolver(),
+      IconsResolver(),
     ]
 
   }),
