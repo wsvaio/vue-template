@@ -9,6 +9,8 @@ import { zhCN as NZhCn, dateZhCN, darkTheme, lightTheme } from "naive-ui";
     <n-config-provider :locale="NZhCn" :date-locale="dateZhCN" :theme="lightTheme" :theme-overrides="{
       common: {
         primaryColor: '#0960bd',
+        primaryColorHover: '#0960bd',
+
       }
     }" abstract>
       <router-view></router-view>

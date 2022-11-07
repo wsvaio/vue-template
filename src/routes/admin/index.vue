@@ -6,27 +6,30 @@ import Menu from "./commponents/menu/index.vue";
 import Tab from "./commponents/tab/index.vue";
 import Main from "./commponents/main/index.vue";
 import Fold from "./commponents/fold/index.vue";
-
-const { setting, asideWidth } = $(mainStore());
+import mainLayoutStore from "@/routes/admin/stores/adminLayoutStore";
+let { layout, collapse, asideWidth } = $(mainLayoutStore());
 
 watchEffect(() => {
-  if (setting.layout == "left") {
+  if (layout == "left") {
     document.documentElement.classList.add("left");
     document.documentElement.classList.remove("mobile");
     document.documentElement.classList.remove("top");
-  } else if (setting.layout == "top") {
+  } else if (layout == "top") {
     document.documentElement.classList.add("top");
     document.documentElement.classList.remove("mobile");
     document.documentElement.classList.remove("left");
-  } else if (setting.layout == "mobile") {
+  } else if (layout == "mobile") {
     document.documentElement.classList.add("mobile");
     document.documentElement.classList.remove("top");
     document.documentElement.classList.remove("left");
   }
 });
+
+
+
 </script>
 
-<template tag="div" :class="['admin', setting.layout, setting.collapse && 'collapse']" :style="{ '--aside-width': asideWidth }">
+<template tag="div" :class="['admin', layout, collapse && 'collapse']" :style="{ '--aside-width': asideWidth }">
   <Logo></Logo>
   <Fold></Fold>
   <BreadCrumb></BreadCrumb>

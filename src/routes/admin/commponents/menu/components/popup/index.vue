@@ -30,7 +30,7 @@ const setPosition = (direction = "bottom") => {
   const { clientWidth: width, clientHeight: height } = document.documentElement;
   let { offsetLeft, offsetTop } = deepPosition(vpopupRef);
   const { gap = 12 } = props;
-  console.log(clientWidth, clientHeight, width, height, gap, direction, offsetLeft, offsetTop);
+  // console.log(clientWidth, clientHeight, width, height, gap, direction, offsetLeft, offsetTop);
   if (direction == "bottom") {
     offsetLeft = offsetLeft + clientWidth / 2 - popupRef.clientWidth / 2;
     offsetTop = offsetTop + clientHeight + gap;

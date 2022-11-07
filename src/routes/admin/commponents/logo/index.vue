@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 
-const { setting } = $(mainStore());
+
 </script>
 
 <template tag="div" class="logo">
@@ -21,7 +21,7 @@ const { setting } = $(mainStore());
   transition: background-color 0.2s;
 
   &:hover {
-    background-color: var(--bg-hover-color);
+    background-color: var(--el-bg-color-page);
     cursor: pointer;
   }
 }
@@ -31,13 +31,6 @@ const { setting } = $(mainStore());
 
   transition: width 0.2s;
 }
-
-// --el-menu-bg-color: #001529;
-//   --el-menu-sub-bg-color: #0c2135;
-//   --el-menu-hover-bg-color: transparent;
-//   --el-menu-text-color: #bfcbd9;
-//   --el-menu-active-color: white;
-//   --el-menu-color-primary: var(--color-primary);
 
 html:not(.dark) {
   .left .logo, .mobile .logo {

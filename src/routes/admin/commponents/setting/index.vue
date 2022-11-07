@@ -1,28 +1,40 @@
 <script setup lang='ts'>
 import { merge } from "wsvaio";
+import mainLayoutStore from "@/routes/admin/stores/adminLayoutStore";
+const { layout } = $(mainLayoutStore());
 const router = useRouter();
 const { toggle, isFullscreen } = useFullscreen();
 
+const admin = adminStore();
+const auth = authStore();
 const handleCommand = (command: T) => {
   if (command === "logout") {
-    router.push({ name: "login" });
+    auth.logout();
   } else if (command === "editpwd") {
     merge(vdialogRef.dialog, {
       slot: "editpwd",
       title: "修改密码",
       width: "500px",
     });
+    vdialogRef.formProps.labelPosition = "top";
   }
 };
 
 const submit = async ({ form }: vdialogCtx) => {
-
+  if (auth.identity == "plat") {
+    await editPwdSelfAdmin({ body: form, success: "修改成功" });
+  } else {
+    const body = <obj>{};
+    body[`${auth.identity}_password_new`] = form.admin_password_new;
+    body[`${auth.identity}_password_old`] = form.admin_password_old;
+    await editPwdAdminQu({ body, success: "修改成功" });
+  }
   return true;
 };
 const isDark = useDark();
 
 const vdialogRef = $ref<vdialogCtx>();
-const { setting } = $(mainStore());
+
 </script>
 
 <template tag="div" class="setting">
@@ -34,10 +46,10 @@ const { setting } = $(mainStore());
       🌙
     </template>
   </n-switch>
-  <n-tooltip v-if="setting.layout != 'mobile'" trigger="hover">
+  <n-tooltip v-if="layout != 'mobile'" trigger="hover">
     <template #trigger>
-      <el-icon @click="setting.layout = setting.layout == 'top' ? 'left' : 'top'">
-        <i-ri:layout-3-line v-if="setting.layout == 'top'"></i-ri:layout-3-line>
+      <el-icon @click="layout = layout == 'top' ? 'left' : 'top'">
+        <i-ri:layout-3-line v-if="layout == 'top'"></i-ri:layout-3-line>
         <i-ri:layout-top-line v-else></i-ri:layout-top-line>
       </el-icon>
     </template>
@@ -47,7 +59,8 @@ const { setting } = $(mainStore());
   <n-tooltip trigger="hover">
     <template #trigger>
       <el-icon @click="toggle">
-        <i-material-symbols:fullscreen-exit v-if="isFullscreen"></i-material-symbols:fullscreen-exit>
+        <i-material-symbols:fullscreen-exit v-if="isFullscreen">
+        </i-material-symbols:fullscreen-exit>
         <i-material-symbols:fullscreen v-else></i-material-symbols:fullscreen>
       </el-icon>
     </template>
@@ -56,7 +69,7 @@ const { setting } = $(mainStore());
   <el-dropdown size="medium" @command="handleCommand">
     <div class="user_info">
       <img class="user_avatar" src="@/assets/avatar.png" />
-      <span class="user_name">用户名</span>
+      <span class="user_name">{{ `${admin.name}` }}</span>
     </div>
     <template #dropdown>
       <el-dropdown-menu>
@@ -67,12 +80,16 @@ const { setting } = $(mainStore());
   </el-dropdown>
 
   <vdialog ref="vdialogRef" :submit="submit">
-    <template #editpwd="{form}: vdialogCtx">
-      <el-form-item label="旧密码" prop="admin_password_old" :rules="{ required: true, message: '密码不能为空', trigger: 'blur' }">
-        <el-input v-model="form.admin_password_old" type="password" show-password clearable></el-input>
+    <template #editpwd="{ form }: vdialogCtx">
+      <el-form-item label="旧密码" prop="admin_password_old"
+        :rules="{ required: true, message: '密码不能为空', trigger: 'blur' }">
+        <el-input v-model="form.admin_password_old" type="password" show-password clearable>
+        </el-input>
       </el-form-item>
-      <el-form-item label="新密码" prop="admin_password_new" :rules="{ required: true, message: '密码不能为空', trigger: 'blur' }">
-        <el-input v-model="form.admin_password_new" type="password" show-password clearable></el-input>
+      <el-form-item label="新密码" prop="admin_password_new"
+        :rules="{ required: true, message: '密码不能为空', trigger: 'blur' }">
+        <el-input v-model="form.admin_password_new" type="password" show-password clearable>
+        </el-input>
       </el-form-item>
     </template>
   </vdialog>
@@ -97,7 +114,7 @@ const { setting } = $(mainStore());
     transition: background-color 0.2s;
 
     &:hover {
-      background-color: var(--bg-hover-color);
+      background-color: var(--el-bg-color-page);
     }
   }
 

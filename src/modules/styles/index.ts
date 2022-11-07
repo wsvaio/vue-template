@@ -1,5 +1,4 @@
 import "wsvaio/styles/reset.css";
-import "./transition.css";
 import "./scrollbar.css";
 import "./media.css";
 

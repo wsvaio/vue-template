@@ -1,9 +1,10 @@
 <script setup lang='ts'>
-const { setting } = $(mainStore());
+import mainLayoutStore from "@/routes/admin/stores/adminLayoutStore";
+const { layout, collapse } = $(mainLayoutStore());
 </script>
 
-<template tag="div" :class="['fold', setting.layout]" @click="setting.collapse = !setting.collapse">
-  <i-ant-design:menu-fold-outlined v-if="!setting.collapse"></i-ant-design:menu-fold-outlined>
+<template tag="div" :class="['fold', layout]" @click="collapse = !collapse">
+  <i-ant-design:menu-fold-outlined v-if="!collapse"></i-ant-design:menu-fold-outlined>
   <i-ant-design:menu-unfold-outlined v-else></i-ant-design:menu-unfold-outlined>
 </template>
 
@@ -18,7 +19,7 @@ const { setting } = $(mainStore());
   justify-content: center;
 
   &:hover {
-    background-color: var(--bg-hover-color);
+    background-color: var(--el-bg-color-page);
     cursor: pointer;
   }
 

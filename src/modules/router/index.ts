@@ -1,8 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import routes from "@/routes";
-import { Progress } from "wsvaio";
-
-
+import { merge, Progress } from "wsvaio";
+import mainLayoutStore from "@/routes/admin/stores/adminLayoutStore";
 
 
 export const router = createRouter({
@@ -15,8 +14,14 @@ router.beforeEach(() => Progress.start());
 
 
 router.beforeEach((to, from, next) => {
+  const admin = adminStore();
+  if (to.matched.find(item => admin.exclude.includes(String(item.name)))) next({ name: "notfound" });
+  else next();
+});
 
-  const { addKeepAlive } = $(mainStore());
+
+router.beforeEach((to, from, next) => {
+  const { addKeepAlive } = $(mainLayoutStore());
   addKeepAlive(to);
   next();
 });

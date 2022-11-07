@@ -1,9 +1,10 @@
 <script lang="ts" setup>
-import adminStore from "@/stores/adminStore";
 import { RouteRecordRaw } from "vue-router";
 import Nav from "./index.vue";
 import Popup from "../popup/index.vue";
 import { ArrowDown } from "@element-plus/icons-vue";
+import adminLayoutStore from "@/routes/admin/stores/adminLayoutStore";
+
 const { deep = 1 } = defineProps<{ list: RouteRecordRaw[]; deep?: number }>();
 
 const { exclude, include } = $(adminStore());
@@ -25,7 +26,7 @@ watchEffect(() => {
   if (!optionsInject) return;
   options.close = optionsInject.close;
 });
-const { setting } = $(mainStore());
+const { layout, collapse } = $(adminLayoutStore());
 
 const route = useRoute();
 const isRouteActive = (routes: RouteRecordRaw[]) => {
@@ -42,31 +43,31 @@ const isRouteActive = (routes: RouteRecordRaw[]) => {
   <template v-for="item in list.filter(item => isShow(item))" :key="item.name">
     <div v-if="isMenuItem(item)" :class="[
       'menu-nav-item',
-      (options.close || optionsInject?.close || setting.collapse) && deep != 1 && 'close',
+      (options.close || optionsInject?.close || collapse) && deep != 1 && 'close',
       $route.name == item.name && 'active',
       deep != 1 && 'sub',
-    ]" :title="String(item.name)" :style="{ '--deep': deep }"
-      @click="$router.push({ name: item.name })">
+    ]" :title="item.meta.title" :style="{ '--deep': deep }"
+      @click="$router.push({ name: item.name, params: $route.params })">
       <component :is="item.meta.icon" class="icon"></component>
       <div class="text">{{ item.meta.title }}</div>
     </div>
     <Nav v-else :list="item.children!" :deep="deep + 1" #="{ options: opts }">
-      <Popup :title="String(item.name)" :style="{ '--deep': deep }"
-        :direction="(!optionsInject && setting.layout == 'top') ? 'bottom' : 'right'"
+      <Popup :title="item.meta.title" :style="{ '--deep': deep }"
+        :direction="(!optionsInject && layout == 'top') ? 'bottom' : 'right'"
         :class="[
           'menu-nav-item', 'title',
           isRouteActive(item.children) && 'active',
-          (options.close || optionsInject?.close || setting.collapse) && deep != 1 && 'close',
+          (options.close || optionsInject?.close || collapse) && deep != 1 && 'close',
           deep != 1 && 'sub'
         ]"
         @click="opts.close = !opts.close">
-        <template v-if="setting.collapse || setting.layout == 'top'" #popup>
+        <template v-if="collapse || layout == 'top'" #popup>
           <Nav :list="item.children!"></Nav>
         </template>
         <component :is="item.meta.icon" class="icon"></component>
         <div v-if="item.meta.title" class="text">{{ item.meta.title }}</div>
-        <ArrowDown v-show="optionsInject || (!setting.collapse && setting.layout != 'top')"
-          :class="['arrow', options.close && 'close', setting.collapse && 'collapse']">
+        <ArrowDown v-show="optionsInject || (!collapse && layout != 'top')"
+          :class="['arrow', opts.close && 'close', collapse && 'collapse']">
         </ArrowDown>
       </Popup>
     </Nav>
@@ -84,7 +85,7 @@ const isRouteActive = (routes: RouteRecordRaw[]) => {
   text-overflow: ellipsis;
   color: var(--menu-text-color, rgba(255, 255, 255, 70%));
   background: var(--menu-bg-color, #001529);
-  transition: height 0.2s, color 0.2s, width 0.2s, background 0.2s, border-color 0.2s, opacity 0.2s;
+  transition: height 0.2s, color 0.2s, width 0.2s, background 0.2s, border 0.2s, opacity 0.2s;
   align-items: center;
 
   &:hover {
@@ -112,8 +113,8 @@ const isRouteActive = (routes: RouteRecordRaw[]) => {
 
   & > .arrow {
     margin-left: auto;
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
     transition: transform 0.2s;
 
     &.close {
@@ -146,7 +147,7 @@ const isRouteActive = (routes: RouteRecordRaw[]) => {
 .left .collapse {
   .menu-nav-item {
     justify-content: center;
-    border: 3px solid var(--menu-bg-color, #001529);
+    border: 3px solid transparent;
     border-top: 0;
     border-bottom: 0;
 
@@ -183,8 +184,6 @@ const isRouteActive = (routes: RouteRecordRaw[]) => {
     }
 
     & > .arrow {
-      width: 14px;
-      height: 14px;
       transform: rotate(-90deg);
     }
   }
@@ -192,7 +191,7 @@ const isRouteActive = (routes: RouteRecordRaw[]) => {
 
 .top .menu {
   .menu-nav-item {
-    border: 2px solid var(--menu-bg-color, #001529);
+    border: 2px solid transparent;
     border-right: 0;
     border-left: 0;
     height: auto;

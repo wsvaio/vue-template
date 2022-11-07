@@ -2,14 +2,14 @@
 import { adminRoutes } from "@/routes";
 import Nav from "./components/nav/index.vue";
 import IEllipsis from "~icons/uit/ellipsis-h";
-
-const { setting } = $(mainStore());
+import mainLayoutStore from "@/routes/admin/stores/adminLayoutStore";
+let { layout} = $(mainLayoutStore());
 const menuRef = $ref<HTMLDivElement>();
 
 let num = $ref(0);
 
 const list = computed(() => {
-  if (setting.layout != "top") return adminRoutes;
+  if (layout != "top") return adminRoutes;
   const l = [...adminRoutes];
   l.length = num;
   l.push({
@@ -22,12 +22,15 @@ const list = computed(() => {
 });
 
 const handlerResize = () => {
+  if (window.innerWidth < 768) layout = "mobile";
+  else layout == "mobile" && (layout = "left");
+
   if (!menuRef) return;
   num = Math.floor(menuRef.clientWidth / 100);
-
 };
+
 watchEffect(() => {
-  if (setting.layout == "top") handlerResize();
+  if (layout == "top") handlerResize();
 });
 
 onMounted(() => {

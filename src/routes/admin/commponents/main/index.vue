@@ -1,10 +1,12 @@
 <script setup lang='ts'>
+import mainLayoutStore from "@/routes/admin/stores/adminLayoutStore";
+let { nameList } = $(mainLayoutStore());
 </script>
 
 <template tag="div" class="main">
   <router-view #="{ Component }">
     <transition mode="out-in">
-      <keep-alive>
+      <keep-alive :include="nameList">
         <component :is="Component"></component>
       </keep-alive>
     </transition>
@@ -15,11 +17,7 @@
 .main {
   overflow: auto;
   padding: 16px;
-  background: #f6f7f8;
-}
-
-.dark .main {
-  background: black;
+  background: var(--el-bg-color-page);
 }
 
 .v-enter-from,
