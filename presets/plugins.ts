@@ -22,6 +22,8 @@ import sfcExtendTag from "vite-plugin-vue-sfcextendtag";
 import importsListen, { imports } from "vite-plugin-vue-autoimportconfigextend";
 
 
+// import legacy from "@vitejs/plugin-legacy";
+
 // import { VitePWA } from "vite-plugin-pwa";
 // import Markdown from "vite-plugin-md";
 // import { viteMockServe } from "vite-plugin-mock";
@@ -37,6 +39,11 @@ export default <PluginOption[]>[
     reactivityTransform: true
 
   }),
+
+  // legacy({
+  //   // targets: ["defaults", "not IE 11"]
+  //   // targets: ["defaults", "not IE 11"]
+  // }),
 
 
   // VitePWA({}),

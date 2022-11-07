@@ -8,6 +8,7 @@ import plugins from "./presets/plugins";
 
 
 import pxtorem from "postcss-pxtorem";
+// import postcssPresetEnv from "postcss-preset-env";
 
 export default defineConfig(({ mode, command }) => {
 
@@ -30,7 +31,7 @@ export default defineConfig(({ mode, command }) => {
     //       pxtorem({
     //         rootValue: 100,
     //         propList: ["*"],
-    //         // exclude: /(node_modules)|(admin)/i
+    //         // exclude: /(node_modules)/i
     //       })
     //     ]
     //   }

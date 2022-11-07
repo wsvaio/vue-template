@@ -5,6 +5,7 @@ declare module "*.vue" {
   export default Component;
 }
 
+
 // declare module "*.md" {
 //   import type { ComponentOptions } from "vue";
 //   const Component: ComponentOptions;
@@ -17,13 +18,4 @@ declare module "~icons*" {
   export default Component;
 }
 
-declare global {
-  interface ImportMeta {
-    readonly env: {
-      readonly VITE_PROJECT_NAME: string
-      readonly VITE_BASE: string
-      readonly VITE_BASE_API: string
 
-    }
-  }
-}

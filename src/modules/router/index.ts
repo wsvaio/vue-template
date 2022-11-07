@@ -15,6 +15,7 @@ router.beforeEach(() => Progress.start());
 
 
 router.beforeEach((to, from, next) => {
+
   const { addKeepAlive } = $(mainStore());
   addKeepAlive(to);
   next();

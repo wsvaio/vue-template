@@ -29,7 +29,7 @@ const ctx = { checkList, params, refresh };
 </script>
 
 <template>
-  <vdrawer :drawer="_drawer" :submit="drawerCtx => _submit({...ctx, ...drawerCtx})"
+  <vdrawer :drawer="_drawer" :submit="drawerCtx => _submit({...ctx, ...drawerCtx})" class="vtable"
     :form-props="formProps" @submited="refresh">
     <template v-for="name of Object.keys($slots).filter(item => ![
       'default', 'top', 'bottom'
@@ -38,11 +38,11 @@ const ctx = { checkList, params, refresh };
     </template>
 
     <template #="drawerCtx">
-      <div flex="~ wrap gap-x-12px gap-y-6px" items="center">
+      <div v-if="$slots.top" class="vtable-top">
         <slot name="top" :="{...ctx, ...drawerCtx}"></slot>
       </div>
 
-      <el-table v-loading="loading" m="t-15px" :data="data && data[listKey] || []"
+      <el-table v-loading="loading" :data="data && data[listKey] || []"
         :border="true" table-layout="auto" :="{ ...$attrs, ...$props.table }"
         @selection-change="list => { checkList.length = 0; checkList.push(...list); }">
         <slot :="{...ctx, ...drawerCtx}"></slot>
@@ -60,6 +60,34 @@ const ctx = { checkList, params, refresh };
   </vdrawer>
 </template>
 
-<style lang="less" scoped>
+<style lang="less">
+.vtable {
+  .vtable-top {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -3px -6px;
 
+    & > * {
+      margin: 3px 6px;
+
+      &[m="l-auto"] {
+        margin-left: auto;
+      }
+    }
+
+    .el-button + .el-button {
+      margin-left: 6px;
+    }
+  }
+
+  .el-table {
+    .el-link + .el-link {
+      margin-left: 8px;
+    }
+  }
+
+  .vtable-top ~ .el-table {
+    margin-top: 15px;
+  }
+}
 </style>

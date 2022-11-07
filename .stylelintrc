@@ -29,6 +29,7 @@
     "selector-class-pattern": null,
     "function-no-unknown": null,
     "no-descending-specificity": null,
+    "custom-property-no-missing-var-function": null,
     "order/order": [
       {
         "type": "at-rule",

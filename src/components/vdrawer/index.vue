@@ -44,7 +44,7 @@ defineExpose(ctx);
 </script>
 
 <template>
-  <el-form ref="elFormRef" :model="form" :="{ ..._formProps, ...formProps }" :disabled="loading">
+  <el-form ref="elFormRef" label-position="top" :model="form" :="{ ..._formProps, ...formProps }" :disabled="loading">
     <el-drawer v-model="drawer.show" :="omit({ ..._drawer, ...drawer }, 'slot', 'show')"
       :before-close="done => loading || done()" @closed="close">
       <div v-loading="loading" min="h-full">
