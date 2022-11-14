@@ -18,6 +18,7 @@ watchEffect(() => {
     document.documentElement.classList.add("top");
     document.documentElement.classList.remove("mobile");
     document.documentElement.classList.remove("left");
+    collapse = false;
   } else if (layout == "mobile") {
     document.documentElement.classList.add("mobile");
     document.documentElement.classList.remove("top");

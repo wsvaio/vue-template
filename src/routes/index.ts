@@ -79,7 +79,7 @@ export const adminRoutes: RouteRecordRaw[] = [
 
 const routes: RouteRecordRaw[] = [
   {
-    path: "/", name: "admin", redirect: { name: "home" },
+    path: "/", name: "adminLayout", redirect: { name: "home" },
     component: Admin, children: adminRoutes,
   },
   {

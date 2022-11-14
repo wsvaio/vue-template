@@ -1,13 +1,13 @@
-import { DialogProps, DrawerProps, FormProps } from "element-plus";
-import { Ref } from "vue";
+import { DialogProps, DrawerProps, FormProps, FormInstance } from "element-plus";
 declare global {
 
   type vdialogCtx = {
-    dialog: Read<Partial<DialogProps>> & obj & { show?: boolean, slot?: string };
-    form: obj;
-    formProps: Read<Partial<FormProps>> & obj;
-    submit: (title?: string) => boolean | void;
-    loading: Ref<boolean>;
+    dialog: Read<Partial<DialogProps>> & { show?: boolean, slot?: string };
+    form: Read<Partial<FormProps>>;
+    payload: obj & { name?: string };
+    loading: boolean;
+    action: (options?: string | obj) => Promise<any>;
+    elFormRef?: FormInstance,
   }
 
 
@@ -15,3 +15,6 @@ declare global {
 }
 
 export { };
+
+
+

@@ -1,11 +1,12 @@
 <script setup lang='ts'>
-
-
+import mainLayoutStore from "@/routes/admin/stores/adminLayoutStore";
+const { layout } = $(mainLayoutStore());
+const { VITE_DOCUMENT_TITLE } = import.meta.env;
 </script>
 
-<template tag="div" class="logo">
-  <img src="@/assets/admin.png" width="48" height="48" m="l-8px r-16px" />
-  <div>后台管理系统</div>
+<template tag="div" class="logo" @click="layout = layout == 'top' ? 'left' : 'top'">
+  <img src="@/assets/admin.png" width="48" height="48" m="x-8px" />
+  <div m="r-8px" overflow="hidden" max="h-40px">{{ VITE_DOCUMENT_TITLE }}</div>
 </template>
 
 <style lang='less' scoped>
@@ -16,13 +17,23 @@
   width: var(--aside-width, 200px);
   font-size: 16px;
   font-weight: bold;
-  line-height: 48px;
+  line-height: 20px;
   color: var(--el-text-color-primary);
   transition: background-color 0.2s;
+  align-items: center;
 
   &:hover {
     background-color: var(--el-bg-color-page);
     cursor: pointer;
+  }
+}
+
+.collapse:not(.mobile) .logo {
+  padding: 0;
+  justify-content: center;
+
+  & > div {
+    display: none;
   }
 }
 

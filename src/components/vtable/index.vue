@@ -1,58 +1,60 @@
 <script setup lang="ts">
 import { usePagination } from "vue-request";
-import { PaginationProps } from "element-plus";
-import { TableProps } from "element-plus/es/components/table/src/table/defaults";
+import { PaginationProps, TableProps } from "element-plus";
 import { debounce } from "wsvaio";
-const { action, submit: _submit,
-  listKey = "items", currentKey = "page", pageSizeKey = "pageSize",
-  totalKey = "count", totalPageKey = "max_page",
-  formProps = {},
-  drawer: _drawer = {},
+const {
+  paging, action,
+  form: form = {},
+  drawer: drawer = {},
+
 } = defineProps<{
-  action: (params: obj) => Promise<T>,
-  submit: (ctx: vtableCtx) => Promise<boolean | void>,
-  listKey?: string, currentKey?: string, pageSizeKey?: string,
-  totalKey?: string, totalPageKey?: string,
+  paging: (params: obj) => Promise<{ count: number, items: obj[] } & obj>,
+  action: (ctx: vtableCtx) => Promise<any>,
+
   pagination?: Partial<PaginationProps>,
-  drawer?: vdrawerCtx["drawer"],
-  formProps?: vdrawerCtx["formProps"],
-  table?: Partial<TableProps<any>>,
+  drawer?: vtableCtx["drawer"],
+  form?: vtableCtx["form"],
+  table?: Partial<TableProps<obj>>,
 }>();
+
 const checkList = reactive<obj[]>([]);
 const params = reactive<obj>({});
 watch(params, debounce(() => refresh(), 500));
-const { refresh, data, loading, pageSize, total, current } = $(usePagination((data) => action({ ...data, ...params }), {
-  pagination: { currentKey, pageSizeKey, totalPageKey, totalKey }
-}));
+const { refresh, data, loading, pageSize, total, current } = $(usePagination((data) => paging({ ...data, ...params }), {}));
 
-const ctx = { checkList, params, refresh };
+const vdrawerRef = $ref<vdrawerCtx>();
+const ctx = reactive(<vtableCtx>{ checkList, params, refresh });
+onMounted(() => vdrawerRef && Object.assign(ctx, vdrawerRef));
+defineExpose(ctx);
+
+
 </script>
 
 <template>
-  <vdrawer :drawer="_drawer" :submit="drawerCtx => _submit({...ctx, ...drawerCtx})" class="vtable"
-    :form-props="formProps" @submited="refresh">
+  <vdrawer ref="vdrawerRef" :drawer="drawer" :action="() => action(ctx).then(data => data && refresh())" class="vtable" :form="form"
+    @submited="refresh">
     <template v-for="name of Object.keys($slots).filter(item => ![
       'default', 'top', 'bottom'
-    ].includes(item))" #[name]="drawerCtx">
-      <slot :name="name" :="{...ctx, ...drawerCtx}"></slot>
+    ].includes(item))" #[name]>
+      <slot :name="name" :="ctx"></slot>
     </template>
 
-    <template #="drawerCtx">
+    <template #default>
       <div v-if="$slots.top" class="vtable-top">
-        <slot name="top" :="{...ctx, ...drawerCtx}"></slot>
+        <slot name="top" :="ctx"></slot>
       </div>
 
-      <el-table v-loading="loading" :data="data && data[listKey] || []"
-        :border="true" table-layout="auto" :="{ ...$attrs, ...$props.table }"
+      <el-table v-loading="loading" :data="data && data['items'] || []" :border="true"
+        table-layout="auto" :="{ ...$attrs, ...$props.table }"
         @selection-change="list => { checkList.length = 0; checkList.push(...list); }">
-        <slot :="{...ctx, ...drawerCtx}"></slot>
+        <slot :="ctx"></slot>
         <template #append>
-          <slot name="bottom" :="{...ctx, ...drawerCtx}"></slot>
+          <slot name="bottom" :="ctx"></slot>
         </template>
       </el-table>
 
-      <el-pagination v-model:currentPage="current" v-model:page-size="pageSize" m="t-25px"
-        :total="total"
+      <el-pagination v-model:currentPage="current" v-model:page-size="pageSize"
+        :total="total" overflow="auto" m="t-25px"
         :page-sizes="[10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 200, 300, 400, 500, 1000]"
         layout="sizes, total, ->, prev, pager, next, jumper, slot" :="$props.pagination">
       </el-pagination>

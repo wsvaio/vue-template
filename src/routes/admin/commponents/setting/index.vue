@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { merge } from "wsvaio";
+import { merge, sleep } from "wsvaio";
 import mainLayoutStore from "@/routes/admin/stores/adminLayoutStore";
 const { layout } = $(mainLayoutStore());
 const router = useRouter();
@@ -16,19 +16,13 @@ const handleCommand = (command: T) => {
       title: "修改密码",
       width: "500px",
     });
-    vdialogRef.formProps.labelPosition = "top";
+    vdialogRef.form.labelPosition = "top";
   }
 };
 
-const submit = async ({ form }: vdialogCtx) => {
-  if (auth.identity == "plat") {
-    await editPwdSelfAdmin({ body: form, success: "修改成功" });
-  } else {
-    const body = <obj>{};
-    body[`${auth.identity}_password_new`] = form.admin_password_new;
-    body[`${auth.identity}_password_old`] = form.admin_password_old;
-    await editPwdAdminQu({ body, success: "修改成功" });
-  }
+const submit = async ({ form, payload }: vdialogCtx) => {
+  console.log("更改密码");
+  await sleep(1000);
   return true;
 };
 const isDark = useDark();
@@ -48,9 +42,9 @@ const vdialogRef = $ref<vdialogCtx>();
   </n-switch>
   <n-tooltip v-if="layout != 'mobile'" trigger="hover">
     <template #trigger>
-      <el-icon @click="layout = layout == 'top' ? 'left' : 'top'">
-        <i-ri:layout-3-line v-if="layout == 'top'"></i-ri:layout-3-line>
-        <i-ri:layout-top-line v-else></i-ri:layout-top-line>
+      <el-icon :size="34" @click="layout = layout == 'top' ? 'left' : 'top'">
+        <i-ri:layout-top-line v-if="layout == 'top'"></i-ri:layout-top-line>
+        <i-ri:layout-3-line v-else></i-ri:layout-3-line>
       </el-icon>
     </template>
     布局
@@ -69,7 +63,7 @@ const vdialogRef = $ref<vdialogCtx>();
   <el-dropdown size="medium" @command="handleCommand">
     <div class="user_info">
       <img class="user_avatar" src="@/assets/avatar.png" />
-      <span class="user_name">{{ `${admin.name}` }}</span>
+      <span class="user_name">{{ `名称` }}</span>
     </div>
     <template #dropdown>
       <el-dropdown-menu>
@@ -79,16 +73,16 @@ const vdialogRef = $ref<vdialogCtx>();
     </template>
   </el-dropdown>
 
-  <vdialog ref="vdialogRef" :submit="submit">
-    <template #editpwd="{ form }: vdialogCtx">
+  <vdialog ref="vdialogRef" :action="submit">
+    <template #editpwd="{ payload }: vdialogCtx">
       <el-form-item label="旧密码" prop="admin_password_old"
         :rules="{ required: true, message: '密码不能为空', trigger: 'blur' }">
-        <el-input v-model="form.admin_password_old" type="password" show-password clearable>
+        <el-input v-model="payload.admin_password_old" type="password" show-password clearable>
         </el-input>
       </el-form-item>
       <el-form-item label="新密码" prop="admin_password_new"
         :rules="{ required: true, message: '密码不能为空', trigger: 'blur' }">
-        <el-input v-model="form.admin_password_new" type="password" show-password clearable>
+        <el-input v-model="payload.admin_password_new" type="password" show-password clearable>
         </el-input>
       </el-form-item>
     </template>
@@ -122,6 +116,7 @@ const vdialogRef = $ref<vdialogCtx>();
     padding: 8px 6px;
     font-size: 36px;
     cursor: pointer;
+    shape-rendering: optimizespeed;
 
     &:hover {
       & > svg {
