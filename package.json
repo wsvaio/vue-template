@@ -12,17 +12,6 @@
     "commit": "git add . && cz",
     "prepare": "husky install"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npx lint-staged",
-      "commit-msg": "npx commitlint --edit $1"
-    }
-  },
-  "lint-staged": {
-    "*.{ts,vue}": "eslint",
-    "*.{vue,css,less}": "stylelint --allow-empty-input",
-    "package.json": "sort-package-json"
-  },
   "dependencies": {
     "@element-plus/icons-vue": "^2.0.9",
     "@vueuse/core": "^8.9.4",
