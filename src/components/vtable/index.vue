@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { usePagination } from "vue-request";
 import { PaginationProps, TableProps } from "element-plus";
-import { debounce } from "wsvaio";
+import { debounce } from "@wsvaio/utils";
 const {
   paging, action,
   form: form = {},
@@ -31,7 +31,7 @@ defineExpose(ctx);
 </script>
 
 <template>
-  <vdrawer ref="vdrawerRef" :drawer="drawer" :action="() => action(ctx).then(data => data && refresh())" class="vtable" :form="form"
+  <vdrawer ref="vdrawerRef" :drawer="drawer" :action="() => action(ctx).then(data => data && refresh() || data)" class="vtable" :form="form"
     @submited="refresh">
     <template v-for="name of Object.keys($slots).filter(item => ![
       'default', 'top', 'bottom'

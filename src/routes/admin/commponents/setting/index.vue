@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { merge, sleep } from "wsvaio";
+import { merge, sleep } from "@wsvaio/utils";
 import mainLayoutStore from "@/routes/admin/stores/adminLayoutStore";
 const { layout } = $(mainLayoutStore());
 const router = useRouter();

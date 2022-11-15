@@ -1,5 +1,5 @@
 <script lang="ts" name="home" setup>
-import { sleep } from "wsvaio";
+import { sleep } from "@wsvaio/utils";
 
 const submit = async (h: vdrawerCtx) => {
   console.log(h);

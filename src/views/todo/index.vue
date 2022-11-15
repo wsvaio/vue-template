@@ -1,8 +1,8 @@
 <script setup lang='ts'>
 import { Delete, DocumentAdd, Search, Refresh } from "@element-plus/icons-vue";
-import { merge, sleep } from "wsvaio";
+import { merge, sleep, remove } from "@wsvaio/utils";
 const submit = async ({ checkList, drawer, payload }: vtableCtx) => {
-  const name = payload.name;
+  const { name } = remove(payload, "name");
   if (name == "删除") {
     if (checkList.length == 0) return ElNotification.warning("请选择删除项") && false;
     await Promise.all(checkList.map(({ id }) => delTodo({ param: { id } })));
@@ -21,23 +21,22 @@ const submit = async ({ checkList, drawer, payload }: vtableCtx) => {
   else if (name == "详情") {
     await putTodo({ body: payload, success: "修改成功" });
   }
-
+  console.log("hh");
   return true;
-
 };
 
 </script>
 
 <template>
   <vtable :paging="query => $apis.getTodo({ query })" :action="submit">
-    <template #top="{ params, action, drawer }: vtableCtx">
+    <template #top="{ params, action, drawer, payload }: vtableCtx">
       <el-form :disabled="false">
         <el-input v-model="params.key" :prefix-icon="Search" placeholder="搜索"></el-input>
       </el-form>
 
       <el-button type="info" :icon="Refresh" m="l-auto" @click="action()">刷新</el-button>
       <el-button type="primary" :icon="DocumentAdd"
-        @click="drawer.title = '添加', drawer.slot = 'add'">
+        @click="drawer.title = '添加', drawer.slot = 'add', payload.name = '添加'">
         添加
       </el-button>
       <el-popconfirm #reference title="您确定要删除吗？" @confirm="action('删除')">

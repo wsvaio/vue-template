@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import routes from "@/routes";
-import { merge, Progress } from "wsvaio";
+import { merge, Progress } from "@wsvaio/utils";
 import mainLayoutStore from "@/routes/admin/stores/adminLayoutStore";
 
 

@@ -1,4 +1,4 @@
-import "wsvaio/styles/reset.css";
+import "./normalize.css";
 import "./scrollbar.less";
 
 import "element-plus/theme-chalk/dark/css-vars.css";

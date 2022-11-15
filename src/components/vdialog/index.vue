@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRequest } from "vue-request";
 import { FormInstance } from "element-plus";
-import { merge, omit } from "wsvaio";
+import { merge, omit } from "@wsvaio/utils";
 const {
   action,
   form: _form = {},
@@ -17,7 +17,7 @@ const form = reactive<vdialogCtx["form"]>({});
 const dialog = reactive<vdialogCtx["dialog"]>({ show: false, slot: "" });
 const payload = reactive<vdialogCtx["payload"]>({});
 
-const { runAsync: act, loading } = $(useRequest(async (options?: string | vdialogCtx["payload"]) => {
+const { runAsync, loading } = $(useRequest(async (options?: string | vdialogCtx["payload"]) => {
   if (typeof options == "object") {
     merge(payload, options);
   } else if (typeof options == "string") {
@@ -37,7 +37,7 @@ const close = () => {
   elFormRef?.clearValidate();
 };
 
-const ctx = reactive({ dialog, form, action, payload, loading });
+const ctx = reactive({ dialog, form, action: runAsync, payload, loading });
 onMounted(() => elFormRef && (ctx.elFormRef = elFormRef));
 defineExpose(ctx);
 </script>
@@ -52,7 +52,7 @@ defineExpose(ctx);
       <template #footer>
         <slot :name="`${dialog.slot}-footer`" :="ctx">
           <el-button @click="dialog.show = false">取消</el-button>
-          <el-button type="primary" @click="act()">
+          <el-button type="primary" @click="runAsync()">
             <slot :name="`${dialog.slot}-submit-text`" :="ctx">确定</slot>
           </el-button>
         </slot>

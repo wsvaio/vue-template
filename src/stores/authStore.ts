@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { merge } from "wsvaio";
+import { merge } from "@wsvaio/utils";
 const storageName = `${import.meta.env.VITE_PROJECT_NAME}_auth`;
 
 export default defineStore("auth", {

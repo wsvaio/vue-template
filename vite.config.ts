@@ -19,7 +19,6 @@ import IconsResolver from "unplugin-icons/resolver";
 
 
 import sfcExtendTag from "vite-plugin-vue-sfcextendtag";
-import importsListen, { imports } from "vite-plugin-vue-autoimportconfigextend";
 
 
 // import legacy from "@vitejs/plugin-legacy";
@@ -154,10 +153,6 @@ export default defineConfig(({ mode, command }) => {
           "src/composables",
           "src/stores"
         ],
-        exclude: [
-          /request.ts$/
-        ]
-
       }),
 
       // 组件自动引入

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRequest } from "vue-request";
 import { FormInstance } from "element-plus";
-import { merge, omit } from "wsvaio";
+import { merge, omit } from "@wsvaio/utils";
 const {
   action,
   form: _form = {},
@@ -18,7 +18,7 @@ const form = reactive<vdrawerCtx["form"]>({});
 const drawer = reactive<vdrawerCtx["drawer"]>({ show: false, slot: "" });
 const payload = reactive<vdrawerCtx["payload"]>({});
 
-const { runAsync: act, loading } = $(useRequest(async (options?: string | vdrawerCtx["payload"]) => {
+const { runAsync, loading } = $(useRequest(async (options?: string | vdrawerCtx["payload"]) => {
   if (typeof options == "object") {
     merge(payload, options);
   } else if (typeof options == "string") {
@@ -39,13 +39,14 @@ const close = () => {
   elFormRef?.clearValidate();
 };
 
-const ctx = reactive({ drawer, form, action, payload, loading });
+const ctx = reactive({ drawer, form, action: runAsync, payload, loading });
 onMounted(() => elFormRef && (ctx.elFormRef = elFormRef));
 defineExpose(ctx);
 </script>
 
 <template>
-  <el-form ref="elFormRef" label-position="top" :model="form" :="{ ..._form, ...form }" :disabled="loading">
+  <el-form ref="elFormRef" label-position="top" :model="form" :="{ ..._form, ...form }"
+    :disabled="loading">
     <el-drawer v-model="drawer.show" :="omit({ ..._drawer, ...drawer }, 'slot', 'show')"
       :before-close="done => loading || done()" @closed="close">
       <div v-loading="loading" min="h-full">
@@ -54,7 +55,7 @@ defineExpose(ctx);
       <template #footer>
         <slot :name="`${drawer.slot}-footer`" :="ctx">
           <el-button @click="drawer.show = false">取消</el-button>
-          <el-button type="primary" @click="act()">
+          <el-button type="primary" @click="runAsync()">
             <slot :name="`${drawer.slot}-submit-text`" :="ctx">确定</slot>
           </el-button>
         </slot>

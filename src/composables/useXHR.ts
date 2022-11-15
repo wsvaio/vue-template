@@ -1,4 +1,4 @@
-import { dateFormat, merge, Progress, DeepPartial } from "wsvaio";
+import { dateFormat, merge, Progress, DeepPartial } from "@wsvaio/utils";
 
 
 
@@ -27,7 +27,7 @@ export default (options: DeepPartial<XMLHttpRequest> & {method?: string, url: st
       xhr.open(method, `${DEV ? "/api" : VITE_BASE_API}${url}`);
       xhr.setRequestHeader("Authentication", auth.token);
       merge<T>(xhr, options, {deep: 2});
-      xhr.upload.addEventListener("loadstart", e => {    
+      xhr.upload.addEventListener("loadstart", e => {
         progress.upload = e;
         loading.value = true;
         Progress.start();
@@ -39,7 +39,7 @@ export default (options: DeepPartial<XMLHttpRequest> & {method?: string, url: st
         progress.upload = e;
       });
       xhr.upload.addEventListener("load", e => {
-        
+
       });
 
       xhr.addEventListener("loadstart", e => {
@@ -65,11 +65,11 @@ export default (options: DeepPartial<XMLHttpRequest> & {method?: string, url: st
         console.groupEnd();
       });
       xhr.addEventListener("load", e => {
-        if (xhr.status != 200) error.value = e;  
+        if (xhr.status != 200) error.value = e;
         else data.value = xhr.response;
       });
 
-      
+
 
       xhr.upload.addEventListener("abort", e => {
         error.value = e;

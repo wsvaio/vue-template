@@ -1,11 +1,12 @@
 import * as $apis from "@/apis";
 import * as $utils from "@/utils";
+import $bus from "@/utils/EventBus";
 
 declare module "@vue/runtime-core" {
   export interface ComponentCustomProperties {
     $apis: typeof $apis;
     $utils: typeof $utils;
-    $bus: typeof $utils.EventBus;
+    $bus: typeof $bus;
 
 
   }
@@ -13,7 +14,7 @@ declare module "@vue/runtime-core" {
 
 
 export default (app: App) => Object.assign(app.config.globalProperties, {
-  $apis, $utils, $bus: $utils.EventBus
+  $apis, $utils, $bus
 
 });
 
