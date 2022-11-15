@@ -2,7 +2,7 @@ import { Progress, createAPI } from "wsvaio";
 
 const { DEV, VITE_BASE_API } = import.meta.env;
 // 创建api对象 泛型添加自定义属性
-export const api = createAPI<{ success?: string; headers: Record<string, string>; }>({
+export const { post, get, put, patch, del, request, error, final, before, after, extendAPI } = createAPI<{ success?: string; headers: Record<string, string>; }>({
   baseURL: DEV ? "/api" : VITE_BASE_API,
   log: DEV, // 控制台是否打印日志
   timeout: 0,
@@ -12,7 +12,6 @@ export const api = createAPI<{ success?: string; headers: Record<string, string>
 
 
 });
-export const { post, get, put, patch, del, request, error, final, before, after, extendAPI } = api;
 
 // 请求发出前
 before(async ctx => Progress.start());

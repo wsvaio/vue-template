@@ -54,7 +54,8 @@ export default defineConfig(({ mode, command }) => {
           // pxtorem({
           //   rootValue: 100,
           //   propList: ["*"],
-          // })
+          // }),
+          // postcssPresetEnv(),
         ]
       }
     },
@@ -105,7 +106,7 @@ export default defineConfig(({ mode, command }) => {
       // // setup 添加 name 属性
       VueSetupExtend(),
 
-      // // 点击页面元素,自动打开本地IDE并跳转到对应的Vue组件
+      // 点击页面元素,自动打开本地IDE并跳转到对应的Vue组件
       // Inspector({ enabled: false }),
 
       // mock 数据
@@ -141,21 +142,23 @@ export default defineConfig(({ mode, command }) => {
       // api 自动引入
       AutoImport({
         dts: resolve(__dirname, "typing/auto-import.d.ts"),
-        imports: imports(
-          "vue", "vue-router", "pinia", "@vueuse/core", "vitest",
-          { target: "apis", prefix: "index.ts" },
-          { target: "utils" },
-          { target: "composables", prefix: "use" },
-          { target: "stores", suffix: "Store" }
-        ),
+        imports: ["vue", "vue-router", "pinia", "@vueuse/core", "vitest"],
         resolvers: [
           ElementPlusResolver(),
           VantResolver(),
           NaiveUiResolver(),
+        ],
+        dirs: [
+          "src/apis",
+          "src/utils",
+          "src/composables",
+          "src/stores"
+        ],
+        exclude: [
+          /request.ts$/
         ]
+
       }),
-      // 自动引入的文件修改后重启服务器（auto-imports.d.ts才会更新）
-      importsListen(),
 
       // 组件自动引入
       Components({
@@ -165,6 +168,9 @@ export default defineConfig(({ mode, command }) => {
           VantResolver(),
           NaiveUiResolver(),
           IconsResolver(),
+        ],
+        dirs: [
+          "src/components",
         ]
 
       }),
