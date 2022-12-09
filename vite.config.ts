@@ -9,7 +9,6 @@ import Components from "unplugin-vue-components/vite";
 import { ElementPlusResolver, VantResolver, NaiveUiResolver } from "unplugin-vue-components/resolvers";
 import AutoImport from "unplugin-auto-import/vite";
 
-import VueSetupExtend from "vite-plugin-vue-setup-extend";
 
 import Unocss from "unocss/vite";
 import { presetUno, presetAttributify, transformerDirectives } from "unocss";
@@ -17,9 +16,8 @@ import { presetUno, presetAttributify, transformerDirectives } from "unocss";
 import Icons from "unplugin-icons/vite";
 import IconsResolver from "unplugin-icons/resolver";
 
-
-import sfcExtendTag from "vite-plugin-vue-sfcextendtag";
-
+import scriptAttrs from "vite-plugin-vue-script-attrs";
+import tempalteTag from "vite-plugin-vue-template-tag";
 
 // import legacy from "@vitejs/plugin-legacy";
 
@@ -80,38 +78,30 @@ export default defineConfig(({ mode, command }) => {
     },
 
     plugins: [
-
-      // 检查根<template>是否有tag属性 如果有则在原来的基础上添加这个tag标签包裹
-      sfcExtendTag(),
-
       vue({
         // include: [/\.vue$/, /\.md$/],
         // 开启 vue $() 语法糖
         reactivityTransform: true
 
       }),
+      // 移动setup script标签上的属性到一个新的script标签内导出
+      scriptAttrs(),
+      // 支持.vue文件<template>根标签添加tag等属性，解析成新的子元素并包裹旧的子元素
+      tempalteTag(),
 
-      // legacy({
-      //   // targets: ["defaults", "not IE 11"]
-      //   // targets: ["defaults", "not IE 11"]
-      // }),
+      // legacy(),
 
+      // VitePWA(),
 
-      // VitePWA({}),
-
-      // 支持md文件解析为vue组件
+      // 解析.md文件为vue组件
       // Markdown(),
 
-      // // setup 添加 name 属性
-      VueSetupExtend(),
-
-      // 点击页面元素,自动打开本地IDE并跳转到对应的Vue组件
-      // Inspector({ enabled: false }),
-
-      // mock 数据
       // viteMockServe(),
 
-      // unocss 原子化css
+      // iconify 图标
+      Icons(),
+
+      // 原子化css
       Unocss({
         presets: [
           // 基础预设
@@ -169,8 +159,7 @@ export default defineConfig(({ mode, command }) => {
         ]
 
       }),
-      // iconify
-      Icons({})
+
     ],
 
   };

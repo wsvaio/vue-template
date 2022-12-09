@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { RouteRecordRaw } from "vue-router";
 
 
 
@@ -10,6 +11,12 @@ export default defineStore("admin", {
   },
   actions: {
 
+    isRouteShow(route: RouteRecordRaw) {
+      return (this.include.length == 0 || this.include.includes(route.name))
+        && !this.exclude.includes(route.name)
+        && route.meta?.icon
+        && (!route.children || route.children.length > 0);
+    }
 
   },
   getters: {

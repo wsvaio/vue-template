@@ -26,6 +26,7 @@ const syncPopupShow = (show) => {
 provide("syncPopupShow", syncPopupShow);
 
 const setPosition = (direction = "bottom") => {
+  if (!vpopupRef || !popupRef) return;
   const { clientWidth, clientHeight } = vpopupRef;
   const { clientWidth: width, clientHeight: height } = document.documentElement;
   let { offsetLeft, offsetTop } = deepPosition(vpopupRef);
@@ -103,7 +104,7 @@ onBeforeMount(() => {
   </div>
   <teleport to="#popup-box">
     <transition>
-      <div v-show="popupShow" ref="popupRef" class="popup" :style="popupStyle"
+      <div v-if="popupShow" ref="popupRef" class="popup" :style="popupStyle"
         @mouseleave="syncPopupShow(false)" @mousemove="syncPopupShow(true)"
         @mouseenter="syncPopupShow(true)">
         <slot name="popup"></slot>
@@ -127,7 +128,7 @@ onBeforeMount(() => {
 .popup {
   overflow: auto;
   position: absolute;
-  z-index: 999;
+  z-index: 9999;
   background: var(--menu-bg-color, #001529);
   box-shadow: var(--el-box-shadow);
 }

@@ -1,7 +1,7 @@
 import { RouteRecordRaw } from "vue-router";
 import Admin from "./admin/index.vue";
-import { Menu } from "@element-plus/icons-vue";
-import vrouter from "@/components/vrouter/index.vue";
+
+import Menu from "~icons/ep/menu";
 
 export const adminRoutes: RouteRecordRaw[] = [
 
@@ -53,13 +53,13 @@ export const adminRoutes: RouteRecordRaw[] = [
         ]
       },
       {
-        path: "item1", name: "item1",
+        path: "item1", name: "item11",
         meta: { title: "item1", icon: Menu },
         component: () => import("@/views/list/item1/index.vue"),
 
       },
       {
-        path: "item2", name: "item2",
+        path: "item2", name: "item22",
         meta: { title: "item2", icon: Menu },
         component: () => import("@/views/list/item2/index.vue"),
 

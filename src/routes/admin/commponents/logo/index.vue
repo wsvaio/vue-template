@@ -1,26 +1,23 @@
 <script setup lang='ts'>
-import mainLayoutStore from "@/routes/admin/stores/adminLayoutStore";
-const { layout } = $(mainLayoutStore());
+import useStore from "@/routes/admin/store";
+const { layout, collapse } = $((useStore()));
 const { VITE_DOCUMENT_TITLE } = import.meta.env;
 </script>
 
-<template tag="div" class="logo" @click="layout = layout == 'top' ? 'left' : 'top'">
-  <img src="@/assets/admin.png" width="48" height="48" m="x-8px" />
-  <div m="r-8px" overflow="hidden" max="h-40px">{{ VITE_DOCUMENT_TITLE }}</div>
+<template tag="div" class="logo" @click="layout = layout == 'top' ? 'left' : 'top'" :title="VITE_DOCUMENT_TITLE">
+  <img src="@/assets/admin.png" width="48" height="48" />
+  <div v-show="!collapse" overflow="hidden" max="h-40px" m="l-8px">{{ VITE_DOCUMENT_TITLE }}</div>
 </template>
 
 <style lang='less' scoped>
 .logo {
   display: flex;
   overflow: hidden;
-  border-bottom: 1px solid var(--el-border-color);
-  width: var(--aside-width, 200px);
-  font-size: 16px;
-  font-weight: bold;
-  line-height: 20px;
+  font: bold 16px / 20px normal;
   color: var(--el-text-color-primary);
   transition: background-color 0.2s;
   align-items: center;
+  justify-content: center;
 
   &:hover {
     background-color: var(--el-bg-color-page);
@@ -28,27 +25,8 @@ const { VITE_DOCUMENT_TITLE } = import.meta.env;
   }
 }
 
-.collapse:not(.mobile) .logo {
-  padding: 0;
-  justify-content: center;
-
-  & > div {
-    display: none;
-  }
+.admin-layout:not(.collapse) .logo {
+  justify-content: flex-start;
+  padding: 0 12px;
 }
-
-.left .logo, .mobile .logo {
-  --el-border-color: transparent;
-
-  transition: width 0.2s;
-}
-
-html:not(.dark) {
-  .left .logo, .mobile .logo {
-    --el-text-color-primary: white;
-
-    background: #001529;
-  }
-}
-
 </style>

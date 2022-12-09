@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 
-import mainLayoutStore from "@/routes/admin/stores/adminLayoutStore";
-const { keepAlive } = $(mainLayoutStore());
+import useStore from "@/routes/admin/store";
+const { keepAlive } = $(useStore());
 
 
 function dragstart(event: DragEvent) {

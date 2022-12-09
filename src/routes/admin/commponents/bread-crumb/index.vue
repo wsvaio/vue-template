@@ -1,13 +1,9 @@
-<script lang="ts" setup>
-import { ArrowRight } from "@element-plus/icons-vue";
-const route = useRoute();
-</script>
-
 <template>
   <el-breadcrumb class="bread-crumb">
     <transition-group tag="div" mode="out-in">
       <template v-for="item in $route.matched">
-        <el-breadcrumb-item v-if="item.meta?.title" :key="item.name" :to="{ name: item.name, params: route.params }">
+        <el-breadcrumb-item v-if="item.meta?.title" :key="item.name"
+          :to="{ name: item.name, params: $route.params }">
           <el-icon :size="16" class="align-middle">
             <component :is="item.meta?.icon"></component>
           </el-icon>
@@ -20,13 +16,11 @@ const route = useRoute();
 
 <style lang="less" scoped>
 .bread-crumb {
-  display: flex;
-  overflow: hidden;
+  display: grid;
+  align-items: center;
+  overflow: auto;
   border-bottom: 1px solid var(--el-border-color);
   padding: 0 8px;
-  min-width: 100px;
-  white-space: nowrap;
-  align-items: center;
 }
 
 .v-enter-from,

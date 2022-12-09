@@ -96,9 +96,9 @@
       // 必须有一个根标签
       "vue/valid-template-root": "off",
       // v-for 设置key
-      "vue/valid-v-for": "warn",
+      "vue/valid-v-for": "off",
       // v-for 设置key
-      "vue/require-v-for-key": "warn",
+      "vue/require-v-for-key": "off",
       // 不要使用v-html
       "vue/no-v-html": "warn",
       // v-slot 只能用在template标签上

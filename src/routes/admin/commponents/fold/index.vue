@@ -1,11 +1,11 @@
 <script setup lang='ts'>
-import mainLayoutStore from "@/routes/admin/stores/adminLayoutStore";
-const { layout, collapse } = $(mainLayoutStore());
+import useStore from "@/routes/admin/store";
+const { layout, collapse } = $(useStore());
 </script>
 
 <template tag="div" :class="['fold', layout]" @click="collapse = !collapse">
-  <i-ant-design:menu-fold-outlined v-if="!collapse"></i-ant-design:menu-fold-outlined>
-  <i-ant-design:menu-unfold-outlined v-else></i-ant-design:menu-unfold-outlined>
+  <i-ant-design:menu-unfold-outlined v-if="collapse"></i-ant-design:menu-unfold-outlined>
+  <i-ant-design:menu-fold-outlined v-else></i-ant-design:menu-fold-outlined>
 </template>
 
 <style lang='less' scoped>
@@ -21,10 +21,6 @@ const { layout, collapse } = $(mainLayoutStore());
   &:hover {
     background-color: var(--el-bg-color-page);
     cursor: pointer;
-  }
-
-  &.top {
-    display: none;
   }
 }
 </style>

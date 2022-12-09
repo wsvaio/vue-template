@@ -1,6 +1,6 @@
 <script setup lang='ts'>
-import mainLayoutStore from "@/routes/admin/stores/adminLayoutStore";
-let { nameList } = $(mainLayoutStore());
+import useStore from "@/routes/admin/store";
+let { nameList } = $(useStore());
 </script>
 
 <template tag="div" class="main">

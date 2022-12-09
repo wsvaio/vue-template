@@ -1,8 +1,8 @@
 <script setup lang='ts'>
 import { Delete, DocumentAdd, Search, Refresh } from "@element-plus/icons-vue";
-import { merge, sleep, remove } from "@wsvaio/utils";
+import { merge, sleep, pick } from "@wsvaio/utils";
 const submit = async ({ checkList, drawer, payload }: vtableCtx) => {
-  const { name } = remove(payload, "name");
+  const { name } = pick(payload, ["name"], true);
   if (name == "删除") {
     if (checkList.length == 0) return ElNotification.warning("请选择删除项") && false;
     await Promise.all(checkList.map(({ id }) => delTodo({ param: { id } })));

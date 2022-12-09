@@ -1,11 +1,10 @@
 <script lang="ts" name="about" setup>
 
-const isDark = useDark();
-const toggleDark = useToggle(isDark);
+
 
 </script>
 
 <template tag="div">
-  <el-button @click="toggleDark()">btn</el-button>
+  <div class="mt-20px" max="w-20px h-30px" flex="" items="center">123</div>
 </template>
 

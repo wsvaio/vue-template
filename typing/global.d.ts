@@ -2,7 +2,7 @@ import { App as app, ComponentOptions } from "vue";
 
 declare module "vue" {
   export interface GlobalComponents {
-
+    // component: ComponentOptions;
   }
 }
 

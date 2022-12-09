@@ -1,26 +1,29 @@
 <script setup name="home" lang='ts'>
+const active = ref(true);
 </script>
 
-<template tag="div">
-  <vtable :paging="async params => ({
-    page: 1,
-    pageSize: 10,
-    count: 20000,
-    items: [
-      { id: 1, name: 'ws' }
-    ]
-  })" :action="async ({ payload }) => {
-    $utils.log(payload)
-  }">
-    <template #top="{ payload }">
-      <el-button @click="payload.hh = 123">hh</el-button>
+<template tag="div" class="fu">
+  <vpopup transition-name="fade" :duration="100" :active="active" class="myPopup">
+    <template #popup>
+      <vpopup transition-name="fade" :duration="100">
+        321
+        <template #popup>
+          <vpopup transition-name="fade" :duration="100">
+            321
+            <template #popup>
+              456
+            </template>
+          </vpopup>
+        </template>
+      </vpopup>
     </template>
-
-    <el-table-column label="ID" prop="id"></el-table-column>
-    <el-table-column label="NAME" prop="name"></el-table-column>
-  </vtable>
+    <el-button @click="active = !active">{{ active }}</el-button>
+    123
+  </vpopup>
 </template>
 
 <style lang="less" scoped>
-
+.vpopup {
+  border: 1px solid #000;
+}
 </style>

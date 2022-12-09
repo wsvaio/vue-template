@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 import { merge, sleep } from "@wsvaio/utils";
-import mainLayoutStore from "@/routes/admin/stores/adminLayoutStore";
-const { layout } = $(mainLayoutStore());
+import useStore from "@/routes/admin/store";
+const { layout } = $(useStore());
 const router = useRouter();
 const { toggle, isFullscreen } = useFullscreen();
 
@@ -11,6 +11,7 @@ const handleCommand = (command: T) => {
   if (command === "logout") {
     auth.logout();
   } else if (command === "editpwd") {
+    if (!vdialogRef) return;
     merge(vdialogRef.dialog, {
       slot: "editpwd",
       title: "修改密码",
