@@ -35,6 +35,10 @@
     // 此规则检测无效的 HTML 属性。
     "vue/valid-attribute-name": "off",
     // 禁止 v-for 指令或作用域属性的未使用变量定义
-    "vue/no-unused-vars": "off"
+    "vue/no-unused-vars": "off",
+    // 强制执行有效指令v-slot 此规则检查每个指令是否有效。v-slot
+    "vue/valid-v-slot": "off",
+    // 不允许不必要的<template>
+    "vue/no-lone-template": "off"
   }
 }
