@@ -1,13 +1,14 @@
-import "wsvaio/styles/reset.css";
-import "./scrollbar.css";
-import "./theme.less";
+import "./normalize.css";
+import "./scrollbar.less";
+
+import "element-plus/theme-chalk/dark/css-vars.css";
 
 import "vant/es/toast/style";
 import "vant/es/dialog/style";
 import "vant/es/notify/style";
 import "vant/es/image-preview/style";
 
-
-import "./main.css";
+import "./theme.less";
+import "./main.less";
 
 import "uno.css";

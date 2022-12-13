@@ -1,35 +1,34 @@
-import { Progress, createAPI } from "wsvaio";
+import { Progress } from "@wsvaio/utils";
+import { createAPI } from "@wsvaio/api";
 
 const { DEV, VITE_BASE_API } = import.meta.env;
 // 创建api对象 泛型添加自定义属性
-export const api = createAPI<{ success?: string; headers: Record<string, string>; }>({
-  baseURL: DEV ? "" : VITE_BASE_API,
+export const { post, get, put, patch, del, request, use, befores } = createAPI<{
+  success?: string;
+}>({
+  baseURL: DEV ? "/api" : VITE_BASE_API,
   log: DEV, // 控制台是否打印日志
   timeout: 0,
-  headers: {
-
-  },
-
-
+  headers: {},
 });
-export const { post, get, put, patch, del, request, error, final, before, after, extendAPI } = api;
 
 // 请求发出前
-before(async ctx => Progress.start());
+use("befores")(async ctx => Progress.start());
 
 // 请求发出后
 // 复制响应消息
-after(async ctx => ctx.message = ctx.data?.msg ?? ctx.message);
+use("afters")(async ctx => (ctx.message = ctx.data?.msg ?? ctx.message));
 // 判断响应状态码
-after(async ctx => (ctx.data?.code < 200 || ctx.data?.code > 299) && Promise.reject(ctx));
+use("afters")(async ctx => (ctx.data?.code < 200 || ctx.data?.code > 299) && Promise.reject(ctx));
 // 响应内容扁平化
-after(async ctx => ctx.data = ctx.data?.data ?? ctx.data);
+use("afters")(async ctx => (ctx.data = ctx.data?.data ?? ctx.data));
 
 // 结束时总会运行
 // 进度条结束
-final(async ctx => Progress.done(!ctx.error));
+use("finals")(async ctx => Progress.done(!ctx.error));
 // notice 通知 不设置success则不会通知
-final(async ctx => ctx.error
-  ? ctx.message && showFailToast(ctx.message)
-  : ctx.success && showSuccessToast(ctx.success));
-
+use("finals")(async ctx =>
+  ctx.error
+    ? ctx.message && showFailToast(ctx.message)
+    : ctx.success && showSuccessToast(ctx.success)
+);

@@ -1,6 +1,16 @@
-import { createEventBus } from "wsvaio";
-export { showToast, showDialog, showNotify, showImagePreview, showSuccessToast, showFailToast, showLoadingToast, showConfirmDialog } from "vant";
+import { createEventBus } from "@wsvaio/utils";
 
-export const EventBus = createEventBus();
+export {
+  showToast,
+  showDialog,
+  showNotify,
+  showImagePreview,
+  showSuccessToast,
+  showFailToast,
+  showLoadingToast,
+  showConfirmDialog,
+} from "vant";
 
 export const log = console.log;
+
+export const bus = createEventBus();

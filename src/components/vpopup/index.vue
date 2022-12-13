@@ -1,69 +1,72 @@
-<script setup lang='ts'>
-import { PopupProps, FormInstance, FormProps } from "vant";
+<script setup lang="ts">
 import { useRequest } from "vue-request";
-import { merge, omit } from "wsvaio";
+import { merge } from "@wsvaio/utils";
 
 const {
-  action: act,
-  popup: _popup = {},
-  formProps: _formProps = {},
+  action,
+  popup: popupProps = {},
+  form: formProps = {},
 } = defineProps<{
-  action: (ctx: vpopupCtx) => Promise<T>,
-  popup?: vpopupCtx["popup"],
-  formProps?: vpopupCtx["formProps"],
+  action: (ctx: vpopupCtx) => Promise<any>;
+  popup?: vpopupCtx["popup"];
+  form?: vpopupCtx["form"];
 }>();
 
-
-const emit = defineEmits(["success"]);
-
-const { data, loading, runAsync: action, run } = $(useRequest(async (name = "") => {
-  await vanFormRef.validate();
-  if (name) popup.name = name;
-  return await act(ctx);
-}, {
-  manual: true,
-  onSuccess(data) {
-    if (!data) return;
-    popup.slot = "";
-    emit("success");
-  }
-}));
-
-const vanFormRef = $ref<FormInstance>();
-const form = reactive<obj>({});
-const formProps = reactive<vpopupCtx["formProps"]>({});
-const popup = reactive<vpopupCtx["popup"]>({
-  show: false,
-  slot: "",
-  name: "",
+const vanFormRef = $ref<vpopupCtx["vanFormRef"]>();
+const form = reactive<vpopupCtx["form"]>({});
+const popup = reactive<vpopupCtx["popup"]>({});
+const payload = reactive<vpopupCtx["payload"]>({
+  $show: false,
+  $name: "",
+  $slot: "",
+});
+Object.defineProperties(payload, {
+  $show: { enumerable: false },
+  $name: { enumerable: false },
+  $slot: { enumerable: false },
 });
 
+const { loading, runAsync } = $(
+  useRequest(
+    async (options?: string | vpopupCtx["payload"]) => {
+      if (typeof options == "object") merge(payload, options);
+      else if (typeof options == "string") payload.$name = options;
+      return await action(ctx);
+    },
+    {
+      manual: true,
+      onSuccess: data => data && (payload.$show ? (payload.$show = false) : close()),
+    }
+  )
+);
 
-watchEffect(() => {
-  popup.show = !!popup.slot;
-});
+watchEffect(() => (payload.$show = !!payload.$slot));
 
-const closedHandler = () => {
+const close = () => {
   merge(form, {}, { del: true });
-  merge(popup, { show: false, slot: "" }, { del: true });
-  merge(formProps, _formProps, { del: true });
-  vanFormRef.resetValidation();
+  merge(popup, {}, { del: true });
+  merge(payload, { $show: false, $name: "", $slot: "" }, { del: true });
+  vanFormRef?.resetValidation();
 };
 
-const ctx = { form, formProps, popup, vanFormRef, action };
+const ctx = reactive({ form, formProps, popup, vanFormRef, act: runAsync, payload });
+onMounted(() => vanFormRef && (ctx.vanFormRef = vanFormRef));
 defineExpose(ctx);
 </script>
 
 <template>
-  <van-form ref="vanFormRef" :="{..._formProps, ...formProps}">
-    <slot :="ctx" :loading="loading"></slot>
-    <van-popup v-model:show="popup.show" :="omit({..._popup, ...popup}, 'show', 'slot')"
-      close-on-click-overlay :before-close="() => !loading" @closed="closedHandler">
-      <slot :name="popup.slot" :="ctx" :loading="loading"></slot>
+  <van-form ref="vanFormRef" :="{ ...formProps, ...form }">
+    <slot :="ctx"></slot>
+    <van-popup
+      v-model:show="payload.$show"
+      :="{ ...popupProps, ...popup }"
+      close-on-click-overlay
+      :before-close="() => !loading"
+      @closed="close"
+    >
+      <slot :name="payload.$slot" :="ctx"></slot>
     </van-popup>
   </van-form>
 </template>
 
-<style lang='less' scoped>
-
-</style>
+<!-- <style lang="less" scoped></style> -->

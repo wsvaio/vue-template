@@ -1,20 +1,11 @@
 import { defineStore } from "pinia";
 
-
-
 export default defineStore("admin", {
   state() {
-    return {
-
-    };
+    return {};
   },
-  actions: {
-
-
-  },
+  actions: {},
   getters: {
-
-
     // 管理员不能查看的页面
     exclude(): string[] {
       return [];
@@ -22,8 +13,6 @@ export default defineStore("admin", {
     // 管理员能查看的页面
     include(): string[] {
       return [];
-    }
-
-
-  }
+    },
+  },
 });

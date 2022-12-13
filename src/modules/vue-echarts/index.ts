@@ -25,7 +25,6 @@
 //   LegendComponent,
 //   LegendComponentOption,
 
-
 // } from "echarts/components";
 
 // import { PieChart } from "echarts/charts";
@@ -42,7 +41,6 @@
 //   PieChart,
 //   LabelLayout
 // ]);
-
 
 // declare module "vue" {
 //   export interface GlobalComponents {
@@ -61,8 +59,7 @@
 //   >;
 // }
 
-
-export default (app: App) => {
-  // 全局注册组件（也可以使用局部注册）
-  // app.component("VChart", ECharts);
-};
+// export default (app: App) => {
+//   // 全局注册组件（也可以使用局部注册）
+//   // app.component("VChart", ECharts);
+// };

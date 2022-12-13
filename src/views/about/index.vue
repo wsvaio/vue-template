@@ -1,10 +1,3 @@
-<script lang="ts" setup>
+<script lang="ts" setup></script>
 
-
-
-</script>
-
-<template tag="div">
-  Hello
-</template>
-
+<template tag="div">Hello</template>

@@ -1,4 +1,4 @@
-<script setup lang='ts'>
+<script setup lang="ts">
 const { nameList } = $(mainStore());
 </script>
 
@@ -10,6 +10,4 @@ const { nameList } = $(mainStore());
   </router-view>
 </template>
 
-<style lang='less' scoped>
-
-</style>
+<!-- <style lang="less" scoped></style> -->

@@ -1,21 +1,20 @@
 {
   "compilerOptions": {
-    "target": "esnext",
+    "target": "ESNext",
     "useDefineForClassFields": true,
-    "module": "esnext",
-    "moduleResolution": "node",
+    "module": "ESNext",
+    "moduleResolution": "Node",
     "strict": true,
     "jsx": "preserve",
     "sourceMap": true,
     "resolveJsonModule": true,
-    "isolatedModules": true,
+    "isolatedModules": false,
     "esModuleInterop": true,
-    "lib": ["esnext", "dom", "dom.iterable"],
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
     "composite": true,
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": false,
-    "noImplicitThis": false,
     "baseUrl": ".",
     "paths": {
       "@/*": [
@@ -24,14 +23,13 @@
     },
     "types": [
       "vite/client",
-      "vue/macros-global",
       "element-plus/global",
       "naive-ui/volar",
       "vant/es/index"
     ],
   },
   "include": [
-    "presets/**/*.ts",
+    "typing/**/*.ts",
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.vue",

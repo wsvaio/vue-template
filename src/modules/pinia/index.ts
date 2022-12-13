@@ -1,8 +1,8 @@
-import piniaPluginPersist from "pinia-plugin-persist";
+import { createPersistedState } from "pinia-plugin-persistedstate";
+import { App } from "vue";
 
 const pinia = createPinia();
 // pinia 持久化
-pinia.use(piniaPluginPersist);
+pinia.use(createPersistedState());
 
 export default (app: App) => app.use(pinia);
-

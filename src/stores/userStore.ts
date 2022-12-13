@@ -1,21 +1,9 @@
 import { defineStore } from "pinia";
 
-
-
 export default defineStore("user", {
   state() {
-    return {
-
-    };
+    return {};
   },
-  actions: {
-
-
-  },
-  getters: {
-
-
-
-
-  }
+  actions: {},
+  getters: {},
 });

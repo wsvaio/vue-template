@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-
 const props = defineProps<{
   label?: string;
   prop?: string;
@@ -10,12 +9,9 @@ const current = getCurrentInstance();
 current?.parent?.exposed?.column?.push({
   ...props,
   attrs: current.attrs,
-  slots: current.slots
+  slots: current.slots,
 });
-
 </script>
 
-<template>
-</template>
-
-
+<!-- eslint-disable-next-line vue/valid-template-root -->
+<template></template>
