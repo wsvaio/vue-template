@@ -1,13 +1,13 @@
 import { DialogProps, DrawerProps, FormProps, FormInstance } from "element-plus";
-import { Ref } from "vue";
 declare global {
   type vdrawerCtx = {
-    drawer: Read<Partial<DrawerProps>> & { show?: boolean; slot?: string };
-    form: Read<Partial<FormProps>>;
-    payload: obj & { name?: string };
+    drawer: Writeable<Partial<DrawerProps>>;
+    form: Writeable<Partial<FormProps>>;
+    payload: Record<any, any> & { $name?: string; $show?: boolean; $slot?: string };
     loading: boolean;
-    action: (options?: string | obj) => Promise<any>;
+    act: (options?: string | vdrawerCtx["payload"]) => Promise<any>;
     elFormRef?: FormInstance;
+    close: () => void;
   };
 }
 

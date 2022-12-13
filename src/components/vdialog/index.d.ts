@@ -1,12 +1,13 @@
 import { DialogProps, FormProps, FormInstance } from "element-plus";
 declare global {
   type vdialogCtx = {
-    dialog: Writeable<Partial<DialogProps>> & { show?: boolean; slot?: string };
+    dialog: Writeable<Partial<DialogProps>>;
     form: Writeable<Partial<FormProps>>;
-    payload: obj & { name?: string };
+    payload: Record<any, any> & { $show?: boolean; $slot?: string; $name?: string };
     loading: boolean;
-    action: (options?: string | obj) => Promise<any>;
+    act: (options?: string | vdialogCtx["payload"]) => Promise<any>;
     elFormRef?: FormInstance;
+    close: () => void;
   };
 }
 

@@ -3,12 +3,12 @@ import { usePagination } from "vue-request";
 import { PaginationProps, TableProps } from "element-plus";
 import { debounce } from "@wsvaio/utils";
 const {
-  paging,
+  data: tableData,
   action,
   form: form = {},
   drawer: drawer = {},
 } = defineProps<{
-  paging: (
+  data: (
     params: Record<any, any>
   ) => Promise<{ count: number; items: Record<any, any>[] } & Record<any, any>>;
   action: (ctx: vtableCtx) => Promise<any>;
@@ -26,7 +26,7 @@ watch(
   debounce(() => refresh(), 500)
 );
 const { refresh, data, loading, pageSize, total, current } = $(
-  usePagination(data => paging({ ...data, ...params }), {})
+  usePagination(data => tableData({ ...data, ...params }), {})
 );
 
 const vdrawerRef = $ref<vdrawerCtx>();
@@ -39,7 +39,7 @@ defineExpose(ctx);
   <vdrawer
     ref="vdrawerRef"
     :drawer="drawer"
-    :action="() => action(ctx).then(data => (data && refresh()) || data)"
+    :action="() => action(ctx)"
     class="vtable"
     :form="form"
     @submited="refresh"

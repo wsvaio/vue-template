@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRequest } from "vue-request";
 import { FormInstance } from "element-plus";
-import { merge, omit } from "@wsvaio/utils";
+import { merge } from "@wsvaio/utils";
 const {
   action,
   form: formProps = {},
@@ -14,35 +14,42 @@ const {
 
 const elFormRef = $ref<FormInstance>();
 const form = reactive<vdialogCtx["form"]>({});
-const dialog = reactive<vdialogCtx["dialog"]>({ show: false, slot: "" });
-const payload = reactive<vdialogCtx["payload"]>({});
-
+const dialog = reactive<vdialogCtx["dialog"]>({});
+const payload = reactive<vdialogCtx["payload"]>({
+  $show: false,
+  $name: "",
+  $slot: "",
+});
+Object.defineProperties(payload, {
+  $show: { enumerable: false },
+  $name: { enumerable: false },
+  $slot: { enumerable: false },
+});
 const { runAsync, loading } = $(
   useRequest(
     async (options?: string | vdialogCtx["payload"]) => {
       if (typeof options == "object") {
         merge(payload, options);
       } else if (typeof options == "string") {
-        payload.name = options;
+        payload.$name = options;
       }
       return await action(ctx);
     },
     {
       manual: true,
-      onSuccess: data => data && (dialog.show ? (dialog.show = false) : close()),
     }
   )
 );
-watchEffect(() => (dialog.show = !!dialog.slot));
+watchEffect(() => (payload.$show = !!payload.$slot));
 
 const close = () => {
   merge(form, {}, { del: true });
-  merge(dialog, { show: false, slot: "" }, { del: true });
-  merge(payload, {}, { del: true });
+  merge(dialog, {}, { del: true });
+  merge(payload, { $show: false, $name: "", $slot: "" }, { del: true });
   elFormRef?.clearValidate();
 };
 
-const ctx = reactive({ dialog, form, action: runAsync, payload, loading });
+const ctx = reactive({ dialog, form, act: runAsync, payload, loading, close });
 onMounted(() => elFormRef && (ctx.elFormRef = elFormRef));
 defineExpose(ctx);
 </script>
@@ -56,19 +63,19 @@ defineExpose(ctx);
     :disabled="loading"
   >
     <el-dialog
-      v-model="dialog.show"
-      :="omit({ ...dialogProps, ...dialog }, ['slot', 'show'])"
+      v-model="payload.$show"
+      :="{ ...dialogProps, ...dialog }"
       :before-close="done => loading || done()"
       @closed="close"
     >
       <div v-loading="loading" min="h-full">
-        <slot :name="dialog.slot" :="ctx"></slot>
+        <slot :name="payload.$slot" :="ctx"></slot>
       </div>
       <template #footer>
-        <slot :name="`${dialog.slot}-footer`" :="ctx">
-          <el-button @click="dialog.show = false">取消</el-button>
+        <slot :name="`${payload.$slot}-footer`" :="ctx">
+          <el-button @click="payload.$show = false">取消</el-button>
           <el-button type="primary" @click="runAsync()">
-            <slot :name="`${dialog.slot}-submit-text`" :="ctx">确定</slot>
+            <slot :name="`${payload.$slot}-submit-text`" :="ctx">确定</slot>
           </el-button>
         </slot>
       </template>

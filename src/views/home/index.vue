@@ -1,24 +1,6 @@
 <script setup name="home" lang="ts">
 const active = ref(true);
 const auth = authStore();
-
-runFunctions(
-  onMounted,
-  onBeforeMount
-)(() => {
-  tryingSync(
-    () => {
-      throw new Error("wdf");
-    },
-    error => {
-      console.log(error);
-    },
-    () => {
-      console.log("finally");
-    }
-  );
-  console.log("over");
-});
 </script>
 
 <template tag="div" class="fu">

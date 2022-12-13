@@ -1,7 +1,7 @@
 declare global {
   type vtableCtx = {
-    params: obj;
-    checkList: obj[];
+    params: record<any, any>;
+    checkList: record<any, any>[];
     refresh: () => void;
   } & vdrawerCtx;
 }

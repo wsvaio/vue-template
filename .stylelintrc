@@ -12,8 +12,23 @@
     }
   ],
   "rules": {
-    "selector-pseudo-class-no-unknown": null,
-    "selector-class-pattern": null,
+    "unit-case": null,
+    "selector-pseudo-class-no-unknown": [true, {
+      "ignorePseudoClasses": ["/^deep/"]
+    }],
+    "function-no-unknown": [
+      true,
+      {
+        "ignoreFunctions": ["/^v-/"]
+      }
+    ],
+    "value-keyword-case": [
+      "lower",
+      {
+        "ignoreFunctions": ["/^v-/"]
+      }
+    ],
+
     "order/order": [
       {
         "type": "at-rule",

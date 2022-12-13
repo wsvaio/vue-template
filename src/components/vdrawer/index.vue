@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { useRequest } from "vue-request";
 import { FormInstance } from "element-plus";
-import { merge, omit } from "@wsvaio/utils";
+import { merge } from "@wsvaio/utils";
 const {
   action,
-  form: _form = {},
-  drawer: _drawer = {},
+  form: formProps = {},
+  drawer: drawerProps = {},
 } = defineProps<{
   action: (ctx: vdrawerCtx) => Promise<any>;
   drawer?: vdrawerCtx["drawer"];
@@ -14,8 +14,17 @@ const {
 
 const elFormRef = $ref<FormInstance>();
 const form = reactive<vdrawerCtx["form"]>({});
-const drawer = reactive<vdrawerCtx["drawer"]>({ show: false, slot: "" });
-const payload = reactive<vdrawerCtx["payload"]>({});
+const drawer = reactive<vdrawerCtx["drawer"]>({});
+const payload = reactive<vdrawerCtx["payload"]>({
+  $show: false,
+  $name: "",
+  $slot: "",
+});
+Object.defineProperties(payload, {
+  $show: { enumerable: false },
+  $name: { enumerable: false },
+  $slot: { enumerable: false },
+});
 
 const { runAsync, loading } = $(
   useRequest(
@@ -23,26 +32,25 @@ const { runAsync, loading } = $(
       if (typeof options == "object") {
         merge(payload, options);
       } else if (typeof options == "string") {
-        payload.name = options;
+        payload.$name = options;
       }
       return await action(ctx);
     },
     {
       manual: true,
-      onSuccess: data => data && (drawer.show ? (drawer.show = false) : close()),
     }
   )
 );
-watchEffect(() => (drawer.show = !!drawer.slot));
+watchEffect(() => (payload.$show = !!payload.$slot));
 
 const close = () => {
   merge(form, {}, { del: true });
-  merge(drawer, { show: false, slot: "" }, { del: true });
-  merge(payload, {}, { del: true });
+  merge(drawer, {}, { del: true });
+  merge(payload, { $show: false, $name: "", $slot: "" }, { del: true });
   elFormRef?.clearValidate();
 };
 
-const ctx = reactive({ drawer, form, action: runAsync, payload, loading });
+const ctx = reactive({ drawer, form, act: runAsync, payload, loading, close });
 onMounted(() => elFormRef && (ctx.elFormRef = elFormRef));
 defineExpose(ctx);
 </script>
@@ -52,23 +60,23 @@ defineExpose(ctx);
     ref="elFormRef"
     label-position="top"
     :model="form"
-    :="{ ..._form, ...form }"
+    :="{ ...formProps, ...form }"
     :disabled="loading"
   >
     <el-drawer
-      v-model="drawer.show"
-      :="omit({ ..._drawer, ...drawer }, ['slot', 'show'])"
+      v-model="payload.$show"
+      :="{ ...drawerProps, ...drawer }"
       :before-close="done => loading || done()"
       @closed="close"
     >
       <div v-loading="loading" min="h-full">
-        <slot :name="drawer.slot" :="ctx"></slot>
+        <slot :name="payload.$slot" :="ctx"></slot>
       </div>
       <template #footer>
-        <slot :name="`${drawer.slot}-footer`" :="ctx">
-          <el-button @click="drawer.show = false">取消</el-button>
+        <slot :name="`${payload.$slot}-footer`" :="ctx">
+          <el-button @click="payload.$show = false">取消</el-button>
           <el-button type="primary" @click="runAsync()">
-            <slot :name="`${drawer.slot}-submit-text`" :="ctx">确定</slot>
+            <slot :name="`${payload.$slot}-submit-text`" :="ctx">确定</slot>
           </el-button>
         </slot>
       </template>

@@ -13,18 +13,17 @@ const handleCommand = (command: string) => {
   } else if (command === "editpwd") {
     if (!vdialogRef) return;
     merge(vdialogRef.dialog, {
-      slot: "editpwd",
       title: "修改密码",
       width: "500px",
     });
+    vdialogRef.payload.$slot = "editpwd";
     vdialogRef.form.labelPosition = "top";
   }
 };
 
-const submit = async ({ form, payload }: vdialogCtx) => {
+const submit = async ({ form, payload, close }: vdialogCtx) => {
   console.log("更改密码");
   await sleep(1000);
-  return true;
 };
 const isDark = useDark();
 
@@ -57,9 +56,9 @@ const vdialogRef = $ref<vdialogCtx>();
     {{ isFullscreen ? "退出全屏" : "全屏" }}
   </n-tooltip>
   <el-dropdown size="medium" @command="handleCommand">
-    <div class="user_info">
-      <img class="user_avatar" src="@/assets/avatar.png" />
-      <span class="user_name">{{ `名称` }}</span>
+    <div class="user-info">
+      <img class="user-avatar" src="@/assets/avatar.png" />
+      <span class="user-name">{{ `名称` }}</span>
     </div>
     <template #dropdown>
       <el-dropdown-menu>
@@ -145,7 +144,7 @@ const vdialogRef = $ref<vdialogCtx>();
     }
   }
 
-  .user_info {
+  .user-info {
     display: flex;
     margin: 0 8px;
     width: auto;
@@ -153,14 +152,14 @@ const vdialogRef = $ref<vdialogCtx>();
     cursor: pointer;
     align-items: center;
 
-    .user_avatar {
+    .user-avatar {
       width: 30px;
       height: 30px;
       vertical-align: middle;
     }
   }
 
-  span.user_name {
+  span.user-name {
     margin-left: 8px;
     vertical-align: middle;
   }
