@@ -4,12 +4,12 @@ import { FormInstance } from "element-plus";
 import { merge, omit } from "@wsvaio/utils";
 const {
   action,
-  form: _form = {},
-  dialog: _dialog = {},
+  form: formProps = {},
+  dialog: dialogProps = {},
 } = defineProps<{
-  action: (ctx: vdialogCtx) => Promise<any>,
-  dialog?: vdialogCtx["dialog"],
-  form?: vdialogCtx["form"],
+  action: (ctx: vdialogCtx) => Promise<any>;
+  dialog?: vdialogCtx["dialog"];
+  form?: vdialogCtx["form"];
 }>();
 
 const elFormRef = $ref<FormInstance>();
@@ -17,18 +17,23 @@ const form = reactive<vdialogCtx["form"]>({});
 const dialog = reactive<vdialogCtx["dialog"]>({ show: false, slot: "" });
 const payload = reactive<vdialogCtx["payload"]>({});
 
-const { runAsync, loading } = $(useRequest(async (options?: string | vdialogCtx["payload"]) => {
-  if (typeof options == "object") {
-    merge(payload, options);
-  } else if (typeof options == "string") {
-    payload.name = options;
-  }
-  return await action(ctx);
-}, {
-  manual: true,
-  onSuccess: data => data && (dialog.show ? dialog.show = false : close()),
-}));
-watchEffect(() => dialog.show = !!dialog.slot);
+const { runAsync, loading } = $(
+  useRequest(
+    async (options?: string | vdialogCtx["payload"]) => {
+      if (typeof options == "object") {
+        merge(payload, options);
+      } else if (typeof options == "string") {
+        payload.name = options;
+      }
+      return await action(ctx);
+    },
+    {
+      manual: true,
+      onSuccess: data => data && (dialog.show ? (dialog.show = false) : close()),
+    }
+  )
+);
+watchEffect(() => (dialog.show = !!dialog.slot));
 
 const close = () => {
   merge(form, {}, { del: true });
@@ -43,9 +48,19 @@ defineExpose(ctx);
 </script>
 
 <template>
-  <el-form ref="elFormRef" label-position="top" :model="form" :="{ ..._form, ...form }" :disabled="loading">
-    <el-dialog v-model="dialog.show" :="omit({ ..._dialog, ...dialog }, 'slot', 'show')"
-      :before-close="done => loading || done()" @closed="close">
+  <el-form
+    ref="elFormRef"
+    label-position="top"
+    :model="form"
+    :="{ ...formProps, ...form }"
+    :disabled="loading"
+  >
+    <el-dialog
+      v-model="dialog.show"
+      :="omit({ ...dialogProps, ...dialog }, ['slot', 'show'])"
+      :before-close="done => loading || done()"
+      @closed="close"
+    >
       <div v-loading="loading" min="h-full">
         <slot :name="dialog.slot" :="ctx"></slot>
       </div>
@@ -61,4 +76,3 @@ defineExpose(ctx);
     <slot :="ctx"></slot>
   </el-form>
 </template>
-

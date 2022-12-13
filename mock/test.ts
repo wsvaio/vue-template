@@ -1,14 +1,15 @@
 import { MockMethod } from "vite-plugin-mock";
 
 export default [
-
   {
     url: "/mock/list",
     method: "post",
     response: {
       code: 200,
       data: {
-        page: 1, pageSize: 10, count: 20,
+        page: 1,
+        pageSize: 10,
+        count: 20,
         items: [
           { id: 1, name: "a" },
           { id: 2, name: "b" },
@@ -20,10 +21,9 @@ export default [
           { id: 8, name: "i" },
           { id: 9, name: "j" },
           { id: 10, name: "k" },
-        ]
+        ],
       },
-      msg: "操作成功"
-    }
-  }
-
+      msg: "操作成功",
+    },
+  },
 ] as MockMethod[];

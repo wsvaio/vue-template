@@ -1,4 +1,4 @@
-<script setup lang='ts'>
+<script setup name="vmain" lang="ts">
 import useStore from "@/routes/admin/store";
 let { nameList } = $(useStore());
 </script>
@@ -13,7 +13,7 @@ let { nameList } = $(useStore());
   </router-view>
 </template>
 
-<style lang='less' scoped>
+<style lang="less" scoped>
 .main {
   overflow: auto;
   padding: 16px;
@@ -34,5 +34,4 @@ let { nameList } = $(useStore());
 .v-enter-active {
   transition: all 0.2s ease;
 }
-
 </style>

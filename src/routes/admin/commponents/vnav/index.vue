@@ -3,12 +3,17 @@ import { RouteRecordRaw } from "vue-router";
 import ArrowDown from "~icons/ep/arrow-down";
 import vnav from "./index.vue";
 import useStore from "@/routes/admin/store";
-const { level = 1 } = defineProps<{ routes: RouteRecordRaw[]; level?: number, popup?: boolean }>();
+const { level = 1, popup } = defineProps<{
+  routes: RouteRecordRaw[];
+  level?: number;
+  popup?: boolean;
+}>();
 
 const { layout, collapse } = $(useStore());
 const admin = adminStore();
 
-const isMenuItem = (route: RouteRecordRaw) => !route.children || route.children.filter(item => item.meta?.icon).length == 0;
+const isMenuItem = (route: RouteRecordRaw) =>
+  !route.children || route.children.filter(item => item.meta?.icon).length == 0;
 
 const state = reactive({ close: false });
 provide("state", state);
@@ -28,42 +33,56 @@ const isMenuClose = computed(() => state.close || stateInject?.close || collapse
 // 是否展示三角形
 const isShowArrow = computed(() => stateInject || (!collapse && layout != "top"));
 // 是否激活弹窗
-const isPopupActive = computed(() => collapse || layout != "left");
-
+const isPopupActive = computed(() => collapse || layout == "top");
+const isShowMenuTitle = computed(() => popup || layout == "top" || !collapse);
 </script>
 
 <template>
   <slot :state="state"></slot>
   <template v-for="item in routes.filter(item => admin.isRouteShow(item))">
-    <div v-if="isMenuItem(item)" :style="{ '--level': level }" :class="[
-      'menu-nav-item',
-      $route.name == item.name && 'active',
-      isMenuClose && level != 1 && 'close',
-      level != 1 && 'sub'
-    ]" @click="$router.push({ name: item.name, params: $route.params })">
-      <component :is="item?.meta?.icon"></component>
-      <div v-if="!collapse || level != 1" m="l-6px">{{ item?.meta?.title }}</div>
+    <div
+      v-if="isMenuItem(item)"
+      :style="{ '--level': level }"
+      :title="item?.meta?.title"
+      :class="[
+        'menu-nav-item',
+        $route.name == item.name && 'active',
+        isMenuClose && level != 1 && 'close',
+        level != 1 && 'sub',
+      ]"
+      @click="$router.push({ name: item.name, params: $route.params })"
+    >
+      <component :is="item?.meta?.icon" class="icon"></component>
+      <div v-show="isShowMenuTitle" class="text">{{ item?.meta?.title }}</div>
     </div>
 
     <vnav v-else #="{ state: innerState }" :routes="item.children!" :level="level + 1">
-      <vpopup :active="isPopupActive" :style="{ '--level': level }"
-        :direction="(!stateInject && layout == 'top') ? 'bottom' : 'right'" transition-name="fade"
-        :duration="200" :popuper-class="['menu-nav-popup', layout]" :class="[
+      <vpopup
+        :active="isPopupActive"
+        :style="{ '--level': level }"
+        :direction="!stateInject && layout == 'top' ? 'bottom' : 'right'"
+        transition-name="fade"
+        :duration="200"
+        :popuper-class="['menu-nav-popup', layout]"
+        :title="item?.meta?.title"
+        :class="[
           'menu-nav-item', 'title',
           isRouteActive(item.children!) && 'active',
           isMenuClose && level != 1 && 'close',
           level != 1 && 'sub'
-        ]" @click="innerState.close = !innerState.close">
+        ]"
+        @click="innerState.close = !innerState.close"
+      >
         <template #popup>
-          <vnav :routes="item.children!"></vnav>
+          <vnav :routes="item.children!" popup></vnav>
         </template>
 
-        <component :is="item?.meta?.icon"></component>
-        <div v-if="!collapse || level != 1" m="l-6px">{{ item?.meta?.title }}</div>
-        <arrow-down v-show="isShowArrow" :class="[
-          'arrow', innerState.close && 'close',
-          (collapse || layout == 'top') && 'right'
-        ]"></arrow-down>
+        <component :is="item?.meta?.icon" class="icon"></component>
+        <div v-show="isShowMenuTitle" class="text">{{ item?.meta?.title }}</div>
+        <arrow-down
+          v-show="isShowArrow"
+          :class="['arrow', innerState.close && 'close', (collapse || layout == 'top') && 'right']"
+        ></arrow-down>
       </vpopup>
     </vnav>
   </template>
@@ -81,21 +100,28 @@ const isPopupActive = computed(() => collapse || layout != "left");
     height: 0;
     opacity: 0;
   }
-}
-</style>
-<style lang="less">
-.menu-nav-item.title .arrow {
-  margin-left: auto;
-  width: 14px;
-  height: 14px;
-  transition: transform 0.2s;
 
-  &.close {
-    transform: rotate(180deg);
+  // .icon {
+  //   font-size: 32px;
+  // }
+
+  .text {
+    margin-left: 6px;
   }
 
-  &.right {
-    transform: rotate(-90deg);
+  .arrow {
+    margin-left: auto;
+    width: 14px;
+    height: 14px;
+    transition: transform 0.2s;
+
+    &.close {
+      transform: rotate(180deg);
+    }
+
+    &.right {
+      transform: rotate(-90deg);
+    }
   }
 }
 </style>
@@ -110,7 +136,6 @@ const isPopupActive = computed(() => collapse || layout != "left");
 }
 </style>
 
-
 <style lang="less">
 .menu-nav-popup {
   background: var(--menu-bg-color);
@@ -121,7 +146,8 @@ const isPopupActive = computed(() => collapse || layout != "left");
   }
 }
 
-.admin-layout, .menu-nav-popup {
+.admin-layout,
+.menu-nav-popup {
   --menu-bg-color: var(--el-bg-color);
   --menu-text-color: var(--el-text-color-primary);
   --menu-text-active-color: var(--el-color-primary);
@@ -132,14 +158,14 @@ const isPopupActive = computed(() => collapse || layout != "left");
 html:not(.dark) .admin-layout:not(.top),
 html:not(.dark) .menu-nav-popup:not(.top) {
   --menu-bg-color: #001529;
-  --menu-text-color: rgba(255, 255, 255, 70%);
+  --menu-text-color: rgb(255 255 255 / 70%);
   --menu-text-active-color: white;
   --menu-bg-sub-color: #0c2135;
   --menu-bg-active-color: var(--el-color-primary);
 }
 
 .menu-nav-item {
-  color: var(--menu-text-color, rgba(255, 255, 255, 70%));
+  color: var(--menu-text-color, rgb(255 255 255 / 70%));
   background: var(--menu-bg-color, #001529);
 
   &:hover {
@@ -161,6 +187,18 @@ html:not(.dark) .menu-nav-popup:not(.top) {
   }
 }
 
+.admin-layout.top .menu-nav-item {
+  border: 2px solid transparent;
+  border-right: 0;
+  border-left: 0;
+  height: auto;
+
+  &.active,
+  &:hover {
+    border-bottom-color: var(--el-color-primary);
+  }
+}
+
 .admin-layout.left.collapse .menu-nav-item {
   justify-content: center;
   border: 3px solid transparent;
@@ -170,17 +208,6 @@ html:not(.dark) .menu-nav-popup:not(.top) {
   &.active {
     border-left-color: var(--el-color-primary);
     background: var(--menu-bg-collaspe-color, #00061a);
-  }
-}
-
-.admin-layout.top .menu-nav-item {
-  border: 2px solid transparent;
-  border-right: 0;
-  border-left: 0;
-  height: auto;
-
-  &.active, &:hover {
-    border-bottom-color: var(--el-color-primary);
   }
 }
 </style>

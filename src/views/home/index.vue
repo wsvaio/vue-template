@@ -1,5 +1,24 @@
-<script setup name="home" lang='ts'>
+<script setup name="home" lang="ts">
 const active = ref(true);
+const auth = authStore();
+
+runFunctions(
+  onMounted,
+  onBeforeMount
+)(() => {
+  tryingSync(
+    () => {
+      throw new Error("wdf");
+    },
+    error => {
+      console.log(error);
+    },
+    () => {
+      console.log("finally");
+    }
+  );
+  console.log("over");
+});
 </script>
 
 <template tag="div" class="fu">
@@ -10,14 +29,12 @@ const active = ref(true);
         <template #popup>
           <vpopup transition-name="fade" :duration="100">
             321
-            <template #popup>
-              456
-            </template>
+            <template #popup> 456 </template>
           </vpopup>
         </template>
       </vpopup>
     </template>
-    <el-button @click="active = !active">{{ active }}</el-button>
+    <el-button @click="auth.login({})">{{ active }}</el-button>
     123
   </vpopup>
 </template>

@@ -1,4 +1,4 @@
-<script setup lang='ts'>
+<script setup lang="ts">
 import { debounce, sleep } from "@wsvaio/utils";
 import { CSSProperties } from "vue";
 const {
@@ -20,15 +20,18 @@ const triggerRef = $ref<HTMLDivElement>();
 const popuperRef = $ref<HTMLDivElement>();
 
 let isShow = $ref(false);
-const setIsShow = debounce(show => isShow = show, duration);
-
+const setIsShow = debounce(async (show, delay = 0) => {
+  await sleep(delay);
+  isShow = show;
+}, duration);
 const syncIsShowInject = inject<typeof syncIsShow | null>("syncIsShow", null);
-const syncIsShow = async (show) => {
-  setIsShow(show);
-  await sleep(duration / 2);
-  syncIsShowInject && syncIsShowInject(show);
+const syncIsShow = async (show, delay = 0) => {
+  setIsShow(show, delay);
+  syncIsShowInject && syncIsShowInject(show, duration / 2 + delay);
 };
-watch($$(active), val => { if (!val) syncIsShow(false); });
+watch($$(active), val => {
+  if (!val) syncIsShow(false);
+});
 provide("syncIsShow", syncIsShow);
 
 const setPosition = (direction = "bottom") => {
@@ -55,7 +58,8 @@ const setPosition = (direction = "bottom") => {
   }
 
   if (offsetTop < 0) offsetTop = 0;
-  else if (offsetTop + popuperRef.clientHeight > height) offsetTop = height - popuperRef.clientHeight;
+  else if (offsetTop + popuperRef.clientHeight > height)
+    offsetTop = height - popuperRef.clientHeight;
 
   if (offsetLeft < 0) offsetLeft = 0;
   else if (offsetLeft + popuperRef.clientWidth > width) offsetLeft = width - popuperRef.clientWidth;
@@ -71,8 +75,12 @@ const handleMouseEvent = (ev: MouseEvent) => {
 
 watch($$(isShow), val => {
   if (!val) return;
-  popuperStyle.maxWidth = ["left", "right"].includes(direction) ? `calc(50vw - ${gap * 4}px)` : "100vw";
-  popuperStyle.maxHeight = ["top", "bottom"].includes(direction) ? `calc(50vh - ${gap * 4}px)` : "100vh";
+  popuperStyle.maxWidth = ["left", "right"].includes(direction)
+    ? `calc(50vw - ${gap * 4}px)`
+    : "100vw";
+  popuperStyle.maxHeight = ["top", "bottom"].includes(direction)
+    ? `calc(50vh - ${gap * 4}px)`
+    : "100vh";
   nextTick(() => {
     const { offsetLeft, offsetTop } = setPosition(direction);
     popuperStyle.left = offsetLeft + "px";
@@ -88,7 +96,10 @@ const deepPosition = (el: HTMLElement) => {
     offsetLeft += sub.offsetLeft;
     offsetTop += sub.offsetTop;
   }
-  return { offsetLeft: offsetLeft - scrollLeft, offsetTop: offsetTop - scrollTop };
+  return {
+    offsetLeft: offsetLeft - scrollLeft,
+    offsetTop: offsetTop - scrollTop,
+  };
 };
 
 onBeforeMount(() => {
@@ -102,30 +113,38 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <div ref="triggerRef" class="vpopup vpopup-trigger" :="$attrs" @mouseleave="handleMouseEvent"
-    @mousemove="handleMouseEvent" @mouseenter="handleMouseEvent">
+  <div
+    ref="triggerRef"
+    class="vpopup vpopup-trigger"
+    :="$attrs"
+    @mouseleave="handleMouseEvent"
+    @mousemove="handleMouseEvent"
+    @mouseenter="handleMouseEvent"
+  >
     <slot></slot>
   </div>
   <teleport to="#vpopup-container">
     <transition :name="transitionName" :duration="duration">
-      <div v-show="isShow" ref="popuperRef" class="vpopup-popuper" :class="popuperClass"
-        :style="popuperStyle" @mouseleave="handleMouseEvent" @mousemove="handleMouseEvent"
-        @mouseenter="handleMouseEvent">
+      <div
+        v-show="isShow"
+        ref="popuperRef"
+        class="vpopup-popuper"
+        :class="popuperClass"
+        :style="popuperStyle"
+        @mouseleave="handleMouseEvent"
+        @mousemove="handleMouseEvent"
+        @mouseenter="handleMouseEvent"
+      >
         <slot name="popup"></slot>
       </div>
     </transition>
   </teleport>
 </template>
 
-<style lang='less'>
+<style lang="less">
 .vpopup-popuper {
   overflow: auto;
   position: absolute;
   z-index: 9999;
 }
 </style>
-
-
-
-
-

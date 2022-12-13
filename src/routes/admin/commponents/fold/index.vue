@@ -1,4 +1,4 @@
-<script setup lang='ts'>
+<script setup lang="ts">
 import useStore from "@/routes/admin/store";
 const { layout, collapse } = $(useStore());
 </script>
@@ -8,7 +8,7 @@ const { layout, collapse } = $(useStore());
   <i-ant-design:menu-fold-outlined v-else></i-ant-design:menu-fold-outlined>
 </template>
 
-<style lang='less' scoped>
+<style lang="less" scoped>
 .fold {
   display: flex;
   border-bottom: 1px solid var(--el-border-color);

@@ -1,4 +1,4 @@
-<script setup lang='ts'>
+<script setup lang="ts">
 import { merge, sleep } from "@wsvaio/utils";
 import useStore from "@/routes/admin/store";
 const { layout } = $(useStore());
@@ -7,7 +7,7 @@ const { toggle, isFullscreen } = useFullscreen();
 
 const admin = adminStore();
 const auth = authStore();
-const handleCommand = (command: T) => {
+const handleCommand = (command: string) => {
   if (command === "logout") {
     auth.logout();
   } else if (command === "editpwd") {
@@ -29,17 +29,12 @@ const submit = async ({ form, payload }: vdialogCtx) => {
 const isDark = useDark();
 
 const vdialogRef = $ref<vdialogCtx>();
-
 </script>
 
 <template tag="div" class="setting">
   <n-switch v-model:value="isDark" size="medium">
-    <template #icon>
-      ☀
-    </template>
-    <template #checked-icon>
-      🌙
-    </template>
+    <template #icon>☀</template>
+    <template #checked-icon>🌙</template>
   </n-switch>
   <n-tooltip v-if="layout != 'mobile'" trigger="hover">
     <template #trigger>
@@ -59,7 +54,7 @@ const vdialogRef = $ref<vdialogCtx>();
         <i-material-symbols:fullscreen v-else></i-material-symbols:fullscreen>
       </el-icon>
     </template>
-    {{ isFullscreen ? '退出全屏' : '全屏' }}
+    {{ isFullscreen ? "退出全屏" : "全屏" }}
   </n-tooltip>
   <el-dropdown size="medium" @command="handleCommand">
     <div class="user_info">
@@ -76,13 +71,19 @@ const vdialogRef = $ref<vdialogCtx>();
 
   <vdialog ref="vdialogRef" :action="submit">
     <template #editpwd="{ payload }: vdialogCtx">
-      <el-form-item label="旧密码" prop="admin_password_old"
-        :rules="{ required: true, message: '密码不能为空', trigger: 'blur' }">
+      <el-form-item
+        label="旧密码"
+        prop="admin_password_old"
+        :rules="{ required: true, message: '密码不能为空', trigger: 'blur' }"
+      >
         <el-input v-model="payload.admin_password_old" type="password" show-password clearable>
         </el-input>
       </el-form-item>
-      <el-form-item label="新密码" prop="admin_password_new"
-        :rules="{ required: true, message: '密码不能为空', trigger: 'blur' }">
+      <el-form-item
+        label="新密码"
+        prop="admin_password_new"
+        :rules="{ required: true, message: '密码不能为空', trigger: 'blur' }"
+      >
         <el-input v-model="payload.admin_password_new" type="password" show-password clearable>
         </el-input>
       </el-form-item>
@@ -90,7 +91,7 @@ const vdialogRef = $ref<vdialogCtx>();
   </vdialog>
 </template>
 
-<style lang='less' scoped>
+<style lang="less" scoped>
 .setting {
   display: flex;
   overflow: hidden;

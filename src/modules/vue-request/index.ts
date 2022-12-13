@@ -4,5 +4,5 @@ setGlobalOptions({
     currentKey: "page",
     pageSizeKey: "pageSize",
     totalKey: "count",
-  }
+  },
 });

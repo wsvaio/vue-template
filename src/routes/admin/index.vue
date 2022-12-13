@@ -1,4 +1,4 @@
-<script setup lang='ts'>
+<script setup lang="ts">
 import Logo from "./commponents/logo/index.vue";
 import BreadCrumb from "./commponents/bread-crumb/index.vue";
 import Setting from "./commponents/setting/index.vue";
@@ -8,11 +8,15 @@ import Main from "./commponents/main/index.vue";
 import Fold from "./commponents/fold/index.vue";
 import useStore from "./store";
 const { layout, collapse } = $(useStore());
-
 </script>
 
-<template tag="div" :class="['admin-layout', layout, collapse && 'collapse']"
-  :style="{ '--aside-width': !collapse ? '200px' : layout == 'left' ? '64px' : '0px' }">
+<template
+  tag="div"
+  :class="['admin-layout', layout, collapse && 'collapse']"
+  :style="{
+    '--aside-width': !collapse ? '200px' : layout == 'left' ? '64px' : '0px',
+  }"
+>
   <Logo></Logo>
   <Fold></Fold>
   <BreadCrumb></BreadCrumb>
@@ -33,9 +37,11 @@ const { layout, collapse } = $(useStore());
 }
 </style>
 
-<style lang='less'>
-.admin-layout.left, .admin-layout.mobile {
-  .menu, .logo {
+<style lang="less">
+.admin-layout.left,
+.admin-layout.mobile {
+  .menu,
+  .logo {
     width: var(--aside-width);
     transition: width 0.2s;
   }
@@ -50,7 +56,8 @@ const { layout, collapse } = $(useStore());
     grid-row: span 2;
   }
 
-  .tab, .main {
+  .tab,
+  .main {
     grid-column: span 4;
   }
 }
@@ -60,7 +67,8 @@ const { layout, collapse } = $(useStore());
     display: none;
   }
 
-  .logo, .menu {
+  .logo,
+  .menu {
     border-bottom: 1px solid var(--el-border-color);
   }
 
@@ -69,7 +77,8 @@ const { layout, collapse } = $(useStore());
     order: 3;
   }
 
-  .tab, .main {
+  .tab,
+  .main {
     grid-column: span 5;
   }
 }
@@ -83,13 +92,14 @@ const { layout, collapse } = $(useStore());
     grid-row: span 4;
   }
 
-  .tab, .main {
+  .tab,
+  .main {
     grid-column: span 4;
   }
 }
 </style>
 
-<style lang='less'>
+<style lang="less">
 .admin-layout {
   .logo {
     order: 1;
@@ -123,7 +133,8 @@ const { layout, collapse } = $(useStore());
 
 <style lang="less">
 html:not(.dark) .admin-layout:not(.top) {
-  .logo, .menu {
+  .logo,
+  .menu {
     color: var(--menu-text-active-color);
     background: var(--menu-bg-color);
   }

@@ -7,30 +7,33 @@ const {
   form: _form = {},
   drawer: _drawer = {},
 } = defineProps<{
-  action: (ctx: vdrawerCtx) => Promise<any>,
-  drawer?: vdrawerCtx["drawer"],
-  form?: vdrawerCtx["form"],
+  action: (ctx: vdrawerCtx) => Promise<any>;
+  drawer?: vdrawerCtx["drawer"];
+  form?: vdrawerCtx["form"];
 }>();
-
 
 const elFormRef = $ref<FormInstance>();
 const form = reactive<vdrawerCtx["form"]>({});
 const drawer = reactive<vdrawerCtx["drawer"]>({ show: false, slot: "" });
 const payload = reactive<vdrawerCtx["payload"]>({});
 
-const { runAsync, loading } = $(useRequest(async (options?: string | vdrawerCtx["payload"]) => {
-  if (typeof options == "object") {
-    merge(payload, options);
-  } else if (typeof options == "string") {
-    payload.name = options;
-  }
-  return await action(ctx);
-}, {
-  manual: true,
-  onSuccess: data => data && (drawer.show ? drawer.show = false : close()),
-}));
-watchEffect(() => drawer.show = !!drawer.slot);
-
+const { runAsync, loading } = $(
+  useRequest(
+    async (options?: string | vdrawerCtx["payload"]) => {
+      if (typeof options == "object") {
+        merge(payload, options);
+      } else if (typeof options == "string") {
+        payload.name = options;
+      }
+      return await action(ctx);
+    },
+    {
+      manual: true,
+      onSuccess: data => data && (drawer.show ? (drawer.show = false) : close()),
+    }
+  )
+);
+watchEffect(() => (drawer.show = !!drawer.slot));
 
 const close = () => {
   merge(form, {}, { del: true });
@@ -45,10 +48,19 @@ defineExpose(ctx);
 </script>
 
 <template>
-  <el-form ref="elFormRef" label-position="top" :model="form" :="{ ..._form, ...form }"
-    :disabled="loading">
-    <el-drawer v-model="drawer.show" :="omit({ ..._drawer, ...drawer }, 'slot', 'show')"
-      :before-close="done => loading || done()" @closed="close">
+  <el-form
+    ref="elFormRef"
+    label-position="top"
+    :model="form"
+    :="{ ..._form, ...form }"
+    :disabled="loading"
+  >
+    <el-drawer
+      v-model="drawer.show"
+      :="omit({ ..._drawer, ...drawer }, ['slot', 'show'])"
+      :before-close="done => loading || done()"
+      @closed="close"
+    >
       <div v-loading="loading" min="h-full">
         <slot :name="drawer.slot" :="ctx"></slot>
       </div>
@@ -64,4 +76,3 @@ defineExpose(ctx);
     <slot :="ctx"></slot>
   </el-form>
 </template>
-

@@ -1,4 +1,3 @@
-
 // const body = document.querySelector("body")!;
 // body.style.setProperty("--mouse-x", "0");
 // body.style.setProperty("--mouse-y", "0");
